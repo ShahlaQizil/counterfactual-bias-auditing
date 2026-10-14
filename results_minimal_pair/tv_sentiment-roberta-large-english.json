@@ -1,0 +1,42 @@
+{
+  "model": "siebert/sentiment-roberta-large-english",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.0777,
+    "filler": 0.0313,
+    "emotion": 0.002
+  },
+  "filler_vs_emotion": {
+    "ratio": 15.977,
+    "ratio_ci": [
+      0.722,
+      240.401
+    ],
+    "diff": 0.0294,
+    "diff_ci": [
+      -0.0008,
+      0.074
+    ],
+    "n_templates_higher": 14,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 39.636,
+    "ratio_ci": [
+      5.771,
+      491.68
+    ],
+    "diff": 0.0758,
+    "diff_ci": [
+      0.0123,
+      0.1615
+    ],
+    "n_templates_higher": 13,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.0,
+    "emotion": 0.0,
+    "filler": 0.0
+  }
+}

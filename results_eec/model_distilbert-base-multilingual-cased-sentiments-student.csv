@@ -1,0 +1,17 @@
+model,subset,axis,scale,n,mean_abs_delta,mean_delta,d_z,p
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,full,gender,e,1584,0.0241102498792523,0.0167394102360047,0.4419358233333817,2.1550331416903945e-63
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,full,gender,logit,1584,0.1484005056079409,0.0965038604654574,0.5000485564175836,7.750368773315468e-79
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,full,race,e,144,0.0153114074182386,0.0082632261390629,0.4139116340920926,1.912564300912185e-06
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,full,race,logit,144,0.0864432444173992,0.047642271549214,0.4615091949696626,1.422648636316949e-07
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,emotional,gender,e,1540,0.0242930342665687,0.0171213484807094,0.4492276930778381,1.68006106788151e-63
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,emotional,gender,logit,1540,0.1503499251730138,0.0987687584243905,0.5082253548576191,6.6716685347548e-79
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,emotional,race,e,140,0.0156184309815595,0.0086147549746351,0.4286405056102751,1.2380859631254827e-06
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,emotional,race,logit,140,0.0883082593033859,0.0494504101947266,0.4755599866526097,9.746539390237428e-08
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,neutral,gender,e,44,0.0177127963231777,0.00337157167134,0.1332933113305683,0.3815227900453642
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,neutral,gender,logit,44,0.0801708208303881,0.0172324319027986,0.1525439559043402,0.3172640718964127
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,neutral,race,e,4,0.0045655827020083,-0.0040402831059643,-0.4669538127537184,0.4192437429769259
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,neutral,race,logit,4,0.0211677234078618,-0.0156425810437251,-0.4044504046177924,0.4777718794127095
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,eec_neutral,gender,e,176,0.0183909028555609,0.0031192399106226,0.1197090530588186,0.1140642922937074
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,eec_neutral,gender,logit,176,0.0810410589335908,0.0153322702993352,0.1336207776189184,0.0780214894786765
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,eec_neutral,race,e,16,0.0059224828625248,-0.0051517117156452,-0.66765012854753,0.01745720277901
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,eec_neutral,race,logit,16,0.0246433704826181,-0.0194757162091366,-0.5801835475889754,0.0347996217843065

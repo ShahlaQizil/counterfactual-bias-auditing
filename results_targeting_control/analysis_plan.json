@@ -1,0 +1,8 @@
+{
+  "comparison": "Models flagged per set and axis; exact McNemar targeted vs consensus per axis (two tests, Holm); clause composition and overlap of sets.",
+  "decision_rule": "If targeted flags clearly more models than consensus for gender (discordant models favour targeted), the gain is attributed to per-model targeting. If targeted and consensus flag similar numbers, the claim is narrowed to 'templates that are uncertain in general'. The result is reported either way.",
+  "question": "Is the Study 3 detection gain due to per-model targeting or to clauses that make every model uncertain?",
+  "sanity": "The targeted set rebuilt from the cache must reproduce the Study 3 flags.",
+  "sets": "targeted (top-16 frames by the audited model's uncertainty on held-out names); consensus (top-16 frames by mean uncertainty rank across the other 17 models); donor (each other model's targeted set; expected flags = mean over 17 donors).",
+  "test": "Same test pairs and threshold as Study 3: paired t-test on Delta_l over frames x pairs, alpha = 0.05/36, per axis (gender, race, placebo)."
+}

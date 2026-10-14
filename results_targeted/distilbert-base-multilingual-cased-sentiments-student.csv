@@ -1,0 +1,13 @@
+model,set,axis,n,mean_abs_delta,d_z,p,flagged,mean_unc
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,targeted,gender,80,0.082539544602203,0.394850920363498,0.0006927666536965,True,0.6214689670929437
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,targeted,placebo,256,0.1191448374526086,0.0518189332029377,0.4078215733742296,False,0.6234435432048584
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,targeted,race,160,0.1578909558752473,0.5512095947215745,7.883241898046151e-11,True,0.624220718633299
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,random,gender,80,0.0648146935662695,-0.0473846697365354,0.6728478651868337,False,0.4528059873535768
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,random,placebo,256,0.1034765991201398,0.0167395530366445,0.7890444997552873,False,0.4563014897199362
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,random,race,160,0.1311106909239117,0.5460454831605374,1.1240651812241753e-10,True,0.455999929494949
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,neutral,gender,80,0.0550882393866136,-0.1274319534983313,0.2578194715477588,False,0.4791620512567649
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,neutral,placebo,256,0.1629452727714084,0.0125589757279689,0.8409028492401248,False,0.4667657945290873
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,neutral,race,160,0.1888128598585123,0.3594897408148326,1.0720061239124514e-05,True,0.4649586804933723
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,emotional,gender,80,0.0653410758517182,-0.0073228051429949,0.9479436308044584,False,0.2414373473746806
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,emotional,placebo,256,0.1186902184468524,0.1127711311573145,0.072358184250758,False,0.2682340259833942
+lxyuan/distilbert-base-multilingual-cased-sentiments-student,emotional,race,160,0.175551902376606,0.4924733276118966,4.018336720767604e-09,True,0.2684953538231145

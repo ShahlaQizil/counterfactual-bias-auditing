@@ -1,0 +1,44 @@
+{
+  "note": "exploratory; not in a frozen plan",
+  "temps": [
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "per_T": {
+    "1": {
+      "tv_direction_changed_vs_T1": 0,
+      "tv_direction_agrees_with_log_space": 14,
+      "tv_direction_agrees_with_uncertainty": 14,
+      "rho_tv_vs_u_ratio": 0.9091847265221877
+    },
+    "2": {
+      "tv_direction_changed_vs_T1": 2,
+      "tv_direction_agrees_with_log_space": 16,
+      "tv_direction_agrees_with_uncertainty": 13,
+      "rho_tv_vs_u_ratio": 0.7977296181630547
+    },
+    "4": {
+      "tv_direction_changed_vs_T1": 3,
+      "tv_direction_agrees_with_log_space": 17,
+      "tv_direction_agrees_with_uncertainty": 15,
+      "rho_tv_vs_u_ratio": 0.760577915376677
+    },
+    "8": {
+      "tv_direction_changed_vs_T1": 3,
+      "tv_direction_agrees_with_log_space": 17,
+      "tv_direction_agrees_with_uncertainty": 15,
+      "rho_tv_vs_u_ratio": 0.7316821465428276
+    },
+    "16": {
+      "tv_direction_changed_vs_T1": 4,
+      "tv_direction_agrees_with_log_space": 18,
+      "tv_direction_agrees_with_uncertainty": 14,
+      "rho_tv_vs_u_ratio": 0.7316821465428276
+    }
+  },
+  "models": 18,
+  "log_space_direction_up": 10
+}

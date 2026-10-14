@@ -1,0 +1,78 @@
+{
+  "note": "exploratory; bias injected into cached outputs",
+  "deltas": [
+    0.0,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "counts": {
+    "logit|eec_neutral|0.0": {
+      "t": 1,
+      "robust": 1
+    },
+    "logit|eec_neutral|0.25": {
+      "t": 8,
+      "robust": 2
+    },
+    "logit|eec_neutral|0.5": {
+      "t": 14,
+      "robust": 6
+    },
+    "logit|eec_neutral|1.0": {
+      "t": 15,
+      "robust": 13
+    },
+    "logit|emotional|0.0": {
+      "t": 4,
+      "robust": 0
+    },
+    "logit|emotional|0.25": {
+      "t": 17,
+      "robust": 6
+    },
+    "logit|emotional|0.5": {
+      "t": 18,
+      "robust": 13
+    },
+    "logit|emotional|1.0": {
+      "t": 18,
+      "robust": 15
+    },
+    "prob|eec_neutral|0.0": {
+      "t": 1,
+      "robust": 1
+    },
+    "prob|eec_neutral|0.25": {
+      "t": 7,
+      "robust": 2
+    },
+    "prob|eec_neutral|0.5": {
+      "t": 13,
+      "robust": 6
+    },
+    "prob|eec_neutral|1.0": {
+      "t": 13,
+      "robust": 10
+    },
+    "prob|emotional|0.0": {
+      "t": 4,
+      "robust": 0
+    },
+    "prob|emotional|0.25": {
+      "t": 11,
+      "robust": 4
+    },
+    "prob|emotional|0.5": {
+      "t": 15,
+      "robust": 7
+    },
+    "prob|emotional|1.0": {
+      "t": 16,
+      "robust": 11
+    }
+  },
+  "rho_injected_effect_vs_uncertainty_delta0.25": 0.8460746460746461,
+  "rho_injected_effect_vs_uncertainty_delta0.5": 0.8393822393822393,
+  "rho_injected_effect_vs_uncertainty_delta1.0": 0.8064350064350065
+}

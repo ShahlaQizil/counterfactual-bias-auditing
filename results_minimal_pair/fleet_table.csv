@@ -1,0 +1,3 @@
+model,status,logit_sub_bare,logit_sub_filler,logit_sub_emotion,logit_filler_over_emotion,logit_ratio_lo,logit_ratio_hi,logit_templates_higher,logit_specificity,logit_spec_lo,logit_spec_hi,e_sub_bare,e_sub_filler,e_sub_emotion,e_filler_over_emotion,e_ratio_lo,e_ratio_hi,e_templates_higher,e_specificity,e_spec_lo,e_spec_hi,sat_bare,sat_emotion,sat_filler
+siebert/sentiment-roberta-large-english,ok,0.8421,0.4942,0.1352,3.655,1.535,7.309,15/16,0.519,0.315,0.985,0.0777,0.0313,0.002,15.977,0.842,238.986,14/16,0.125,0.016,0.505,0.873,0.999,0.939
+j-hartmann/sentiment-roberta-large-english-3-classes,ok,0.0006,0.0002,0.1084,0.001,0.001,0.002,0/16,1.165,0.801,1.721,0.0002,0.0,0.0025,0.015,0.01,0.024,0/16,2.112,1.153,4.599,1.0,0.917,1.0

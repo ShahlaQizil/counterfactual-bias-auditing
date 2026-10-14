@@ -1,0 +1,42 @@
+{
+  "model": "Seethal/sentiment_analysis_generic_dataset",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.0374,
+    "filler": 0.0148,
+    "emotion": 0.0206
+  },
+  "filler_vs_emotion": {
+    "ratio": 0.715,
+    "ratio_ci": [
+      0.095,
+      1.813
+    ],
+    "diff": -0.0059,
+    "diff_ci": [
+      -0.0188,
+      0.0172
+    ],
+    "n_templates_higher": 3,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 1.811,
+    "ratio_ci": [
+      0.343,
+      3.762
+    ],
+    "diff": 0.0167,
+    "diff_ci": [
+      -0.0125,
+      0.0623
+    ],
+    "n_templates_higher": 9,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.9742,
+    "emotion": 0.027,
+    "filler": 0.9897
+  }
+}

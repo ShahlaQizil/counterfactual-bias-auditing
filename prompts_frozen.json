@@ -1,0 +1,31 @@
+{
+  "frozen_utc": "2026-10-08T15:47:11+00:00",
+  "note": "Prompt wordings fixed before any -p2/-p3 variant was run; all variants are reported.",
+  "variants": {
+    "2cls": {
+      "prompt": "What is the sentiment of the following sentence? Answer with exactly one word: positive or negative.\n\nSentence:\n{s}",
+      "sha256": "bfbf16b3acb2f0c225c107abe558520d03c33668bec8243f2d3f0e5e11555da5"
+    },
+    "3cls": {
+      "prompt": "What is the sentiment of the following sentence? Answer with exactly one word: positive, neutral, or negative.\n\nSentence:\n{s}",
+      "sha256": "2894cae156ebdc456b8fabdbc7c27d999b963186a4351e1a9cc9d6b7cbd67b7d"
+    },
+    "2cls-p2": {
+      "prompt": "Classify the text below as negative or positive.\n\nText: {s}\n\nReply with a single word.",
+      "sha256": "8e4abd3423c94da0e209d1c9dbcc4ea0b31efcad3c045f93c9feb1bd42e88de7"
+    },
+    "3cls-p2": {
+      "prompt": "Classify the text below as negative, neutral, or positive.\n\nText: {s}\n\nReply with a single word.",
+      "sha256": "53ddc8abf8b0a1252679ce4f53a7ea78deb3bfef3137bf16ebb824cb64d0f0a7"
+    },
+    "2cls-p3": {
+      "prompt": "Read this sentence and decide whether its overall tone is positive or negative:\n\"{s}\"\nGive only the one-word label.",
+      "sha256": "2293cf8746117fd82417fb2984e922391787a3541732dd0d2d1bb2b32112ac1b"
+    },
+    "3cls-p3": {
+      "prompt": "Read this sentence and decide whether its overall tone is neutral, positive, or negative:\n\"{s}\"\nGive only the one-word label.",
+      "sha256": "7d343085d20c1ead4333bdf0ee0ffe8f6b74da2d2e1ed246e52202317bf149e4"
+    }
+  },
+  "sha256_all": "5ee632b305cf4f574e4c6d6b537e70a6c82d3ffe80afc9bbb735980be13c5ba5"
+}

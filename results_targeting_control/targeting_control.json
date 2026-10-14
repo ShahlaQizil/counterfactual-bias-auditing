@@ -1,0 +1,43 @@
+{
+  "study3_targeted_flags_reproduced": true,
+  "flags": {
+    "targeted": {
+      "gender": 10,
+      "race": 8,
+      "placebo": 0
+    },
+    "consensus": {
+      "gender": 7,
+      "race": 8,
+      "placebo": 0
+    }
+  },
+  "donor_expected_flags": {
+    "gender": 5.9,
+    "race": 8.4,
+    "placebo": 0.1
+  },
+  "mcnemar_targeted_vs_consensus": {
+    "gender": {
+      "targeted_only": 5,
+      "consensus_only": 2,
+      "p": 0.4531,
+      "p_holm": 0.9062
+    },
+    "race": {
+      "targeted_only": 4,
+      "consensus_only": 4,
+      "p": 1.0,
+      "p_holm": 1.0
+    }
+  },
+  "median_unc_targeted": 0.472,
+  "median_unc_consensus": 0.213,
+  "median_overlap_targeted_consensus": 0.0,
+  "mean_pairwise_jaccard_targeted_sets": 0.033,
+  "targeted_clause_mix_total": {
+    "mild negative": 102,
+    "mild positive": 89,
+    "factual": 97
+  }
+}

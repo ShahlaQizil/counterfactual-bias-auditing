@@ -1,0 +1,22 @@
+{
+  "n_sentences": 1000,
+  "n_low": 500,
+  "n_high": 500,
+  "n_systems": 22,
+  "H1_positive": 22,
+  "H1_significant_holm": 22,
+  "H1_median_rho": 0.7391738831738832,
+  "H2_rho": 0.34048560135516664,
+  "H2_p": 0.12100987408488008,
+  "H2_rho_classifiers_only": 0.3973168214654283,
+  "H2_p_classifiers_only": 0.10253523912493727,
+  "H2_n_sig_ratio": 1,
+  "H2_direction_agree": 1,
+  "sens_ratio_gt1": 17,
+  "sens_ratio_gt1_sig": 0,
+  "sens_ratio_lt1_sig": 1,
+  "H3_detected_low": 13,
+  "H3_detected_high": 15,
+  "H3_verdicts_differ": 6,
+  "H3_sign_conflicts": 0
+}

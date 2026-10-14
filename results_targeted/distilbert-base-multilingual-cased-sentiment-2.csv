@@ -1,0 +1,13 @@
+model,set,axis,n,mean_abs_delta,d_z,p,flagged,mean_unc
+philschmid/distilbert-base-multilingual-cased-sentiment-2,targeted,gender,80,0.2187342196947314,-0.0454148101920873,0.6856921171675276,False,0.5541619760605337
+philschmid/distilbert-base-multilingual-cased-sentiment-2,targeted,placebo,256,0.4175516739499219,0.0222349121266086,0.7223154849581885,False,0.5523143925750666
+philschmid/distilbert-base-multilingual-cased-sentiment-2,targeted,race,160,0.3747990252758814,-0.3130630814793801,0.0001128328535034,True,0.5519589581906139
+philschmid/distilbert-base-multilingual-cased-sentiment-2,random,gender,80,0.2669759597285882,-0.1066443291990694,0.3430661684901732,False,0.29129035273502
+philschmid/distilbert-base-multilingual-cased-sentiment-2,random,placebo,256,0.6042632708225206,0.0063889518954593,0.9186598269327648,False,0.3010628847346381
+philschmid/distilbert-base-multilingual-cased-sentiment-2,random,race,160,0.6106735751532492,-0.327258162739389,5.630507347188402e-05,True,0.296262043255927
+philschmid/distilbert-base-multilingual-cased-sentiment-2,neutral,gender,80,0.3968947391543535,-0.2634411303799026,0.0209370636447191,False,0.2019844075303145
+philschmid/distilbert-base-multilingual-cased-sentiment-2,neutral,placebo,256,0.897467041063011,-0.0221765433582988,0.7230142048911431,False,0.321849118667125
+philschmid/distilbert-base-multilingual-cased-sentiment-2,neutral,race,160,1.0413109953205903,-0.5153360019503351,8.946323767830566e-10,True,0.3186528697691445
+philschmid/distilbert-base-multilingual-cased-sentiment-2,emotional,gender,80,0.414675939358654,-0.1773158427025817,0.1167430582443423,False,0.2126997660343906
+philschmid/distilbert-base-multilingual-cased-sentiment-2,emotional,placebo,256,0.9401366969674596,-0.0084225006058617,0.892907930784618,False,0.25151704369062
+philschmid/distilbert-base-multilingual-cased-sentiment-2,emotional,race,160,0.9839814549231316,-0.1106310445942325,0.1636456544649866,False,0.2510953428530598

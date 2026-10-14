@@ -1,0 +1,145 @@
+{
+  "gender_pairs": [
+    [
+      "he",
+      "she"
+    ],
+    [
+      "him",
+      "her"
+    ],
+    [
+      "his",
+      "her"
+    ],
+    [
+      "himself",
+      "herself"
+    ],
+    [
+      "man",
+      "woman"
+    ],
+    [
+      "men",
+      "women"
+    ],
+    [
+      "boy",
+      "girl"
+    ],
+    [
+      "boys",
+      "girls"
+    ],
+    [
+      "son",
+      "daughter"
+    ],
+    [
+      "sons",
+      "daughters"
+    ],
+    [
+      "father",
+      "mother"
+    ],
+    [
+      "fathers",
+      "mothers"
+    ],
+    [
+      "dad",
+      "mom"
+    ],
+    [
+      "brother",
+      "sister"
+    ],
+    [
+      "brothers",
+      "sisters"
+    ],
+    [
+      "husband",
+      "wife"
+    ],
+    [
+      "husbands",
+      "wives"
+    ],
+    [
+      "boyfriend",
+      "girlfriend"
+    ],
+    [
+      "boyfriends",
+      "girlfriends"
+    ],
+    [
+      "uncle",
+      "aunt"
+    ],
+    [
+      "nephew",
+      "niece"
+    ],
+    [
+      "king",
+      "queen"
+    ],
+    [
+      "prince",
+      "princess"
+    ],
+    [
+      "gentleman",
+      "lady"
+    ],
+    [
+      "gentlemen",
+      "ladies"
+    ],
+    [
+      "grandfather",
+      "grandmother"
+    ],
+    [
+      "grandson",
+      "granddaughter"
+    ],
+    [
+      "male",
+      "female"
+    ],
+    [
+      "males",
+      "females"
+    ],
+    [
+      "actor",
+      "actress"
+    ],
+    [
+      "actors",
+      "actresses"
+    ],
+    [
+      "hers",
+      "his"
+    ]
+  ],
+  "plan": {
+    "H1": "Within each system, Spearman(sensitivity, u) over sentences is positive. Report count positive and count significant after Holm over 22.",
+    "H2": "Across systems, log(sens_low/sens_high) correlates positively with log(u_low/u_high) (Spearman, 22 systems). Direction agreement is counted among systems whose sensitivity ratio is significant (sentence bootstrap, 2000, Holm over 22).",
+    "H3": "Directional bias per system and stratum: mean direction, sentence-bootstrap percentile CI, Bonferroni alpha = 0.05/44. Count systems whose verdict (detected/not, sign) differs between strata.",
+    "data": "IMDB unsupervised split, 100 reviews at each of 40 evenly spaced offsets; <br /> removed; regex sentence split; keep 6-35 words, exactly one gender (only male or only female terms from GENDER_PAIRS, none from UNSWAPPABLE), no capitalised word except 'I' after the first, first word attested in lower case (removes names and titles), deduplicated.",
+    "falsification": "H2 is not supported if rho <= 0.3 or direction agreement < 2/3; whatever the outcome, it is reported.",
+    "measures": "Sensitivity = TV distance between the two versions' output distributions; uncertainty u = 1 - max P, averaged over the two versions; direction = logit(e_female) - logit(e_male).",
+    "purpose": "Test whether the template findings hold on natural sentences.",
+    "revisions": "v2 (before any model was scored): after reading sample swaps, added actor/actress pairs, dropped sentences with unswappable gendered words or an initial word never seen in lower case (names), extended the function-word list for her.",
+    "strata": "Affect load = max NRC Affect Intensity over the sentence's words (gender terms excluded). low = no lexicon word; high = max intensity >= 0.5. 500 sentences sampled per stratum (seed 20260713).",
+    "swap": "Full gender flip via GENDER_PAIRS; her->his before a content word, else him; his->hers when not followed by a word. Each sentence gives a male and a female version.",
+    "systems": "18 classifiers + 4 LLM configurations (original prompts) = 22."
+  }
+}

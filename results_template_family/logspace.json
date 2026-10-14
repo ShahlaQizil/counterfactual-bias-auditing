@@ -1,0 +1,72 @@
+{
+  "note": "exploratory; not part of the frozen plan; measure fixed before computing",
+  "all": {
+    "cells": 288,
+    "clear": 155,
+    "acc": 0.7548387096774194,
+    "acc_ci": [
+      0.5599751552795031,
+      0.8975958578840911
+    ],
+    "baselines": {
+      "usual": 0.7290322580645161,
+      "label": 0.535483870967742,
+      "neutral_mass": 0.4838709677419355,
+      "majority": 0.5483870967741935
+    },
+    "discordant": 98,
+    "discordant_clear": 56,
+    "acc_discordant": 0.5357142857142857,
+    "acc_discordant_ci": [
+      0.2083198051948052,
+      0.8684367167919801
+    ],
+    "clear_cells_down": 0.45161290322580644
+  },
+  "multiclass": {
+    "cells": 240,
+    "clear": 128,
+    "acc": 0.703125,
+    "acc_ci": [
+      0.4776085787279817,
+      0.8695726622989874
+    ],
+    "baselines": {
+      "usual": 0.7265625,
+      "label": 0.4921875,
+      "neutral_mass": 0.4296875,
+      "majority": 0.5078125
+    },
+    "discordant": 85,
+    "discordant_clear": 49,
+    "acc_discordant": 0.46938775510204084,
+    "acc_discordant_ci": [
+      0.14285714285714285,
+      0.8461538461538461
+    ],
+    "clear_cells_down": 0.4921875
+  },
+  "binary": {
+    "cells": 48,
+    "clear": 27,
+    "acc": 1.0,
+    "acc_ci": [
+      1.0,
+      1.0
+    ],
+    "baselines": {
+      "usual": 0.7407407407407407,
+      "label": 0.7407407407407407,
+      "neutral_mass": 0.7407407407407407,
+      "majority": 0.7407407407407407
+    },
+    "discordant": 13,
+    "discordant_clear": 7,
+    "acc_discordant": 1.0,
+    "acc_discordant_ci": [
+      1.0,
+      1.0
+    ],
+    "clear_cells_down": 0.25925925925925924
+  }
+}

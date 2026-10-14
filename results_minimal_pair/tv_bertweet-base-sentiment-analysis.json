@@ -1,0 +1,42 @@
+{
+  "model": "finiteautomata/bertweet-base-sentiment-analysis",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.0376,
+    "filler": 0.0268,
+    "emotion": 0.0265
+  },
+  "filler_vs_emotion": {
+    "ratio": 1.013,
+    "ratio_ci": [
+      0.505,
+      1.618
+    ],
+    "diff": 0.0004,
+    "diff_ci": [
+      -0.0118,
+      0.0201
+    ],
+    "n_templates_higher": 8,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 1.418,
+    "ratio_ci": [
+      0.714,
+      2.168
+    ],
+    "diff": 0.0111,
+    "diff_ci": [
+      -0.0066,
+      0.0387
+    ],
+    "n_templates_higher": 10,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.9137,
+    "emotion": 0.1,
+    "filler": 0.9314
+  }
+}

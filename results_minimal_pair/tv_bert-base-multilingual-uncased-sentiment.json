@@ -1,0 +1,42 @@
+{
+  "model": "nlptown/bert-base-multilingual-uncased-sentiment",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.0499,
+    "filler": 0.0469,
+    "emotion": 0.0372
+  },
+  "filler_vs_emotion": {
+    "ratio": 1.261,
+    "ratio_ci": [
+      1.082,
+      1.416
+    ],
+    "diff": 0.0097,
+    "diff_ci": [
+      0.0026,
+      0.0184
+    ],
+    "n_templates_higher": 15,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 1.342,
+    "ratio_ci": [
+      1.076,
+      1.69
+    ],
+    "diff": 0.0127,
+    "diff_ci": [
+      0.003,
+      0.0242
+    ],
+    "n_templates_higher": 12,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.189,
+    "emotion": 0.2424,
+    "filler": 0.1989
+  }
+}

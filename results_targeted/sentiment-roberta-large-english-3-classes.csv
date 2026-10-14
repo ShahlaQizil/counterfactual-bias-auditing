@@ -1,0 +1,13 @@
+model,set,axis,n,mean_abs_delta,d_z,p,flagged,mean_unc
+j-hartmann/sentiment-roberta-large-english-3-classes,targeted,gender,80,0.444585151355929,-0.2430439721020918,0.0327104482379192,False,0.2604279831589517
+j-hartmann/sentiment-roberta-large-english-3-classes,targeted,placebo,256,0.5913757615283516,0.008735580272452,0.8889526129177908,False,0.2842326439976856
+j-hartmann/sentiment-roberta-large-english-3-classes,targeted,race,160,0.7650331716114589,-0.1769987839190626,0.0265517210021354,False,0.2819391005803815
+j-hartmann/sentiment-roberta-large-english-3-classes,random,gender,80,0.1530086299091712,-0.2823928578216945,0.0135435576973983,False,0.0689969181383695
+j-hartmann/sentiment-roberta-large-english-3-classes,random,placebo,256,0.2261736669061589,0.0182335643863956,0.7707248838140737,False,0.0685685331291718
+j-hartmann/sentiment-roberta-large-english-3-classes,random,race,160,0.2871119420864048,-0.2381705029397238,0.0030141858906237,False,0.0678954376750529
+j-hartmann/sentiment-roberta-large-english-3-classes,neutral,gender,80,0.0003826847975728,-0.1690030704375617,0.134623287439236,False,0.0019458172345838
+j-hartmann/sentiment-roberta-large-english-3-classes,neutral,placebo,256,0.0024325961268537,0.0062652333643424,0.920229592854408,False,0.0023653168056552
+j-hartmann/sentiment-roberta-large-english-3-classes,neutral,race,160,0.002334811197711,0.0980444048367233,0.2167378963711885,False,0.002264308914371
+j-hartmann/sentiment-roberta-large-english-3-classes,emotional,gender,80,0.057361363444843,0.145407473186131,0.1971889207540303,False,0.0394576764580714
+j-hartmann/sentiment-roberta-large-english-3-classes,emotional,placebo,256,0.0664638539721756,0.0068063123578726,0.9133666600784456,False,0.0291074842173765
+j-hartmann/sentiment-roberta-large-english-3-classes,emotional,race,160,0.0822165867317903,0.2364390240856732,0.0032263747488791,False,0.0292297647288229

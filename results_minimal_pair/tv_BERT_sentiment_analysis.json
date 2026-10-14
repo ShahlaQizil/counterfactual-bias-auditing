@@ -1,0 +1,42 @@
+{
+  "model": "Souvikcmsa/BERT_sentiment_analysis",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.0044,
+    "filler": 0.003,
+    "emotion": 0.0042
+  },
+  "filler_vs_emotion": {
+    "ratio": 0.712,
+    "ratio_ci": [
+      0.568,
+      0.863
+    ],
+    "diff": -0.0012,
+    "diff_ci": [
+      -0.0018,
+      -0.0006
+    ],
+    "n_templates_higher": 0,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 1.036,
+    "ratio_ci": [
+      0.793,
+      1.409
+    ],
+    "diff": 0.0002,
+    "diff_ci": [
+      -0.0009,
+      0.0016
+    ],
+    "n_templates_higher": 5,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.9481,
+    "emotion": 0.0521,
+    "filler": 0.9409
+  }
+}

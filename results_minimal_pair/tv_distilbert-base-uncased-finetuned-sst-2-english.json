@@ -1,0 +1,42 @@
+{
+  "model": "distilbert-base-uncased-finetuned-sst-2-english",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.0857,
+    "filler": 0.072,
+    "emotion": 0.0013
+  },
+  "filler_vs_emotion": {
+    "ratio": 57.144,
+    "ratio_ci": [
+      33.776,
+      92.955
+    ],
+    "diff": 0.0708,
+    "diff_ci": [
+      0.046,
+      0.1009
+    ],
+    "n_templates_higher": 16,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 67.987,
+    "ratio_ci": [
+      25.322,
+      135.011
+    ],
+    "diff": 0.0844,
+    "diff_ci": [
+      0.0327,
+      0.148
+    ],
+    "n_templates_higher": 16,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.0,
+    "emotion": 0.0,
+    "filler": 0.0
+  }
+}

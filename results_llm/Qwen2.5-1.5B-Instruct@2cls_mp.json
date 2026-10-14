@@ -1,0 +1,46 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct@2cls",
+  "k": 2,
+  "n_pairs": 2640,
+  "logit": {
+    "filler_over_emotion": 3.973339962890184,
+    "lo": 2.4766192449370137,
+    "hi": 5.961774486383855,
+    "p": 0.00025,
+    "bare_over_emotion": 5.007034409366395
+  },
+  "tv": {
+    "filler_over_emotion": 32056.374747919726,
+    "lo": 4344.26964848481,
+    "hi": 85732.08255330577,
+    "p": 0.00025,
+    "bare_over_emotion": 25632.647221083764
+  },
+  "valence_e": {
+    "filler_over_emotion": 32056.374747880363,
+    "lo": 4592.871660513062,
+    "hi": 83102.4106861205,
+    "p": 0.00025,
+    "bare_over_emotion": 25632.647221052288
+  },
+  "uncertainty": {
+    "bare": 0.0112,
+    "emotion": 0.0,
+    "filler": 0.0169
+  },
+  "neutral_mass": {
+    "bare": 0.0,
+    "emotion": 0.0,
+    "filler": 0.0
+  },
+  "flip_rate": {
+    "bare": 0.025,
+    "emotion": 0.0,
+    "filler": 0.0188
+  },
+  "mean_e": {
+    "bare": 0.9828,
+    "emotion": 0.25,
+    "filler": 0.9767
+  }
+}

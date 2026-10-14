@@ -1,0 +1,23 @@
+{
+  "cells": 288,
+  "discordant_cells": 98,
+  "threshold": 40,
+  "passed": true,
+  "discordant_by_model": {
+    "BERT_sentiment_analysis": 7,
+    "Roberta_Sentiment_Analysis": 4,
+    "amazon-review-sentiment-analysis": 11,
+    "bertweet-base-sentiment-analysis": 11,
+    "distilbert-base-multilingual-cased-sentiment-2": 11,
+    "distilbert-base-uncased-finetuned-sst-2-english": 4,
+    "finbert": 2,
+    "multilingual-sentiment-analysis": 10,
+    "sentiment-roberta-large-english": 5,
+    "sentiment-roberta-large-english-3-classes": 2,
+    "sentiment_analysis_generic_dataset": 5,
+    "twitter-roberta-base-sentiment": 12,
+    "twitter-roberta-base-sentiment-latest": 11,
+    "twitter-xlm-roberta-base-sentiment": 3
+  },
+  "computed": "2026-10-14 12:19:06"
+}

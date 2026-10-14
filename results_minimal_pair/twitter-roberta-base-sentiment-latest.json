@@ -1,0 +1,208 @@
+{
+  "model": "cardiffnlp/twitter-roberta-base-sentiment-latest",
+  "status": "ok",
+  "valence_weights": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "A_logit": {
+    "mean_abs_sub": {
+      "bare": 0.0624,
+      "filler": 0.0311,
+      "emotion": 0.1077
+    },
+    "filler_vs_emotion": {
+      "ratio": 0.289,
+      "ratio_ci": [
+        0.192,
+        0.424
+      ],
+      "diff": -0.0766,
+      "diff_ci": [
+        -0.0976,
+        -0.0526
+      ],
+      "n_templates_higher": 0,
+      "n_templates": 16
+    },
+    "bare_vs_emotion": {
+      "ratio": 0.58,
+      "ratio_ci": [
+        0.371,
+        0.865
+      ],
+      "diff": -0.0452,
+      "diff_ci": [
+        -0.0703,
+        -0.0137
+      ],
+      "n_templates_higher": 2,
+      "n_templates": 16
+    },
+    "bare_vs_filler": {
+      "ratio": 2.009,
+      "ratio_ci": [
+        1.526,
+        2.674
+      ],
+      "diff": 0.0314,
+      "diff_ci": [
+        0.0144,
+        0.056
+      ],
+      "n_templates_higher": 16,
+      "n_templates": 16
+    }
+  },
+  "C_logit": {
+    "identity_filler_over_emotion": 0.411,
+    "control_filler_over_emotion": 0.258,
+    "specificity": 1.592,
+    "specificity_ci": [
+      1.141,
+      2.207
+    ]
+  },
+  "IAS_logit": {
+    "bare": {
+      "ias": 0.2398,
+      "uniform": 0.1906
+    },
+    "emotion": {
+      "ias": 0.0355,
+      "uniform": 0.0965
+    },
+    "filler": {
+      "ias": 0.124,
+      "uniform": 0.0965
+    }
+  },
+  "A_e": {
+    "mean_abs_sub": {
+      "bare": 0.0152,
+      "filler": 0.0077,
+      "emotion": 0.0078
+    },
+    "filler_vs_emotion": {
+      "ratio": 0.988,
+      "ratio_ci": [
+        0.645,
+        1.517
+      ],
+      "diff": -0.0001,
+      "diff_ci": [
+        -0.003,
+        0.0035
+      ],
+      "n_templates_higher": 9,
+      "n_templates": 16
+    },
+    "bare_vs_emotion": {
+      "ratio": 1.962,
+      "ratio_ci": [
+        1.241,
+        3.005
+      ],
+      "diff": 0.0075,
+      "diff_ci": [
+        0.0018,
+        0.015
+      ],
+      "n_templates_higher": 15,
+      "n_templates": 16
+    },
+    "bare_vs_filler": {
+      "ratio": 1.986,
+      "ratio_ci": [
+        1.489,
+        2.661
+      ],
+      "diff": 0.0076,
+      "diff_ci": [
+        0.0035,
+        0.0137
+      ],
+      "n_templates_higher": 16,
+      "n_templates": 16
+    }
+  },
+  "C_e": {
+    "identity_filler_over_emotion": 1.341,
+    "control_filler_over_emotion": 0.766,
+    "specificity": 1.75,
+    "specificity_ci": [
+      1.194,
+      2.574
+    ]
+  },
+  "IAS_e": {
+    "bare": {
+      "ias": 0.2421,
+      "uniform": 0.1906
+    },
+    "emotion": {
+      "ias": 0.0195,
+      "uniform": 0.0965
+    },
+    "filler": {
+      "ias": 0.1244,
+      "uniform": 0.0965
+    }
+  },
+  "saturation": {
+    "bare": 0.0,
+    "emotion": 0.026,
+    "filler": 0.0
+  },
+  "intensity_exploratory": {
+    "anger": {
+      "slope": -0.027,
+      "ci": [
+        -0.039,
+        -0.013
+      ],
+      "n_words": 5,
+      "intensity_range": [
+        0.485,
+        0.929
+      ]
+    },
+    "fear": {
+      "slope": 0.011,
+      "ci": [
+        -0.019,
+        0.041
+      ],
+      "n_words": 4,
+      "intensity_range": [
+        0.518,
+        0.906
+      ]
+    },
+    "joy": {
+      "slope": -0.026,
+      "ci": [
+        -0.043,
+        -0.009
+      ],
+      "n_words": 5,
+      "intensity_range": [
+        0.647,
+        0.954
+      ]
+    },
+    "sadness": {
+      "slope": 0.034,
+      "ci": [
+        0.012,
+        0.057
+      ],
+      "n_words": 5,
+      "intensity_range": [
+        0.636,
+        0.912
+      ]
+    }
+  }
+}

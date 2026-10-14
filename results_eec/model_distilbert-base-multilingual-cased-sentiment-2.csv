@@ -1,0 +1,17 @@
+model,subset,axis,scale,n,mean_abs_delta,mean_delta,d_z,p
+philschmid/distilbert-base-multilingual-cased-sentiment-2,full,gender,e,1584,0.0621718014116977,-0.0219451959501803,-0.2021999254184292,1.6433085816367984e-15
+philschmid/distilbert-base-multilingual-cased-sentiment-2,full,gender,logit,1584,0.5509997052039305,-0.2407105098706511,-0.3221276682606954,7.16432846295657e-36
+philschmid/distilbert-base-multilingual-cased-sentiment-2,full,race,e,144,0.1109344105261389,-0.1058657857705825,-1.173176526586907,8.636029662695992e-29
+philschmid/distilbert-base-multilingual-cased-sentiment-2,full,race,logit,144,0.7802282447524606,-0.7561953628189317,-1.4546935542071755,2.917498261807076e-37
+philschmid/distilbert-base-multilingual-cased-sentiment-2,emotional,gender,e,1540,0.0623692482228316,-0.0219256637812265,-0.2006947430965292,6.3448044584424155e-15
+philschmid/distilbert-base-multilingual-cased-sentiment-2,emotional,gender,logit,1540,0.5540280792689414,-0.2413463985641024,-0.3206792600682799,1.2258697958019822e-34
+philschmid/distilbert-base-multilingual-cased-sentiment-2,emotional,race,e,140,0.1103062001667616,-0.1050927575610464,-1.1582522601709897,1.3901572218902748e-27
+philschmid/distilbert-base-multilingual-cased-sentiment-2,emotional,race,logit,140,0.7803861746549234,-0.7556666389518653,-1.435152196308952,1.0315341898764684e-35
+philschmid/distilbert-base-multilingual-cased-sentiment-2,neutral,gender,e,44,0.0552611630220108,-0.0226288218635659,-0.2813977808599031,0.068788696281984
+philschmid/distilbert-base-multilingual-cased-sentiment-2,neutral,gender,logit,44,0.445006612928546,-0.2184544055998552,-0.4104836350222621,0.009312836276642
+philschmid/distilbert-base-multilingual-cased-sentiment-2,neutral,race,e,4,0.1329217731043466,-0.1329217731043466,-1.760584613170952,0.0388846217145274
+philschmid/distilbert-base-multilingual-cased-sentiment-2,neutral,race,logit,4,0.7747006981662574,-0.7747006981662574,-4.169086596624162,0.003615891300505
+philschmid/distilbert-base-multilingual-cased-sentiment-2,eec_neutral,gender,e,176,0.0453083474181359,-0.0095495787118425,-0.1361138388483178,0.0726753004823022
+philschmid/distilbert-base-multilingual-cased-sentiment-2,eec_neutral,gender,logit,176,0.4409730429409254,-0.1767899453286222,-0.3360180064439712,1.475388792169792e-05
+philschmid/distilbert-base-multilingual-cased-sentiment-2,eec_neutral,race,e,16,0.1217666969276472,-0.1217666969276472,-2.03488284476614,6.954810677060671e-07
+philschmid/distilbert-base-multilingual-cased-sentiment-2,eec_neutral,race,logit,16,0.8233146326223731,-0.8233146326223731,-2.8918338658672824,7.1285637200230395e-09

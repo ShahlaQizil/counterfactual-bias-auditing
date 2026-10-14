@@ -1,0 +1,42 @@
+{
+  "model": "philschmid/distilbert-base-multilingual-cased-sentiment-2",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.1555,
+    "filler": 0.1345,
+    "emotion": 0.1175
+  },
+  "filler_vs_emotion": {
+    "ratio": 1.145,
+    "ratio_ci": [
+      0.867,
+      1.409
+    ],
+    "diff": 0.017,
+    "diff_ci": [
+      -0.0142,
+      0.0527
+    ],
+    "n_templates_higher": 9,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 1.324,
+    "ratio_ci": [
+      1.092,
+      1.615
+    ],
+    "diff": 0.038,
+    "diff_ci": [
+      0.0109,
+      0.0707
+    ],
+    "n_templates_higher": 11,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.1439,
+    "emotion": 0.1415,
+    "filler": 0.1062
+  }
+}

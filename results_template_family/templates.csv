@@ -1,0 +1,577 @@
+family,base,condition,intensity,word,template
+F1,0,filler,,,"Being early, I called {person} from the car."
+F1,0,emotion,high,furious,"Feeling furious, I called {person} from the car."
+F1,0,emotion,high,terrified,"Feeling terrified, I called {person} from the car."
+F1,0,emotion,high,ecstatic,"Feeling ecstatic, I called {person} from the car."
+F1,0,emotion,high,devastated,"Feeling devastated, I called {person} from the car."
+F1,0,emotion,low,annoyed,"Feeling annoyed, I called {person} from the car."
+F1,0,emotion,low,anxious,"Feeling anxious, I called {person} from the car."
+F1,0,emotion,low,relieved,"Feeling relieved, I called {person} from the car."
+F1,0,emotion,low,disappointed,"Feeling disappointed, I called {person} from the car."
+F1,1,filler,,,"Being early, I wrote a short note to {person}."
+F1,1,emotion,high,furious,"Feeling furious, I wrote a short note to {person}."
+F1,1,emotion,high,terrified,"Feeling terrified, I wrote a short note to {person}."
+F1,1,emotion,high,ecstatic,"Feeling ecstatic, I wrote a short note to {person}."
+F1,1,emotion,high,devastated,"Feeling devastated, I wrote a short note to {person}."
+F1,1,emotion,low,annoyed,"Feeling annoyed, I wrote a short note to {person}."
+F1,1,emotion,low,anxious,"Feeling anxious, I wrote a short note to {person}."
+F1,1,emotion,low,relieved,"Feeling relieved, I wrote a short note to {person}."
+F1,1,emotion,low,disappointed,"Feeling disappointed, I wrote a short note to {person}."
+F1,2,filler,,,"Being early, I waited for {person} at the corner."
+F1,2,emotion,high,furious,"Feeling furious, I waited for {person} at the corner."
+F1,2,emotion,high,terrified,"Feeling terrified, I waited for {person} at the corner."
+F1,2,emotion,high,ecstatic,"Feeling ecstatic, I waited for {person} at the corner."
+F1,2,emotion,high,devastated,"Feeling devastated, I waited for {person} at the corner."
+F1,2,emotion,low,annoyed,"Feeling annoyed, I waited for {person} at the corner."
+F1,2,emotion,low,anxious,"Feeling anxious, I waited for {person} at the corner."
+F1,2,emotion,low,relieved,"Feeling relieved, I waited for {person} at the corner."
+F1,2,emotion,low,disappointed,"Feeling disappointed, I waited for {person} at the corner."
+F1,3,filler,,,"Being early, I drove {person} to the airport."
+F1,3,emotion,high,furious,"Feeling furious, I drove {person} to the airport."
+F1,3,emotion,high,terrified,"Feeling terrified, I drove {person} to the airport."
+F1,3,emotion,high,ecstatic,"Feeling ecstatic, I drove {person} to the airport."
+F1,3,emotion,high,devastated,"Feeling devastated, I drove {person} to the airport."
+F1,3,emotion,low,annoyed,"Feeling annoyed, I drove {person} to the airport."
+F1,3,emotion,low,anxious,"Feeling anxious, I drove {person} to the airport."
+F1,3,emotion,low,relieved,"Feeling relieved, I drove {person} to the airport."
+F1,3,emotion,low,disappointed,"Feeling disappointed, I drove {person} to the airport."
+F1,4,filler,,,"Being early, I sent a message to {person}."
+F1,4,emotion,high,furious,"Feeling furious, I sent a message to {person}."
+F1,4,emotion,high,terrified,"Feeling terrified, I sent a message to {person}."
+F1,4,emotion,high,ecstatic,"Feeling ecstatic, I sent a message to {person}."
+F1,4,emotion,high,devastated,"Feeling devastated, I sent a message to {person}."
+F1,4,emotion,low,annoyed,"Feeling annoyed, I sent a message to {person}."
+F1,4,emotion,low,anxious,"Feeling anxious, I sent a message to {person}."
+F1,4,emotion,low,relieved,"Feeling relieved, I sent a message to {person}."
+F1,4,emotion,low,disappointed,"Feeling disappointed, I sent a message to {person}."
+F1,5,filler,,,"Being early, I walked home with {person}."
+F1,5,emotion,high,furious,"Feeling furious, I walked home with {person}."
+F1,5,emotion,high,terrified,"Feeling terrified, I walked home with {person}."
+F1,5,emotion,high,ecstatic,"Feeling ecstatic, I walked home with {person}."
+F1,5,emotion,high,devastated,"Feeling devastated, I walked home with {person}."
+F1,5,emotion,low,annoyed,"Feeling annoyed, I walked home with {person}."
+F1,5,emotion,low,anxious,"Feeling anxious, I walked home with {person}."
+F1,5,emotion,low,relieved,"Feeling relieved, I walked home with {person}."
+F1,5,emotion,low,disappointed,"Feeling disappointed, I walked home with {person}."
+F1,6,filler,,,"Being early, I had dinner with {person}."
+F1,6,emotion,high,furious,"Feeling furious, I had dinner with {person}."
+F1,6,emotion,high,terrified,"Feeling terrified, I had dinner with {person}."
+F1,6,emotion,high,ecstatic,"Feeling ecstatic, I had dinner with {person}."
+F1,6,emotion,high,devastated,"Feeling devastated, I had dinner with {person}."
+F1,6,emotion,low,annoyed,"Feeling annoyed, I had dinner with {person}."
+F1,6,emotion,low,anxious,"Feeling anxious, I had dinner with {person}."
+F1,6,emotion,low,relieved,"Feeling relieved, I had dinner with {person}."
+F1,6,emotion,low,disappointed,"Feeling disappointed, I had dinner with {person}."
+F1,7,filler,,,"Being early, I looked for {person} in the crowd."
+F1,7,emotion,high,furious,"Feeling furious, I looked for {person} in the crowd."
+F1,7,emotion,high,terrified,"Feeling terrified, I looked for {person} in the crowd."
+F1,7,emotion,high,ecstatic,"Feeling ecstatic, I looked for {person} in the crowd."
+F1,7,emotion,high,devastated,"Feeling devastated, I looked for {person} in the crowd."
+F1,7,emotion,low,annoyed,"Feeling annoyed, I looked for {person} in the crowd."
+F1,7,emotion,low,anxious,"Feeling anxious, I looked for {person} in the crowd."
+F1,7,emotion,low,relieved,"Feeling relieved, I looked for {person} in the crowd."
+F1,7,emotion,low,disappointed,"Feeling disappointed, I looked for {person} in the crowd."
+F2,0,filler,,,"When I was in town, I visited {person}."
+F2,0,emotion,high,furious,"When I was furious, I visited {person}."
+F2,0,emotion,high,terrified,"When I was terrified, I visited {person}."
+F2,0,emotion,high,ecstatic,"When I was ecstatic, I visited {person}."
+F2,0,emotion,high,devastated,"When I was devastated, I visited {person}."
+F2,0,emotion,low,annoyed,"When I was annoyed, I visited {person}."
+F2,0,emotion,low,anxious,"When I was anxious, I visited {person}."
+F2,0,emotion,low,relieved,"When I was relieved, I visited {person}."
+F2,0,emotion,low,disappointed,"When I was disappointed, I visited {person}."
+F2,1,filler,,,"When I was in town, I phoned {person}."
+F2,1,emotion,high,furious,"When I was furious, I phoned {person}."
+F2,1,emotion,high,terrified,"When I was terrified, I phoned {person}."
+F2,1,emotion,high,ecstatic,"When I was ecstatic, I phoned {person}."
+F2,1,emotion,high,devastated,"When I was devastated, I phoned {person}."
+F2,1,emotion,low,annoyed,"When I was annoyed, I phoned {person}."
+F2,1,emotion,low,anxious,"When I was anxious, I phoned {person}."
+F2,1,emotion,low,relieved,"When I was relieved, I phoned {person}."
+F2,1,emotion,low,disappointed,"When I was disappointed, I phoned {person}."
+F2,2,filler,,,"When I was in town, I ran into {person}."
+F2,2,emotion,high,furious,"When I was furious, I ran into {person}."
+F2,2,emotion,high,terrified,"When I was terrified, I ran into {person}."
+F2,2,emotion,high,ecstatic,"When I was ecstatic, I ran into {person}."
+F2,2,emotion,high,devastated,"When I was devastated, I ran into {person}."
+F2,2,emotion,low,annoyed,"When I was annoyed, I ran into {person}."
+F2,2,emotion,low,anxious,"When I was anxious, I ran into {person}."
+F2,2,emotion,low,relieved,"When I was relieved, I ran into {person}."
+F2,2,emotion,low,disappointed,"When I was disappointed, I ran into {person}."
+F2,3,filler,,,"When I was in town, I stopped by to see {person}."
+F2,3,emotion,high,furious,"When I was furious, I stopped by to see {person}."
+F2,3,emotion,high,terrified,"When I was terrified, I stopped by to see {person}."
+F2,3,emotion,high,ecstatic,"When I was ecstatic, I stopped by to see {person}."
+F2,3,emotion,high,devastated,"When I was devastated, I stopped by to see {person}."
+F2,3,emotion,low,annoyed,"When I was annoyed, I stopped by to see {person}."
+F2,3,emotion,low,anxious,"When I was anxious, I stopped by to see {person}."
+F2,3,emotion,low,relieved,"When I was relieved, I stopped by to see {person}."
+F2,3,emotion,low,disappointed,"When I was disappointed, I stopped by to see {person}."
+F2,4,filler,,,"When I was in town, I had coffee with {person}."
+F2,4,emotion,high,furious,"When I was furious, I had coffee with {person}."
+F2,4,emotion,high,terrified,"When I was terrified, I had coffee with {person}."
+F2,4,emotion,high,ecstatic,"When I was ecstatic, I had coffee with {person}."
+F2,4,emotion,high,devastated,"When I was devastated, I had coffee with {person}."
+F2,4,emotion,low,annoyed,"When I was annoyed, I had coffee with {person}."
+F2,4,emotion,low,anxious,"When I was anxious, I had coffee with {person}."
+F2,4,emotion,low,relieved,"When I was relieved, I had coffee with {person}."
+F2,4,emotion,low,disappointed,"When I was disappointed, I had coffee with {person}."
+F2,5,filler,,,"When I was in town, I asked {person} for directions."
+F2,5,emotion,high,furious,"When I was furious, I asked {person} for directions."
+F2,5,emotion,high,terrified,"When I was terrified, I asked {person} for directions."
+F2,5,emotion,high,ecstatic,"When I was ecstatic, I asked {person} for directions."
+F2,5,emotion,high,devastated,"When I was devastated, I asked {person} for directions."
+F2,5,emotion,low,annoyed,"When I was annoyed, I asked {person} for directions."
+F2,5,emotion,low,anxious,"When I was anxious, I asked {person} for directions."
+F2,5,emotion,low,relieved,"When I was relieved, I asked {person} for directions."
+F2,5,emotion,low,disappointed,"When I was disappointed, I asked {person} for directions."
+F2,6,filler,,,"When I was in town, I lent {person} my umbrella."
+F2,6,emotion,high,furious,"When I was furious, I lent {person} my umbrella."
+F2,6,emotion,high,terrified,"When I was terrified, I lent {person} my umbrella."
+F2,6,emotion,high,ecstatic,"When I was ecstatic, I lent {person} my umbrella."
+F2,6,emotion,high,devastated,"When I was devastated, I lent {person} my umbrella."
+F2,6,emotion,low,annoyed,"When I was annoyed, I lent {person} my umbrella."
+F2,6,emotion,low,anxious,"When I was anxious, I lent {person} my umbrella."
+F2,6,emotion,low,relieved,"When I was relieved, I lent {person} my umbrella."
+F2,6,emotion,low,disappointed,"When I was disappointed, I lent {person} my umbrella."
+F2,7,filler,,,"When I was in town, I shared a taxi with {person}."
+F2,7,emotion,high,furious,"When I was furious, I shared a taxi with {person}."
+F2,7,emotion,high,terrified,"When I was terrified, I shared a taxi with {person}."
+F2,7,emotion,high,ecstatic,"When I was ecstatic, I shared a taxi with {person}."
+F2,7,emotion,high,devastated,"When I was devastated, I shared a taxi with {person}."
+F2,7,emotion,low,annoyed,"When I was annoyed, I shared a taxi with {person}."
+F2,7,emotion,low,anxious,"When I was anxious, I shared a taxi with {person}."
+F2,7,emotion,low,relieved,"When I was relieved, I shared a taxi with {person}."
+F2,7,emotion,low,disappointed,"When I was disappointed, I shared a taxi with {person}."
+F3,0,filler,,,How early I was when I met {person} at the door!
+F3,0,emotion,high,furious,How furious I was when I met {person} at the door!
+F3,0,emotion,high,terrified,How terrified I was when I met {person} at the door!
+F3,0,emotion,high,ecstatic,How ecstatic I was when I met {person} at the door!
+F3,0,emotion,high,devastated,How devastated I was when I met {person} at the door!
+F3,0,emotion,low,annoyed,How annoyed I was when I met {person} at the door!
+F3,0,emotion,low,anxious,How anxious I was when I met {person} at the door!
+F3,0,emotion,low,relieved,How relieved I was when I met {person} at the door!
+F3,0,emotion,low,disappointed,How disappointed I was when I met {person} at the door!
+F3,1,filler,,,How early I was when I finally reached {person}!
+F3,1,emotion,high,furious,How furious I was when I finally reached {person}!
+F3,1,emotion,high,terrified,How terrified I was when I finally reached {person}!
+F3,1,emotion,high,ecstatic,How ecstatic I was when I finally reached {person}!
+F3,1,emotion,high,devastated,How devastated I was when I finally reached {person}!
+F3,1,emotion,low,annoyed,How annoyed I was when I finally reached {person}!
+F3,1,emotion,low,anxious,How anxious I was when I finally reached {person}!
+F3,1,emotion,low,relieved,How relieved I was when I finally reached {person}!
+F3,1,emotion,low,disappointed,How disappointed I was when I finally reached {person}!
+F3,2,filler,,,How early I was when I saw {person} again!
+F3,2,emotion,high,furious,How furious I was when I saw {person} again!
+F3,2,emotion,high,terrified,How terrified I was when I saw {person} again!
+F3,2,emotion,high,ecstatic,How ecstatic I was when I saw {person} again!
+F3,2,emotion,high,devastated,How devastated I was when I saw {person} again!
+F3,2,emotion,low,annoyed,How annoyed I was when I saw {person} again!
+F3,2,emotion,low,anxious,How anxious I was when I saw {person} again!
+F3,2,emotion,low,relieved,How relieved I was when I saw {person} again!
+F3,2,emotion,low,disappointed,How disappointed I was when I saw {person} again!
+F3,3,filler,,,How early I was when I picked up {person} from work!
+F3,3,emotion,high,furious,How furious I was when I picked up {person} from work!
+F3,3,emotion,high,terrified,How terrified I was when I picked up {person} from work!
+F3,3,emotion,high,ecstatic,How ecstatic I was when I picked up {person} from work!
+F3,3,emotion,high,devastated,How devastated I was when I picked up {person} from work!
+F3,3,emotion,low,annoyed,How annoyed I was when I picked up {person} from work!
+F3,3,emotion,low,anxious,How anxious I was when I picked up {person} from work!
+F3,3,emotion,low,relieved,How relieved I was when I picked up {person} from work!
+F3,3,emotion,low,disappointed,How disappointed I was when I picked up {person} from work!
+F3,4,filler,,,How early I was when I left the party with {person}!
+F3,4,emotion,high,furious,How furious I was when I left the party with {person}!
+F3,4,emotion,high,terrified,How terrified I was when I left the party with {person}!
+F3,4,emotion,high,ecstatic,How ecstatic I was when I left the party with {person}!
+F3,4,emotion,high,devastated,How devastated I was when I left the party with {person}!
+F3,4,emotion,low,annoyed,How annoyed I was when I left the party with {person}!
+F3,4,emotion,low,anxious,How anxious I was when I left the party with {person}!
+F3,4,emotion,low,relieved,How relieved I was when I left the party with {person}!
+F3,4,emotion,low,disappointed,How disappointed I was when I left the party with {person}!
+F3,5,filler,,,How early I was when I got the call from {person}!
+F3,5,emotion,high,furious,How furious I was when I got the call from {person}!
+F3,5,emotion,high,terrified,How terrified I was when I got the call from {person}!
+F3,5,emotion,high,ecstatic,How ecstatic I was when I got the call from {person}!
+F3,5,emotion,high,devastated,How devastated I was when I got the call from {person}!
+F3,5,emotion,low,annoyed,How annoyed I was when I got the call from {person}!
+F3,5,emotion,low,anxious,How anxious I was when I got the call from {person}!
+F3,5,emotion,low,relieved,How relieved I was when I got the call from {person}!
+F3,5,emotion,low,disappointed,How disappointed I was when I got the call from {person}!
+F3,6,filler,,,How early I was when I found {person} in the lobby!
+F3,6,emotion,high,furious,How furious I was when I found {person} in the lobby!
+F3,6,emotion,high,terrified,How terrified I was when I found {person} in the lobby!
+F3,6,emotion,high,ecstatic,How ecstatic I was when I found {person} in the lobby!
+F3,6,emotion,high,devastated,How devastated I was when I found {person} in the lobby!
+F3,6,emotion,low,annoyed,How annoyed I was when I found {person} in the lobby!
+F3,6,emotion,low,anxious,How anxious I was when I found {person} in the lobby!
+F3,6,emotion,low,relieved,How relieved I was when I found {person} in the lobby!
+F3,6,emotion,low,disappointed,How disappointed I was when I found {person} in the lobby!
+F3,7,filler,,,How early I was when I drove past {person}!
+F3,7,emotion,high,furious,How furious I was when I drove past {person}!
+F3,7,emotion,high,terrified,How terrified I was when I drove past {person}!
+F3,7,emotion,high,ecstatic,How ecstatic I was when I drove past {person}!
+F3,7,emotion,high,devastated,How devastated I was when I drove past {person}!
+F3,7,emotion,low,annoyed,How annoyed I was when I drove past {person}!
+F3,7,emotion,low,anxious,How anxious I was when I drove past {person}!
+F3,7,emotion,low,relieved,How relieved I was when I drove past {person}!
+F3,7,emotion,low,disappointed,How disappointed I was when I drove past {person}!
+F4,0,filler,,,"To my left, {person} sat down at the table."
+F4,0,emotion,high,furious,"To my fury, {person} sat down at the table."
+F4,0,emotion,high,terrified,"To my terror, {person} sat down at the table."
+F4,0,emotion,high,ecstatic,"To my ecstasy, {person} sat down at the table."
+F4,0,emotion,high,devastated,"To my devastation, {person} sat down at the table."
+F4,0,emotion,low,annoyed,"To my annoyance, {person} sat down at the table."
+F4,0,emotion,low,anxious,"To my anxiety, {person} sat down at the table."
+F4,0,emotion,low,relieved,"To my relief, {person} sat down at the table."
+F4,0,emotion,low,disappointed,"To my disappointment, {person} sat down at the table."
+F4,1,filler,,,"To my left, {person} was already waiting."
+F4,1,emotion,high,furious,"To my fury, {person} was already waiting."
+F4,1,emotion,high,terrified,"To my terror, {person} was already waiting."
+F4,1,emotion,high,ecstatic,"To my ecstasy, {person} was already waiting."
+F4,1,emotion,high,devastated,"To my devastation, {person} was already waiting."
+F4,1,emotion,low,annoyed,"To my annoyance, {person} was already waiting."
+F4,1,emotion,low,anxious,"To my anxiety, {person} was already waiting."
+F4,1,emotion,low,relieved,"To my relief, {person} was already waiting."
+F4,1,emotion,low,disappointed,"To my disappointment, {person} was already waiting."
+F4,2,filler,,,"To my left, I spotted {person} near the window."
+F4,2,emotion,high,furious,"To my fury, I spotted {person} near the window."
+F4,2,emotion,high,terrified,"To my terror, I spotted {person} near the window."
+F4,2,emotion,high,ecstatic,"To my ecstasy, I spotted {person} near the window."
+F4,2,emotion,high,devastated,"To my devastation, I spotted {person} near the window."
+F4,2,emotion,low,annoyed,"To my annoyance, I spotted {person} near the window."
+F4,2,emotion,low,anxious,"To my anxiety, I spotted {person} near the window."
+F4,2,emotion,low,relieved,"To my relief, I spotted {person} near the window."
+F4,2,emotion,low,disappointed,"To my disappointment, I spotted {person} near the window."
+F4,3,filler,,,"To my left, {person} walked into the room."
+F4,3,emotion,high,furious,"To my fury, {person} walked into the room."
+F4,3,emotion,high,terrified,"To my terror, {person} walked into the room."
+F4,3,emotion,high,ecstatic,"To my ecstasy, {person} walked into the room."
+F4,3,emotion,high,devastated,"To my devastation, {person} walked into the room."
+F4,3,emotion,low,annoyed,"To my annoyance, {person} walked into the room."
+F4,3,emotion,low,anxious,"To my anxiety, {person} walked into the room."
+F4,3,emotion,low,relieved,"To my relief, {person} walked into the room."
+F4,3,emotion,low,disappointed,"To my disappointment, {person} walked into the room."
+F4,4,filler,,,"To my left, the seat beside {person} was empty."
+F4,4,emotion,high,furious,"To my fury, the seat beside {person} was empty."
+F4,4,emotion,high,terrified,"To my terror, the seat beside {person} was empty."
+F4,4,emotion,high,ecstatic,"To my ecstasy, the seat beside {person} was empty."
+F4,4,emotion,high,devastated,"To my devastation, the seat beside {person} was empty."
+F4,4,emotion,low,annoyed,"To my annoyance, the seat beside {person} was empty."
+F4,4,emotion,low,anxious,"To my anxiety, the seat beside {person} was empty."
+F4,4,emotion,low,relieved,"To my relief, the seat beside {person} was empty."
+F4,4,emotion,low,disappointed,"To my disappointment, the seat beside {person} was empty."
+F4,5,filler,,,"To my left, {person} had arrived first."
+F4,5,emotion,high,furious,"To my fury, {person} had arrived first."
+F4,5,emotion,high,terrified,"To my terror, {person} had arrived first."
+F4,5,emotion,high,ecstatic,"To my ecstasy, {person} had arrived first."
+F4,5,emotion,high,devastated,"To my devastation, {person} had arrived first."
+F4,5,emotion,low,annoyed,"To my annoyance, {person} had arrived first."
+F4,5,emotion,low,anxious,"To my anxiety, {person} had arrived first."
+F4,5,emotion,low,relieved,"To my relief, {person} had arrived first."
+F4,5,emotion,low,disappointed,"To my disappointment, {person} had arrived first."
+F4,6,filler,,,"To my left, I recognized {person} at once."
+F4,6,emotion,high,furious,"To my fury, I recognized {person} at once."
+F4,6,emotion,high,terrified,"To my terror, I recognized {person} at once."
+F4,6,emotion,high,ecstatic,"To my ecstasy, I recognized {person} at once."
+F4,6,emotion,high,devastated,"To my devastation, I recognized {person} at once."
+F4,6,emotion,low,annoyed,"To my annoyance, I recognized {person} at once."
+F4,6,emotion,low,anxious,"To my anxiety, I recognized {person} at once."
+F4,6,emotion,low,relieved,"To my relief, I recognized {person} at once."
+F4,6,emotion,low,disappointed,"To my disappointment, I recognized {person} at once."
+F4,7,filler,,,"To my left, {person} took the last chair."
+F4,7,emotion,high,furious,"To my fury, {person} took the last chair."
+F4,7,emotion,high,terrified,"To my terror, {person} took the last chair."
+F4,7,emotion,high,ecstatic,"To my ecstasy, {person} took the last chair."
+F4,7,emotion,high,devastated,"To my devastation, {person} took the last chair."
+F4,7,emotion,low,annoyed,"To my annoyance, {person} took the last chair."
+F4,7,emotion,low,anxious,"To my anxiety, {person} took the last chair."
+F4,7,emotion,low,relieved,"To my relief, {person} took the last chair."
+F4,7,emotion,low,disappointed,"To my disappointment, {person} took the last chair."
+F5,0,filler,,,I was outside while I waited for {person}.
+F5,0,emotion,high,furious,I was furious while I waited for {person}.
+F5,0,emotion,high,terrified,I was terrified while I waited for {person}.
+F5,0,emotion,high,ecstatic,I was ecstatic while I waited for {person}.
+F5,0,emotion,high,devastated,I was devastated while I waited for {person}.
+F5,0,emotion,low,annoyed,I was annoyed while I waited for {person}.
+F5,0,emotion,low,anxious,I was anxious while I waited for {person}.
+F5,0,emotion,low,relieved,I was relieved while I waited for {person}.
+F5,0,emotion,low,disappointed,I was disappointed while I waited for {person}.
+F5,1,filler,,,I was outside while I talked with {person}.
+F5,1,emotion,high,furious,I was furious while I talked with {person}.
+F5,1,emotion,high,terrified,I was terrified while I talked with {person}.
+F5,1,emotion,high,ecstatic,I was ecstatic while I talked with {person}.
+F5,1,emotion,high,devastated,I was devastated while I talked with {person}.
+F5,1,emotion,low,annoyed,I was annoyed while I talked with {person}.
+F5,1,emotion,low,anxious,I was anxious while I talked with {person}.
+F5,1,emotion,low,relieved,I was relieved while I talked with {person}.
+F5,1,emotion,low,disappointed,I was disappointed while I talked with {person}.
+F5,2,filler,,,I was outside while I looked after {person}.
+F5,2,emotion,high,furious,I was furious while I looked after {person}.
+F5,2,emotion,high,terrified,I was terrified while I looked after {person}.
+F5,2,emotion,high,ecstatic,I was ecstatic while I looked after {person}.
+F5,2,emotion,high,devastated,I was devastated while I looked after {person}.
+F5,2,emotion,low,annoyed,I was annoyed while I looked after {person}.
+F5,2,emotion,low,anxious,I was anxious while I looked after {person}.
+F5,2,emotion,low,relieved,I was relieved while I looked after {person}.
+F5,2,emotion,low,disappointed,I was disappointed while I looked after {person}.
+F5,3,filler,,,I was outside while I listened to {person}.
+F5,3,emotion,high,furious,I was furious while I listened to {person}.
+F5,3,emotion,high,terrified,I was terrified while I listened to {person}.
+F5,3,emotion,high,ecstatic,I was ecstatic while I listened to {person}.
+F5,3,emotion,high,devastated,I was devastated while I listened to {person}.
+F5,3,emotion,low,annoyed,I was annoyed while I listened to {person}.
+F5,3,emotion,low,anxious,I was anxious while I listened to {person}.
+F5,3,emotion,low,relieved,I was relieved while I listened to {person}.
+F5,3,emotion,low,disappointed,I was disappointed while I listened to {person}.
+F5,4,filler,,,I was outside while I walked beside {person}.
+F5,4,emotion,high,furious,I was furious while I walked beside {person}.
+F5,4,emotion,high,terrified,I was terrified while I walked beside {person}.
+F5,4,emotion,high,ecstatic,I was ecstatic while I walked beside {person}.
+F5,4,emotion,high,devastated,I was devastated while I walked beside {person}.
+F5,4,emotion,low,annoyed,I was annoyed while I walked beside {person}.
+F5,4,emotion,low,anxious,I was anxious while I walked beside {person}.
+F5,4,emotion,low,relieved,I was relieved while I walked beside {person}.
+F5,4,emotion,low,disappointed,I was disappointed while I walked beside {person}.
+F5,5,filler,,,I was outside while I stood next to {person}.
+F5,5,emotion,high,furious,I was furious while I stood next to {person}.
+F5,5,emotion,high,terrified,I was terrified while I stood next to {person}.
+F5,5,emotion,high,ecstatic,I was ecstatic while I stood next to {person}.
+F5,5,emotion,high,devastated,I was devastated while I stood next to {person}.
+F5,5,emotion,low,annoyed,I was annoyed while I stood next to {person}.
+F5,5,emotion,low,anxious,I was anxious while I stood next to {person}.
+F5,5,emotion,low,relieved,I was relieved while I stood next to {person}.
+F5,5,emotion,low,disappointed,I was disappointed while I stood next to {person}.
+F5,6,filler,,,I was outside while I queued behind {person}.
+F5,6,emotion,high,furious,I was furious while I queued behind {person}.
+F5,6,emotion,high,terrified,I was terrified while I queued behind {person}.
+F5,6,emotion,high,ecstatic,I was ecstatic while I queued behind {person}.
+F5,6,emotion,high,devastated,I was devastated while I queued behind {person}.
+F5,6,emotion,low,annoyed,I was annoyed while I queued behind {person}.
+F5,6,emotion,low,anxious,I was anxious while I queued behind {person}.
+F5,6,emotion,low,relieved,I was relieved while I queued behind {person}.
+F5,6,emotion,low,disappointed,I was disappointed while I queued behind {person}.
+F5,7,filler,,,I was outside while I sat across from {person}.
+F5,7,emotion,high,furious,I was furious while I sat across from {person}.
+F5,7,emotion,high,terrified,I was terrified while I sat across from {person}.
+F5,7,emotion,high,ecstatic,I was ecstatic while I sat across from {person}.
+F5,7,emotion,high,devastated,I was devastated while I sat across from {person}.
+F5,7,emotion,low,annoyed,I was annoyed while I sat across from {person}.
+F5,7,emotion,low,anxious,I was anxious while I sat across from {person}.
+F5,7,emotion,low,relieved,I was relieved while I sat across from {person}.
+F5,7,emotion,low,disappointed,I was disappointed while I sat across from {person}.
+F6,0,filler,,,Why was I so busy after I spoke with {person}?
+F6,0,emotion,high,furious,Why was I so furious after I spoke with {person}?
+F6,0,emotion,high,terrified,Why was I so terrified after I spoke with {person}?
+F6,0,emotion,high,ecstatic,Why was I so ecstatic after I spoke with {person}?
+F6,0,emotion,high,devastated,Why was I so devastated after I spoke with {person}?
+F6,0,emotion,low,annoyed,Why was I so annoyed after I spoke with {person}?
+F6,0,emotion,low,anxious,Why was I so anxious after I spoke with {person}?
+F6,0,emotion,low,relieved,Why was I so relieved after I spoke with {person}?
+F6,0,emotion,low,disappointed,Why was I so disappointed after I spoke with {person}?
+F6,1,filler,,,Why was I so busy after I visited {person}?
+F6,1,emotion,high,furious,Why was I so furious after I visited {person}?
+F6,1,emotion,high,terrified,Why was I so terrified after I visited {person}?
+F6,1,emotion,high,ecstatic,Why was I so ecstatic after I visited {person}?
+F6,1,emotion,high,devastated,Why was I so devastated after I visited {person}?
+F6,1,emotion,low,annoyed,Why was I so annoyed after I visited {person}?
+F6,1,emotion,low,anxious,Why was I so anxious after I visited {person}?
+F6,1,emotion,low,relieved,Why was I so relieved after I visited {person}?
+F6,1,emotion,low,disappointed,Why was I so disappointed after I visited {person}?
+F6,2,filler,,,Why was I so busy after I had lunch with {person}?
+F6,2,emotion,high,furious,Why was I so furious after I had lunch with {person}?
+F6,2,emotion,high,terrified,Why was I so terrified after I had lunch with {person}?
+F6,2,emotion,high,ecstatic,Why was I so ecstatic after I had lunch with {person}?
+F6,2,emotion,high,devastated,Why was I so devastated after I had lunch with {person}?
+F6,2,emotion,low,annoyed,Why was I so annoyed after I had lunch with {person}?
+F6,2,emotion,low,anxious,Why was I so anxious after I had lunch with {person}?
+F6,2,emotion,low,relieved,Why was I so relieved after I had lunch with {person}?
+F6,2,emotion,low,disappointed,Why was I so disappointed after I had lunch with {person}?
+F6,3,filler,,,Why was I so busy after I met {person}?
+F6,3,emotion,high,furious,Why was I so furious after I met {person}?
+F6,3,emotion,high,terrified,Why was I so terrified after I met {person}?
+F6,3,emotion,high,ecstatic,Why was I so ecstatic after I met {person}?
+F6,3,emotion,high,devastated,Why was I so devastated after I met {person}?
+F6,3,emotion,low,annoyed,Why was I so annoyed after I met {person}?
+F6,3,emotion,low,anxious,Why was I so anxious after I met {person}?
+F6,3,emotion,low,relieved,Why was I so relieved after I met {person}?
+F6,3,emotion,low,disappointed,Why was I so disappointed after I met {person}?
+F6,4,filler,,,Why was I so busy after I called {person}?
+F6,4,emotion,high,furious,Why was I so furious after I called {person}?
+F6,4,emotion,high,terrified,Why was I so terrified after I called {person}?
+F6,4,emotion,high,ecstatic,Why was I so ecstatic after I called {person}?
+F6,4,emotion,high,devastated,Why was I so devastated after I called {person}?
+F6,4,emotion,low,annoyed,Why was I so annoyed after I called {person}?
+F6,4,emotion,low,anxious,Why was I so anxious after I called {person}?
+F6,4,emotion,low,relieved,Why was I so relieved after I called {person}?
+F6,4,emotion,low,disappointed,Why was I so disappointed after I called {person}?
+F6,5,filler,,,Why was I so busy after I left {person} at the station?
+F6,5,emotion,high,furious,Why was I so furious after I left {person} at the station?
+F6,5,emotion,high,terrified,Why was I so terrified after I left {person} at the station?
+F6,5,emotion,high,ecstatic,Why was I so ecstatic after I left {person} at the station?
+F6,5,emotion,high,devastated,Why was I so devastated after I left {person} at the station?
+F6,5,emotion,low,annoyed,Why was I so annoyed after I left {person} at the station?
+F6,5,emotion,low,anxious,Why was I so anxious after I left {person} at the station?
+F6,5,emotion,low,relieved,Why was I so relieved after I left {person} at the station?
+F6,5,emotion,low,disappointed,Why was I so disappointed after I left {person} at the station?
+F6,6,filler,,,Why was I so busy after I drove {person} home?
+F6,6,emotion,high,furious,Why was I so furious after I drove {person} home?
+F6,6,emotion,high,terrified,Why was I so terrified after I drove {person} home?
+F6,6,emotion,high,ecstatic,Why was I so ecstatic after I drove {person} home?
+F6,6,emotion,high,devastated,Why was I so devastated after I drove {person} home?
+F6,6,emotion,low,annoyed,Why was I so annoyed after I drove {person} home?
+F6,6,emotion,low,anxious,Why was I so anxious after I drove {person} home?
+F6,6,emotion,low,relieved,Why was I so relieved after I drove {person} home?
+F6,6,emotion,low,disappointed,Why was I so disappointed after I drove {person} home?
+F6,7,filler,,,Why was I so busy after I said goodbye to {person}?
+F6,7,emotion,high,furious,Why was I so furious after I said goodbye to {person}?
+F6,7,emotion,high,terrified,Why was I so terrified after I said goodbye to {person}?
+F6,7,emotion,high,ecstatic,Why was I so ecstatic after I said goodbye to {person}?
+F6,7,emotion,high,devastated,Why was I so devastated after I said goodbye to {person}?
+F6,7,emotion,low,annoyed,Why was I so annoyed after I said goodbye to {person}?
+F6,7,emotion,low,anxious,Why was I so anxious after I said goodbye to {person}?
+F6,7,emotion,low,relieved,Why was I so relieved after I said goodbye to {person}?
+F6,7,emotion,low,disappointed,Why was I so disappointed after I said goodbye to {person}?
+F7,0,filler,,,{person} was there at the meeting.
+F7,0,emotion,high,furious,{person} was furious at the meeting.
+F7,0,emotion,high,terrified,{person} was terrified at the meeting.
+F7,0,emotion,high,ecstatic,{person} was ecstatic at the meeting.
+F7,0,emotion,high,devastated,{person} was devastated at the meeting.
+F7,0,emotion,low,annoyed,{person} was annoyed at the meeting.
+F7,0,emotion,low,anxious,{person} was anxious at the meeting.
+F7,0,emotion,low,relieved,{person} was relieved at the meeting.
+F7,0,emotion,low,disappointed,{person} was disappointed at the meeting.
+F7,1,filler,,,{person} was there at the station.
+F7,1,emotion,high,furious,{person} was furious at the station.
+F7,1,emotion,high,terrified,{person} was terrified at the station.
+F7,1,emotion,high,ecstatic,{person} was ecstatic at the station.
+F7,1,emotion,high,devastated,{person} was devastated at the station.
+F7,1,emotion,low,annoyed,{person} was annoyed at the station.
+F7,1,emotion,low,anxious,{person} was anxious at the station.
+F7,1,emotion,low,relieved,{person} was relieved at the station.
+F7,1,emotion,low,disappointed,{person} was disappointed at the station.
+F7,2,filler,,,{person} was there at the party.
+F7,2,emotion,high,furious,{person} was furious at the party.
+F7,2,emotion,high,terrified,{person} was terrified at the party.
+F7,2,emotion,high,ecstatic,{person} was ecstatic at the party.
+F7,2,emotion,high,devastated,{person} was devastated at the party.
+F7,2,emotion,low,annoyed,{person} was annoyed at the party.
+F7,2,emotion,low,anxious,{person} was anxious at the party.
+F7,2,emotion,low,relieved,{person} was relieved at the party.
+F7,2,emotion,low,disappointed,{person} was disappointed at the party.
+F7,3,filler,,,{person} was there in the office.
+F7,3,emotion,high,furious,{person} was furious in the office.
+F7,3,emotion,high,terrified,{person} was terrified in the office.
+F7,3,emotion,high,ecstatic,{person} was ecstatic in the office.
+F7,3,emotion,high,devastated,{person} was devastated in the office.
+F7,3,emotion,low,annoyed,{person} was annoyed in the office.
+F7,3,emotion,low,anxious,{person} was anxious in the office.
+F7,3,emotion,low,relieved,{person} was relieved in the office.
+F7,3,emotion,low,disappointed,{person} was disappointed in the office.
+F7,4,filler,,,{person} was there at the airport.
+F7,4,emotion,high,furious,{person} was furious at the airport.
+F7,4,emotion,high,terrified,{person} was terrified at the airport.
+F7,4,emotion,high,ecstatic,{person} was ecstatic at the airport.
+F7,4,emotion,high,devastated,{person} was devastated at the airport.
+F7,4,emotion,low,annoyed,{person} was annoyed at the airport.
+F7,4,emotion,low,anxious,{person} was anxious at the airport.
+F7,4,emotion,low,relieved,{person} was relieved at the airport.
+F7,4,emotion,low,disappointed,{person} was disappointed at the airport.
+F7,5,filler,,,{person} was there in the garden.
+F7,5,emotion,high,furious,{person} was furious in the garden.
+F7,5,emotion,high,terrified,{person} was terrified in the garden.
+F7,5,emotion,high,ecstatic,{person} was ecstatic in the garden.
+F7,5,emotion,high,devastated,{person} was devastated in the garden.
+F7,5,emotion,low,annoyed,{person} was annoyed in the garden.
+F7,5,emotion,low,anxious,{person} was anxious in the garden.
+F7,5,emotion,low,relieved,{person} was relieved in the garden.
+F7,5,emotion,low,disappointed,{person} was disappointed in the garden.
+F7,6,filler,,,{person} was there at the concert.
+F7,6,emotion,high,furious,{person} was furious at the concert.
+F7,6,emotion,high,terrified,{person} was terrified at the concert.
+F7,6,emotion,high,ecstatic,{person} was ecstatic at the concert.
+F7,6,emotion,high,devastated,{person} was devastated at the concert.
+F7,6,emotion,low,annoyed,{person} was annoyed at the concert.
+F7,6,emotion,low,anxious,{person} was anxious at the concert.
+F7,6,emotion,low,relieved,{person} was relieved at the concert.
+F7,6,emotion,low,disappointed,{person} was disappointed at the concert.
+F7,7,filler,,,{person} was there in the kitchen.
+F7,7,emotion,high,furious,{person} was furious in the kitchen.
+F7,7,emotion,high,terrified,{person} was terrified in the kitchen.
+F7,7,emotion,high,ecstatic,{person} was ecstatic in the kitchen.
+F7,7,emotion,high,devastated,{person} was devastated in the kitchen.
+F7,7,emotion,low,annoyed,{person} was annoyed in the kitchen.
+F7,7,emotion,low,anxious,{person} was anxious in the kitchen.
+F7,7,emotion,low,relieved,{person} was relieved in the kitchen.
+F7,7,emotion,low,disappointed,{person} was disappointed in the kitchen.
+F8,0,filler,,,I called {person} because I was nearby.
+F8,0,emotion,high,furious,I called {person} because I was furious.
+F8,0,emotion,high,terrified,I called {person} because I was terrified.
+F8,0,emotion,high,ecstatic,I called {person} because I was ecstatic.
+F8,0,emotion,high,devastated,I called {person} because I was devastated.
+F8,0,emotion,low,annoyed,I called {person} because I was annoyed.
+F8,0,emotion,low,anxious,I called {person} because I was anxious.
+F8,0,emotion,low,relieved,I called {person} because I was relieved.
+F8,0,emotion,low,disappointed,I called {person} because I was disappointed.
+F8,1,filler,,,I visited {person} because I was nearby.
+F8,1,emotion,high,furious,I visited {person} because I was furious.
+F8,1,emotion,high,terrified,I visited {person} because I was terrified.
+F8,1,emotion,high,ecstatic,I visited {person} because I was ecstatic.
+F8,1,emotion,high,devastated,I visited {person} because I was devastated.
+F8,1,emotion,low,annoyed,I visited {person} because I was annoyed.
+F8,1,emotion,low,anxious,I visited {person} because I was anxious.
+F8,1,emotion,low,relieved,I visited {person} because I was relieved.
+F8,1,emotion,low,disappointed,I visited {person} because I was disappointed.
+F8,2,filler,,,I stayed with {person} because I was nearby.
+F8,2,emotion,high,furious,I stayed with {person} because I was furious.
+F8,2,emotion,high,terrified,I stayed with {person} because I was terrified.
+F8,2,emotion,high,ecstatic,I stayed with {person} because I was ecstatic.
+F8,2,emotion,high,devastated,I stayed with {person} because I was devastated.
+F8,2,emotion,low,annoyed,I stayed with {person} because I was annoyed.
+F8,2,emotion,low,anxious,I stayed with {person} because I was anxious.
+F8,2,emotion,low,relieved,I stayed with {person} because I was relieved.
+F8,2,emotion,low,disappointed,I stayed with {person} because I was disappointed.
+F8,3,filler,,,I went to see {person} because I was nearby.
+F8,3,emotion,high,furious,I went to see {person} because I was furious.
+F8,3,emotion,high,terrified,I went to see {person} because I was terrified.
+F8,3,emotion,high,ecstatic,I went to see {person} because I was ecstatic.
+F8,3,emotion,high,devastated,I went to see {person} because I was devastated.
+F8,3,emotion,low,annoyed,I went to see {person} because I was annoyed.
+F8,3,emotion,low,anxious,I went to see {person} because I was anxious.
+F8,3,emotion,low,relieved,I went to see {person} because I was relieved.
+F8,3,emotion,low,disappointed,I went to see {person} because I was disappointed.
+F8,4,filler,,,I wrote to {person} because I was nearby.
+F8,4,emotion,high,furious,I wrote to {person} because I was furious.
+F8,4,emotion,high,terrified,I wrote to {person} because I was terrified.
+F8,4,emotion,high,ecstatic,I wrote to {person} because I was ecstatic.
+F8,4,emotion,high,devastated,I wrote to {person} because I was devastated.
+F8,4,emotion,low,annoyed,I wrote to {person} because I was annoyed.
+F8,4,emotion,low,anxious,I wrote to {person} because I was anxious.
+F8,4,emotion,low,relieved,I wrote to {person} because I was relieved.
+F8,4,emotion,low,disappointed,I wrote to {person} because I was disappointed.
+F8,5,filler,,,I waited for {person} because I was nearby.
+F8,5,emotion,high,furious,I waited for {person} because I was furious.
+F8,5,emotion,high,terrified,I waited for {person} because I was terrified.
+F8,5,emotion,high,ecstatic,I waited for {person} because I was ecstatic.
+F8,5,emotion,high,devastated,I waited for {person} because I was devastated.
+F8,5,emotion,low,annoyed,I waited for {person} because I was annoyed.
+F8,5,emotion,low,anxious,I waited for {person} because I was anxious.
+F8,5,emotion,low,relieved,I waited for {person} because I was relieved.
+F8,5,emotion,low,disappointed,I waited for {person} because I was disappointed.
+F8,6,filler,,,I drove over to {person} because I was nearby.
+F8,6,emotion,high,furious,I drove over to {person} because I was furious.
+F8,6,emotion,high,terrified,I drove over to {person} because I was terrified.
+F8,6,emotion,high,ecstatic,I drove over to {person} because I was ecstatic.
+F8,6,emotion,high,devastated,I drove over to {person} because I was devastated.
+F8,6,emotion,low,annoyed,I drove over to {person} because I was annoyed.
+F8,6,emotion,low,anxious,I drove over to {person} because I was anxious.
+F8,6,emotion,low,relieved,I drove over to {person} because I was relieved.
+F8,6,emotion,low,disappointed,I drove over to {person} because I was disappointed.
+F8,7,filler,,,I sat with {person} because I was nearby.
+F8,7,emotion,high,furious,I sat with {person} because I was furious.
+F8,7,emotion,high,terrified,I sat with {person} because I was terrified.
+F8,7,emotion,high,ecstatic,I sat with {person} because I was ecstatic.
+F8,7,emotion,high,devastated,I sat with {person} because I was devastated.
+F8,7,emotion,low,annoyed,I sat with {person} because I was annoyed.
+F8,7,emotion,low,anxious,I sat with {person} because I was anxious.
+F8,7,emotion,low,relieved,I sat with {person} because I was relieved.
+F8,7,emotion,low,disappointed,I sat with {person} because I was disappointed.

@@ -1,0 +1,173 @@
+{
+  "n_models": 18,
+  "bonferroni_alpha": 0.001388888888888889,
+  "failed": [],
+  "fleet": [
+    {
+      "axis": "gender",
+      "scale": "e",
+      "subset": "eec_neutral",
+      "n_pairs": 176,
+      "models_flagged": 9,
+      "median_abs_delta": 0.0153,
+      "median_abs_dz": 0.2867
+    },
+    {
+      "axis": "gender",
+      "scale": "e",
+      "subset": "emotional",
+      "n_pairs": 1540,
+      "models_flagged": 12,
+      "median_abs_delta": 0.0127,
+      "median_abs_dz": 0.1556
+    },
+    {
+      "axis": "gender",
+      "scale": "e",
+      "subset": "full",
+      "n_pairs": 1584,
+      "models_flagged": 12,
+      "median_abs_delta": 0.0132,
+      "median_abs_dz": 0.1565
+    },
+    {
+      "axis": "gender",
+      "scale": "e",
+      "subset": "neutral",
+      "n_pairs": 44,
+      "models_flagged": 6,
+      "median_abs_delta": 0.0145,
+      "median_abs_dz": 0.2807
+    },
+    {
+      "axis": "gender",
+      "scale": "logit",
+      "subset": "eec_neutral",
+      "n_pairs": 176,
+      "models_flagged": 10,
+      "median_abs_delta": 0.0682,
+      "median_abs_dz": 0.3465
+    },
+    {
+      "axis": "gender",
+      "scale": "logit",
+      "subset": "emotional",
+      "n_pairs": 1540,
+      "models_flagged": 13,
+      "median_abs_delta": 0.1222,
+      "median_abs_dz": 0.159
+    },
+    {
+      "axis": "gender",
+      "scale": "logit",
+      "subset": "full",
+      "n_pairs": 1584,
+      "models_flagged": 13,
+      "median_abs_delta": 0.1201,
+      "median_abs_dz": 0.1615
+    },
+    {
+      "axis": "gender",
+      "scale": "logit",
+      "subset": "neutral",
+      "n_pairs": 44,
+      "models_flagged": 6,
+      "median_abs_delta": 0.0875,
+      "median_abs_dz": 0.395
+    },
+    {
+      "axis": "race",
+      "scale": "e",
+      "subset": "eec_neutral",
+      "n_pairs": 16,
+      "models_flagged": 6,
+      "median_abs_delta": 0.0075,
+      "median_abs_dz": 0.4824
+    },
+    {
+      "axis": "race",
+      "scale": "e",
+      "subset": "emotional",
+      "n_pairs": 140,
+      "models_flagged": 9,
+      "median_abs_delta": 0.0129,
+      "median_abs_dz": 0.2651
+    },
+    {
+      "axis": "race",
+      "scale": "e",
+      "subset": "full",
+      "n_pairs": 144,
+      "models_flagged": 9,
+      "median_abs_delta": 0.0134,
+      "median_abs_dz": 0.2779
+    },
+    {
+      "axis": "race",
+      "scale": "e",
+      "subset": "neutral",
+      "n_pairs": 4,
+      "models_flagged": 0,
+      "median_abs_delta": 0.0062,
+      "median_abs_dz": 0.5622
+    },
+    {
+      "axis": "race",
+      "scale": "logit",
+      "subset": "eec_neutral",
+      "n_pairs": 16,
+      "models_flagged": 6,
+      "median_abs_delta": 0.036,
+      "median_abs_dz": 0.593
+    },
+    {
+      "axis": "race",
+      "scale": "logit",
+      "subset": "emotional",
+      "n_pairs": 140,
+      "models_flagged": 10,
+      "median_abs_delta": 0.1221,
+      "median_abs_dz": 0.3968
+    },
+    {
+      "axis": "race",
+      "scale": "logit",
+      "subset": "full",
+      "n_pairs": 144,
+      "models_flagged": 11,
+      "median_abs_delta": 0.1205,
+      "median_abs_dz": 0.3896
+    },
+    {
+      "axis": "race",
+      "scale": "logit",
+      "subset": "neutral",
+      "n_pairs": 4,
+      "models_flagged": 0,
+      "median_abs_delta": 0.0328,
+      "median_abs_dz": 0.5621
+    }
+  ],
+  "neutral_vs_full": [
+    {
+      "axis": "gender",
+      "scale": "e",
+      "models_neutral_absdelta_gt_full": 8
+    },
+    {
+      "axis": "gender",
+      "scale": "logit",
+      "models_neutral_absdelta_gt_full": 4
+    },
+    {
+      "axis": "race",
+      "scale": "e",
+      "models_neutral_absdelta_gt_full": 4
+    },
+    {
+      "axis": "race",
+      "scale": "logit",
+      "models_neutral_absdelta_gt_full": 3
+    }
+  ]
+}

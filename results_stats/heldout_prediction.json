@@ -1,0 +1,13 @@
+{
+  "n_pairs": 15,
+  "n_splits": 200,
+  "n_significant_models": 10,
+  "rho_tv_median": 0.8844,
+  "rho_tv_p05": 0.7934,
+  "rho_logit_median": 0.8514,
+  "rho_logit_p05": 0.8183,
+  "agree_sig_tv_min": 10,
+  "agree_sig_tv_all_splits": true,
+  "agree_sig_logit_median": 9,
+  "agree_sig_logit_min": 9
+}

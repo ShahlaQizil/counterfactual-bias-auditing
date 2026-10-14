@@ -1,0 +1,42 @@
+{
+  "model": "j-hartmann/sentiment-roberta-large-english-3-classes",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.0004,
+    "filler": 0.0001,
+    "emotion": 0.0053
+  },
+  "filler_vs_emotion": {
+    "ratio": 0.017,
+    "ratio_ci": [
+      0.012,
+      0.024
+    ],
+    "diff": -0.0052,
+    "diff_ci": [
+      -0.0071,
+      -0.0039
+    ],
+    "n_templates_higher": 0,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 0.07,
+    "ratio_ci": [
+      0.037,
+      0.122
+    ],
+    "diff": -0.0049,
+    "diff_ci": [
+      -0.0065,
+      -0.0036
+    ],
+    "n_templates_higher": 0,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.9982,
+    "emotion": 0.0764,
+    "filler": 0.9989
+  }
+}

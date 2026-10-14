@@ -1,0 +1,42 @@
+{
+  "model": "lxyuan/distilbert-base-multilingual-cased-sentiments-student",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.0407,
+    "filler": 0.0323,
+    "emotion": 0.0266
+  },
+  "filler_vs_emotion": {
+    "ratio": 1.214,
+    "ratio_ci": [
+      0.978,
+      1.47
+    ],
+    "diff": 0.0057,
+    "diff_ci": [
+      -0.0006,
+      0.013
+    ],
+    "n_templates_higher": 14,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 1.528,
+    "ratio_ci": [
+      1.147,
+      1.96
+    ],
+    "diff": 0.014,
+    "diff_ci": [
+      0.0039,
+      0.0258
+    ],
+    "n_templates_higher": 15,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.2321,
+    "emotion": 0.1079,
+    "filler": 0.2376
+  }
+}

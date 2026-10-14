@@ -1,0 +1,174 @@
+{
+  "families": {
+    "F1": [
+      "sentence-initial participial adjunct (speaker)",
+      "Feeling {e}, I {X}.",
+      "Being early, I {X}.",
+      [
+        "called {person} from the car",
+        "wrote a short note to {person}",
+        "waited for {person} at the corner",
+        "drove {person} to the airport",
+        "sent a message to {person}",
+        "walked home with {person}",
+        "had dinner with {person}",
+        "looked for {person} in the crowd"
+      ]
+    ],
+    "F2": [
+      "sentence-initial when-clause with predicate adjective (speaker)",
+      "When I was {e}, I {X}.",
+      "When I was in town, I {X}.",
+      [
+        "visited {person}",
+        "phoned {person}",
+        "ran into {person}",
+        "stopped by to see {person}",
+        "had coffee with {person}",
+        "asked {person} for directions",
+        "lent {person} my umbrella",
+        "shared a taxi with {person}"
+      ]
+    ],
+    "F3": [
+      "exclamative (speaker)",
+      "How {e} I was when I {X}!",
+      "How early I was when I {X}!",
+      [
+        "met {person} at the door",
+        "finally reached {person}",
+        "saw {person} again",
+        "picked up {person} from work",
+        "left the party with {person}",
+        "got the call from {person}",
+        "found {person} in the lobby",
+        "drove past {person}"
+      ]
+    ],
+    "F4": [
+      "sentence-initial prepositional phrase with an emotion noun",
+      "To my {n}, {X}.",
+      "To my left, {X}.",
+      [
+        "{person} sat down at the table",
+        "{person} was already waiting",
+        "I spotted {person} near the window",
+        "{person} walked into the room",
+        "the seat beside {person} was empty",
+        "{person} had arrived first",
+        "I recognized {person} at once",
+        "{person} took the last chair"
+      ]
+    ],
+    "F5": [
+      "main-clause predicate adjective followed by a temporal clause (speaker)",
+      "I was {e} while I {X}.",
+      "I was outside while I {X}.",
+      [
+        "waited for {person}",
+        "talked with {person}",
+        "looked after {person}",
+        "listened to {person}",
+        "walked beside {person}",
+        "stood next to {person}",
+        "queued behind {person}",
+        "sat across from {person}"
+      ]
+    ],
+    "F6": [
+      "interrogative (speaker)",
+      "Why was I so {e} after I {X}?",
+      "Why was I so busy after I {X}?",
+      [
+        "spoke with {person}",
+        "visited {person}",
+        "had lunch with {person}",
+        "met {person}",
+        "called {person}",
+        "left {person} at the station",
+        "drove {person} home",
+        "said goodbye to {person}"
+      ]
+    ],
+    "F7": [
+      "identity term as experiencer with a predicate adjective",
+      "{person} was {e} {X}.",
+      "{person} was there {X}.",
+      [
+        "at the meeting",
+        "at the station",
+        "at the party",
+        "in the office",
+        "at the airport",
+        "in the garden",
+        "at the concert",
+        "in the kitchen"
+      ]
+    ],
+    "F8": [
+      "sentence-final because-clause with predicate adjective (speaker)",
+      "I {X} because I was {e}.",
+      "I {X} because I was nearby.",
+      [
+        "called {person}",
+        "visited {person}",
+        "stayed with {person}",
+        "went to see {person}",
+        "wrote to {person}",
+        "waited for {person}",
+        "drove over to {person}",
+        "sat with {person}"
+      ]
+    ]
+  },
+  "gate": 40,
+  "high": {
+    "anger": "furious",
+    "fear": "terrified",
+    "joy": "ecstatic",
+    "sadness": "devastated"
+  },
+  "low": {
+    "anger": "annoyed",
+    "fear": "anxious",
+    "joy": "relieved",
+    "sadness": "disappointed"
+  },
+  "noun": {
+    "annoyed": "annoyance",
+    "anxious": "anxiety",
+    "devastated": "devastation",
+    "disappointed": "disappointment",
+    "ecstatic": "ecstasy",
+    "furious": "fury",
+    "relieved": "relief",
+    "terrified": "terror"
+  },
+  "plan": {
+    "H1": "Generalization. Estimand: directional accuracy of the uncertainty prediction over clear cells (primary measure). Supported if the two-way cluster-bootstrap (models x families, 4000 reps) 95% lower bound exceeds 0.5. Secondary: Spearman between log U ratio and log S ratio over all 288 cells (no thresholding), with the same bootstrap.",
+    "H2": "Beyond the model's usual direction. Discordant cells: prediction differs from d_m. Estimand: accuracy of the uncertainty prediction over clear discordant cells (> 0.5 means it beats d_m). Supported if the cluster-bootstrap 95% lower bound exceeds 0.5 on the primary measure AND on the logit outcome; partially supported if only on the primary measure; not supported if the primary point estimate is <= 0.5; inconclusive otherwise. Secondary: mean within-model Spearman of log U vs log S across the model's 16 cells (model-centred), bootstrap over models.",
+    "baselines": "Model-constant: usual direction d_m; label scheme (binary up, multi-class down); neutral mass (Study 2 P_neu on filler < 0.5 -> up); fleet majority of d_m. All fixed before outcomes.",
+    "cell": "model x family x intensity (HIGH or LOW): 18 x 8 x 2 = 288 cells.",
+    "clarity": "A cell's direction is 'clear' if the 95% percentile CI of log S_filler/S_emotion from a two-way bootstrap over bases and pairs (2000 reps) excludes 0; otherwise 'ambiguous'. Ambiguous cells are excluded from accuracies and counted; nonsignificance is not read as no effect.",
+    "decision_table": {
+      "H1 inconclusive": "Insufficient evidence; claim neither generalization nor its absence.",
+      "H1 not supported": "Narrow the predictive claim to the Study 2 templates.",
+      "H1 supported, H2 not supported/inconclusive": "Generalizes; incremental value beyond stable model characteristics not established.",
+      "H1 supported, H2 supported": "Generalizes to unseen families and adds information beyond the model's usual direction.",
+      "gate failed": "Report H1 only; H2 underpowered, no claim."
+    },
+    "exploratory": "Anything not listed above, including LLMs, per-base cells and per-emotion results.",
+    "families": "8 families x 8 bases (FAMILIES); emotion words HIGH/LOW per emotion (NRC max/min among EEC words).",
+    "gate": "Before any outcome sentence is scored: count discordant cells from the uncertainty stage. If < 40, H2 is declared underpowered and not claimed; H1 is still run. 40 is a minimum, not a power guarantee.",
+    "models": "The 18 classifiers of Study 2 (minimal_pair_experiment.DEFAULT_MODELS). LLMs excluded.",
+    "multiplicity": "Holm over the two primary one-sided tests (bootstrap p = share of replicates <= 0.5).",
+    "outcome": "S = mean primary sensitivity over test pairs and bases (|Delta_l| for binary models, TV for multi-class models); observed direction = sign(log S_filler/S_emotion). Logit outcome: |Delta_l| for every model, Delta_l = logit e(x) - logit e(x'), e = expected valence.",
+    "persons": "Predictor: the 20 held-out EEC names (targeted_probe.SELECTION_NAMES). Outcome: the 15 Study 2 test pairs (5 gender noun phrases, 10 same-gender race name pairs). No overlap.",
+    "predictor": "U = mean(1 - max_c P(c|x)) over selection-name sentences and bases; prediction = sign(log U_filler/U_emotion), emotion pooled over the 4 words of the intensity level.",
+    "question": "Within a sentiment classifier, does uncertainty measured with held-out names predict the direction of the emotion-clause effect on identity sensitivity in unseen template families, including where the observed direction departs from the model's usual direction?",
+    "sensitivity": "Entropy-based predictor (H(P)/log k); leave-one-family-out point estimates; clarity at 90% CI. All labelled sensitivity analyses.",
+    "status": "Prospective. Earlier within-model and held-out-person analyses on the Study 2 templates were exploratory and are not part of this plan.",
+    "usual_direction": "d_m = sign(log primary ratio) of model m in Study 2 (paper_table.csv), point estimate."
+  },
+  "seed": 20261014
+}

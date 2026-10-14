@@ -1,0 +1,13 @@
+model,set,axis,n,mean_abs_delta,d_z,p,flagged,mean_unc
+nlptown/bert-base-multilingual-uncased-sentiment,targeted,gender,80,0.0953231351336188,-0.5399616150199017,6.58076708432822e-06,True,0.668097130395665
+nlptown/bert-base-multilingual-uncased-sentiment,targeted,placebo,256,0.143393855303887,-0.1438045022541054,0.0222061418393203,False,0.7467180170665846
+nlptown/bert-base-multilingual-uncased-sentiment,targeted,race,160,0.1578034467296476,-0.5332750501497908,2.683388977780708e-10,True,0.7458647899289493
+nlptown/bert-base-multilingual-uncased-sentiment,random,gender,80,0.0403031131792604,-0.2565598328425099,0.0244027757431638,False,0.4845341282518263
+nlptown/bert-base-multilingual-uncased-sentiment,random,placebo,256,0.0657803197163824,-0.0475302895682069,0.4476675397398155,False,0.5038377888577122
+nlptown/bert-base-multilingual-uncased-sentiment,random,race,160,0.0688459251648658,-0.2713912014482371,0.0007615152163163,True,0.5042121359550285
+nlptown/bert-base-multilingual-uncased-sentiment,neutral,gender,80,0.1465900558496836,-0.6903612435077396,2.6863210871474736e-08,True,0.6031920038920476
+nlptown/bert-base-multilingual-uncased-sentiment,neutral,placebo,256,0.1271399764452329,-0.0923258216899519,0.140852455135106,False,0.6855552732889714
+nlptown/bert-base-multilingual-uncased-sentiment,neutral,race,160,0.1402280619318072,-0.4606417424355947,3.048881839460942e-08,True,0.6847250685063929
+nlptown/bert-base-multilingual-uncased-sentiment,emotional,gender,80,0.0603909796313567,-0.1834115909977517,0.1048806990529612,False,0.5780397009104262
+nlptown/bert-base-multilingual-uncased-sentiment,emotional,placebo,256,0.0873806682639092,-0.1640737836514862,0.0091834299881641,False,0.5793715692982916
+nlptown/bert-base-multilingual-uncased-sentiment,emotional,race,160,0.0912524935556149,-0.4002808181932594,1.129383253355379e-06,True,0.5789925112783477

@@ -1,0 +1,42 @@
+{
+  "model": "yiyanghkust/finbert-tone",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.009,
+    "filler": 0.0003,
+    "emotion": 0.0753
+  },
+  "filler_vs_emotion": {
+    "ratio": 0.004,
+    "ratio_ci": [
+      0.0,
+      0.02
+    ],
+    "diff": -0.075,
+    "diff_ci": [
+      -0.0876,
+      -0.0628
+    ],
+    "n_templates_higher": 0,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 0.12,
+    "ratio_ci": [
+      0.002,
+      0.431
+    ],
+    "diff": -0.0662,
+    "diff_ci": [
+      -0.0833,
+      -0.0414
+    ],
+    "n_templates_higher": 1,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.9927,
+    "emotion": 0.5744,
+    "filler": 0.9997
+  }
+}

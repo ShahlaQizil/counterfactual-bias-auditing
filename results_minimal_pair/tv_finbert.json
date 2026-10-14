@@ -1,0 +1,42 @@
+{
+  "model": "ProsusAI/finbert",
+  "status": "ok",
+  "mean_tv": {
+    "bare": 0.0216,
+    "filler": 0.0147,
+    "emotion": 0.0477
+  },
+  "filler_vs_emotion": {
+    "ratio": 0.308,
+    "ratio_ci": [
+      0.214,
+      0.435
+    ],
+    "diff": -0.033,
+    "diff_ci": [
+      -0.0425,
+      -0.0248
+    ],
+    "n_templates_higher": 0,
+    "n_templates": 16
+  },
+  "bare_vs_emotion": {
+    "ratio": 0.454,
+    "ratio_ci": [
+      0.276,
+      0.707
+    ],
+    "diff": -0.0261,
+    "diff_ci": [
+      -0.0375,
+      -0.014
+    ],
+    "n_templates_higher": 1,
+    "n_templates": 16
+  },
+  "neutral_mass": {
+    "bare": 0.8793,
+    "emotion": 0.4612,
+    "filler": 0.8672
+  }
+}

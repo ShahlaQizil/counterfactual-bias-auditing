@@ -1,0 +1,226 @@
+{
+  "reproduces_published_flags": {
+    "study1_mismatches": 0,
+    "study3_mismatches": 0
+  },
+  "original": {
+    "study1": {
+      "eec_neutral_gender": 10,
+      "eec_neutral_race": 6,
+      "emotional_gender": 13,
+      "emotional_race": 10,
+      "full_gender": 13,
+      "full_race": 11,
+      "neutral_gender": 6,
+      "neutral_race": 0
+    },
+    "study3": {
+      "emotional_gender": 2,
+      "emotional_placebo": 0,
+      "emotional_race": 8,
+      "neutral_gender": 6,
+      "neutral_placebo": 0,
+      "neutral_race": 5,
+      "random_gender": 5,
+      "random_placebo": 0,
+      "random_race": 6,
+      "targeted_gender": 10,
+      "targeted_placebo": 0,
+      "targeted_race": 8
+    },
+    "study1_derived": {
+      "gender": {
+        "full_not_eecn": 4,
+        "eecn_not_neutral4": 4,
+        "eecn_not_full": 1
+      },
+      "race": {
+        "full_not_eecn": 5,
+        "eecn_not_neutral4": 6,
+        "eecn_not_full": 0
+      }
+    },
+    "study3_mcnemar_targeted_vs": {
+      "gender_random": {
+        "only_first": 6,
+        "only_second": 1,
+        "p": 0.125
+      },
+      "gender_neutral": {
+        "only_first": 5,
+        "only_second": 1,
+        "p": 0.21875
+      },
+      "gender_emotional": {
+        "only_first": 8,
+        "only_second": 0,
+        "p": 0.0078125
+      },
+      "race_random": {
+        "only_first": 3,
+        "only_second": 1,
+        "p": 0.625
+      },
+      "race_neutral": {
+        "only_first": 3,
+        "only_second": 0,
+        "p": 0.25
+      },
+      "race_emotional": {
+        "only_first": 3,
+        "only_second": 3,
+        "p": 1.0
+      }
+    }
+  },
+  "cluster_template": {
+    "study1": {
+      "eec_neutral_gender": 7,
+      "eec_neutral_race": 6,
+      "emotional_gender": 3,
+      "emotional_race": 3,
+      "full_gender": 9,
+      "full_race": 6,
+      "neutral_gender": 0,
+      "neutral_race": 0
+    },
+    "study3": {
+      "emotional_gender": 1,
+      "emotional_placebo": 3,
+      "emotional_race": 2,
+      "neutral_gender": 6,
+      "neutral_placebo": 4,
+      "neutral_race": 5,
+      "random_gender": 2,
+      "random_placebo": 0,
+      "random_race": 3,
+      "targeted_gender": 6,
+      "targeted_placebo": 4,
+      "targeted_race": 5
+    },
+    "study1_derived": {
+      "gender": {
+        "full_not_eecn": 4,
+        "eecn_not_neutral4": 7,
+        "eecn_not_full": 2
+      },
+      "race": {
+        "full_not_eecn": 3,
+        "eecn_not_neutral4": 6,
+        "eecn_not_full": 3
+      }
+    },
+    "study3_mcnemar_targeted_vs": {
+      "gender_random": {
+        "only_first": 4,
+        "only_second": 0,
+        "p": 0.125
+      },
+      "gender_neutral": {
+        "only_first": 3,
+        "only_second": 3,
+        "p": 1.0
+      },
+      "gender_emotional": {
+        "only_first": 5,
+        "only_second": 0,
+        "p": 0.0625
+      },
+      "race_random": {
+        "only_first": 3,
+        "only_second": 1,
+        "p": 0.625
+      },
+      "race_neutral": {
+        "only_first": 1,
+        "only_second": 1,
+        "p": 1.0
+      },
+      "race_emotional": {
+        "only_first": 4,
+        "only_second": 1,
+        "p": 0.375
+      }
+    }
+  },
+  "cluster_twoway": {
+    "study1": {
+      "eec_neutral_gender": 1,
+      "eec_neutral_race": 6,
+      "emotional_gender": 0,
+      "emotional_race": 3,
+      "full_gender": 2,
+      "full_race": 6,
+      "neutral_gender": 0,
+      "neutral_race": 0
+    },
+    "study3": {
+      "emotional_gender": 0,
+      "emotional_placebo": 0,
+      "emotional_race": 0,
+      "neutral_gender": 0,
+      "neutral_placebo": 0,
+      "neutral_race": 0,
+      "random_gender": 0,
+      "random_placebo": 0,
+      "random_race": 0,
+      "targeted_gender": 0,
+      "targeted_placebo": 0,
+      "targeted_race": 0
+    },
+    "study1_derived": {
+      "gender": {
+        "full_not_eecn": 2,
+        "eecn_not_neutral4": 1,
+        "eecn_not_full": 1
+      },
+      "race": {
+        "full_not_eecn": 3,
+        "eecn_not_neutral4": 6,
+        "eecn_not_full": 3
+      }
+    },
+    "study3_mcnemar_targeted_vs": {
+      "gender_random": {
+        "only_first": 0,
+        "only_second": 0,
+        "p": 1.0
+      },
+      "gender_neutral": {
+        "only_first": 0,
+        "only_second": 0,
+        "p": 1.0
+      },
+      "gender_emotional": {
+        "only_first": 0,
+        "only_second": 0,
+        "p": 1.0
+      },
+      "race_random": {
+        "only_first": 0,
+        "only_second": 0,
+        "p": 1.0
+      },
+      "race_neutral": {
+        "only_first": 0,
+        "only_second": 0,
+        "p": 1.0
+      },
+      "race_emotional": {
+        "only_first": 0,
+        "only_second": 0,
+        "p": 1.0
+      }
+    }
+  },
+  "twitter_roberta_race": {
+    "emotional": {
+      "mean": 0.06293184016309912,
+      "flag_template": false
+    },
+    "eec_neutral": {
+      "mean": -0.028368096980018954,
+      "flag_template": true
+    }
+  }
+}

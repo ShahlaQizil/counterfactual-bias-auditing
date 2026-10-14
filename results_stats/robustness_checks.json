@@ -1,0 +1,58 @@
+{
+  "uncertainty_definitions": {
+    "maxprob_ratio_max_rel_deviation_from_paper": 3.099015022600682e-06,
+    "rho_tv_maxprob": 0.9091847265221877,
+    "rho_logit_maxprob": 0.8477027459052572,
+    "within_median_maxprob": 0.5999218221071531,
+    "within_positive_maxprob": 18,
+    "rho_tv_entropy": 0.9133126934984519,
+    "rho_logit_entropy": 0.8353124499845955,
+    "within_median_entropy": 0.6104608494563389,
+    "within_positive_entropy": 18,
+    "rho_tv_margin": 0.9112487100103198,
+    "rho_logit_margin": 0.8704182884264697,
+    "within_median_margin": 0.5972018034077947,
+    "within_positive_margin": 18,
+    "direction_agree_entropy": 15,
+    "direction_agree_margin": 18,
+    "natural_within_median_maxprob": 0.7391738831738832,
+    "natural_within_positive_maxprob": 22,
+    "natural_within_median_entropy": 0.744984456984457,
+    "natural_within_positive_entropy": 22,
+    "natural_within_median_margin": 0.7346669006669007,
+    "natural_within_positive_margin": 22,
+    "natural_systems": 22
+  },
+  "eec_equal_size": {
+    "dz_max_abs_deviation_from_published": 0.015831784310807256,
+    "gender": {
+      "eec_neutral_flags": 10,
+      "equal_size_emotional_expected_flags": 6.9,
+      "equal_size_emotional_majority_flags": 7,
+      "missed_by_eec_neutral": 4,
+      "missed_rates": [
+        1.0,
+        0.12,
+        0.8,
+        0.06
+      ],
+      "missed_detected_by_equal_size_emotional_majority": 2,
+      "eec_neutral_only_vs_equal_size": 5
+    },
+    "race": {
+      "eec_neutral_flags": 6,
+      "equal_size_emotional_expected_flags": 3.0,
+      "equal_size_emotional_majority_flags": 2,
+      "missed_by_eec_neutral": 5,
+      "missed_rates": [
+        0.2,
+        0.17,
+        0.01,
+        0.12,
+        0.11
+      ],
+      "missed_detected_by_equal_size_emotional_majority": 0,
+      "eec_neutral_only_vs_equal_size": 4
+    }
+  }
+}

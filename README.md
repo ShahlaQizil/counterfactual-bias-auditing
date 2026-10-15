@@ -1,6 +1,21 @@
 # Where Counterfactual Bias Tests Can See — code and results
 
-Anonymous release accompanying a double-blind submission.
+Code, frozen analysis plans, templates and per-model results for the paper
+"Where Counterfactual Bias Tests Can See: Predictive Uncertainty and Template
+Choice in Sentiment Audits". The manuscript source (`paper_v2.tex`) and its
+generated tables (`paper_tables/`) are included so that every reported number
+can be checked against these results (see the end of this file).
+
+## Requirements
+Python 3.13 with the package versions used for the paper:
+
+    pip install numpy==2.4.1 pandas==3.0.0 scipy==1.17.0 matplotlib==3.10.8 \
+                torch==2.11.0 transformers==5.8.0 sentencepiece==0.2.2
+
+The classifiers and LLMs are public Hugging Face checkpoints (identifiers in the
+paper's appendix and in `minimal_pair_experiment.py` and `llm_classifier.py`);
+they are downloaded on first use. Everything runs on CPU. Checking the paper's
+numbers from the saved results needs only numpy, pandas and scipy.
 
 ## Data
 The Equity Evaluation Corpus may not be redistributed. Download it from
@@ -38,6 +53,18 @@ Prospective test on unseen template families (plan frozen in results_template_fa
     python template_family_logspace.py       # exploratory: a sensitivity measure that does not saturate
 Paper artefacts:
     python make_paper_tables.py && python make_figure.py
-    python audit_numbers.py                # checks numbers in the paper against these results
+    python audit_numbers.py                # checks numbers in paper_v2.tex against these results
 
 Every script resumes from saved per-model results. Seeds are fixed (see SEED).
+
+## Scope and limitations
+The results concern 18 public sentiment classifiers and two instruction-tuned
+LLMs from one family, English synthetic templates (plus one natural-sentence
+check on IMDB reviews), binary gender expressions and name-based race proxies.
+Exploratory analyses added after a frozen plan are marked as such in the code
+and in the paper. See the paper's Limitations section.
+
+## Licence
+Code and result files: MIT (see `LICENSE`). Third-party data (the Equity
+Evaluation Corpus, the NRC Affect Intensity Lexicon, IMDB reviews) are not
+included and remain under their own terms.

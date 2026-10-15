@@ -1,0 +1,1684 @@
+% ============================================================================
+% Resubmission draft (v2). Springer LNCS format, anonymised for double-blind
+% review. Compile with pdflatex twice; the bibliography is embedded.
+% Per-model tables and the figure are generated into figures_tables/ by make_paper_tables.py / make_figure.py
+% and \input below -- include the figures_tables/ folder when uploading to
+% Overleaf.
+% Do NOT include data/ (the EEC licence forbids redistribution).
+% ============================================================================
+\documentclass[runningheads]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+% Generated table rows are read with TeX's primitive \@@input: LaTeX's \input
+% is not expandable and fails inside a tabular before \bottomrule.
+\makeatletter\newcommand{\inputrows}[1]{\@@input #1 }\makeatother
+\renewcommand\UrlFont{\color{blue!60!black}\ttfamily}
+
+\title{Where Counterfactual Bias Tests Can See: Predictive Uncertainty and
+Template Choice in Sentiment Audits}
+\titlerunning{Where Counterfactual Bias Tests Can See}
+\author{Anonymous Author(s)}
+\authorrunning{Anonymous}
+\institute{Anonymous Institution}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Counterfactual template audits test a classifier for social bias by swapping
+identity terms in fixed sentences. Prior work shows that the choice of templates
+can change an audit's result, and that the same change can raise measured bias
+for one model and lower it for another, but not when or in which direction. For
+one template dimension in sentiment audits, we show that predictive uncertainty
+anticipates the direction: a swap barely moves a saturated output, so an audit
+registers identity effects mainly where the model is uncertain, and where that
+is differs sharply between models. Across 18 sentiment classifiers, replacing an
+emotion-bearing clause with a matched filler clause raises identity sensitivity
+in some models and lowers it in others. Across the 18 classifiers and four
+original-prompt LLM configurations, the sensitivity ratio tracks the uncertainty
+ratio (Spearman $\rho{=}0.90$); across 12 LLM prompt variants, which share
+weights, the association is weaker ($\rho{=}0.66$). In a test fixed in advance
+on eight unseen template families, uncertainty measured with held-out names
+predicts the direction of sensitivity on the primary, probability-scale measure
+in 93\% of cells with a clear effect, including where a model departs from its
+usual direction; on log-scale measures its value beyond each model's usual
+direction was not established, so the prediction concerns where audits can see identity effects rather than the
+models' underlying response. In a replication of the Equity Evaluation Corpus,
+the type and number of templates, the scoring of multi-class outputs and, most
+strongly, whether the significance test treats identity terms as fixed or
+sampled change audit verdicts. Under the original paired test, uncertainty-aware
+template selection flags a significant directional gender disparity in 10 of 18
+classifiers, against at most 6 for standard template sets of equal size, but
+this advantage does not survive a cluster-robust test. We argue that
+counterfactual audits should report template coverage, output measure and model
+uncertainty.
+
+\keywords{Fairness auditing \and Counterfactual evaluation \and Sentiment
+analysis \and Equity Evaluation Corpus \and Template-based bias tests.}
+\end{abstract}
+
+% ----------------------------------------------------------------------------
+\section{Introduction}
+Counterfactual template audits are a standard way to test text classifiers for
+social bias~\cite{dixon2018,garg2019,prabhakaran2019,kiritchenko2018}. The
+auditor fills a fixed set of sentence templates with person terms that differ
+in gender or race and checks whether the model's output changes. Such audits
+rest on an assumption that is rarely examined: that the choice of templates
+does not decide the verdict. Whether it holds is a question of measurement
+validity~\cite{jacobs2021}: does the audit's result reflect the model, or the
+design of the audit?
+
+There is a simple reason to doubt this assumption. When a model's output is already
+saturated, an identity swap may produce little observable change: a model that
+is 99.9\% confident about a sentence has little room to move, whichever person
+the sentence mentions. Because saturation varies across models and template
+sets, the same counterfactual audit can reveal different amounts of identity
+sensitivity depending on which templates it uses. An audit may therefore
+register identity effects mainly on templates where the model is uncertain,
+and which templates make a model uncertain can differ from one model to the
+next. If so, the same template set can be
+revealing for one model and nearly blind for another, and an audit's verdict
+depends on how its templates interact with the model's confidence. This
+premise is close to mechanical; its consequences for audit design are not, and
+they are what this paper tests.
+
+Two terms need care. We call the size of the output change under an identity
+swap \emph{counterfactual sensitivity}, and a consistent shift against one
+group \emph{directional bias}; neither is a measure of harm, which depends on
+how a system is used (\S\ref{sec:construct}). Following the EEC, gender is
+represented by binary expressions and race by first names used as proxies, so
+our results concern these operationalisations rather than gender or race in
+general (\S\ref{sec:categories}).
+
+It is already known that template-based bias estimates are fragile. On the
+EEC's emotional templates, meaning-preserving rewordings changed the
+significance verdict of a fine-tuned sentiment model for about a third of the
+reworded templates, in one case reversing its direction~\cite{seshadri2022}; small
+changes in benchmark construction, such as added clauses, change measured bias
+and the ranking of models, and the same change can raise measured bias for one
+model and lower it for another~\cite{selvam2023}; template prompts and natural
+sentences can lead to different conclusions~\cite{alnegheimish2022}; and bias
+metrics often disagree with one another~\cite{delobelle2022}. What is missing
+is an account of \emph{when} a given template set over- or under-states a given
+model's bias, and in which direction; Selvam et al.\ note that it is hard to
+anticipate how a linguistic change will affect measured bias.
+
+The saturation premise alone predicts only that identity effects are hard to
+observe where a model is confident. Applied model by model, with each model's
+uncertainty measured on each template set, it also anticipates the direction of
+template effects. For one template dimension in sentiment audits, the presence
+of an emotion-bearing clause, we show that the same change of template raises
+identity sensitivity in models that it leaves less certain and lowers it in
+models that it leaves more certain; that a model's uncertainty measured on one
+set of person terms predicts the direction of probability-scale sensitivity on
+another, also on unseen template families in a test fixed in advance; and that
+these uncertainty profiles differ sharply between models. In one widely used benchmark we further show that the
+verdict depends on the type and the number of templates, which an equal-size
+comparison separates, on how a multi-class output is reduced to a score, and,
+most strongly, on whether the significance test treats identity terms as fixed
+or sampled.
+The practical
+consequence is a reporting practice rather than a new benchmark: an audit should
+report the model's uncertainty on each template set, and a small number of
+significant detections should not, on its own, be read as reassurance.
+
+We study this through a pattern in the Equity Evaluation Corpus
+(EEC)~\cite{kiritchenko2018}, a widely used benchmark of 8,640 sentences built
+from eleven templates, seven with an emotion word and four without. Across 219
+systems submitted to a SemEval-2018 shared task, Kiritchenko and Mohammad found
+that gender-related score differences on the four emotion-free templates tended
+to be \emph{larger} than on the full corpus, while far fewer systems were
+significantly biased on them (for anger-intensity prediction, 3 of 46 instead
+of 34 of 46). They attributed the drop to statistical power: the neutral subset
+supports 44 paired comparisons, the full set 1,584~\cite[Sec.~5.1]{kiritchenko2018}.
+The larger differences were noted but not examined further. Emotion words are a
+natural test case for the premise above, because they push many models towards
+confident predictions. We work with the EEC because it is an established
+benchmark for counterfactual sentiment-bias evaluation: the blind spots of an
+established audit instrument matter in practice, so we examine the instrument as
+it is designed, including the
+limits of its identity categories (\S\ref{sec:categories}). Our findings
+therefore concern template audits of this kind, not every measure of bias. We
+ask three questions:
+\begin{description}
+  \item[RQ1] Does the EEC neutral-template pattern replicate across current
+  sentiment classifiers, and does a larger neutral template set change which
+  biases are detected?
+  \item[RQ2] Holding the template fixed, does replacing an emotion-bearing
+  clause with a matched filler clause increase the model's sensitivity to the
+  identity term?
+  \item[RQ3] What predicts the direction and size of this effect across models,
+  and can that be used to choose templates on which more models show a
+  significant directional disparity?
+\end{description}
+
+We audit 18 public sentiment classifiers (binary, three-class and five-class),
+and two instruction-tuned LLMs used as zero-shot classifiers, with three
+studies. The first replicates the EEC template and pairing protocol, adapting
+the output measures to the available sentiment classifiers, and extends it with
+EEC-Neutral, a set of 16 emotion-free templates. The second is a minimal-pair
+probe that controls the main confound in the EEC comparison, whose neutral and
+emotional sentences come from different templates: here every template appears
+with an emotion-bearing clause and with a structurally matched filler clause.
+The third turns the premise into a procedure, uncertainty-aware template
+selection, and tests whether it flags directional disparities in more models, with a placebo
+control. A fourth study tests the uncertainty account prospectively on eight
+unseen template families, and a final check repeats the main analyses on
+natural sentences.
+
+\paragraph{Contributions.} In one sentence: a template audit sees identity
+effects mainly where a model's outputs are not saturated, so its verdicts depend
+on the templates, the output scale and the statistical test, none of which
+audits usually report. Prior work shows that template choices can change an
+audit's verdict, and that the same change can move measured bias up for one
+model and down for another~\cite{seshadri2022,selvam2023}. Our primary
+contribution is to show, for one template dimension in sentiment audits, when
+and in which direction this happens: identity sensitivity depends on both the
+template and the model, and its direction is strongly associated with each
+model's predictive uncertainty. With the template
+held fixed, replacing the emotion clause with a filler clause increases identity
+sensitivity in 5 classifiers and decreases it in 5, after correction for
+testing 18 models (\S\ref{sec:mp}); sensitivity is high where a model is
+uncertain, so it rises on emotion-free text for models that are uncertain there
+and falls for models that confidently label such text \emph{neutral}
+(\S\ref{sec:unc}). The association is partly mechanical, so we do not read it
+as a causal mechanism, but it is predictive: uncertainty measured on half of the
+person pairs gives the right direction on the other half for all 10 models with
+a significant effect (\S\ref{sec:unc}), and the uncertainty profiles that drive
+it are strongly model-specific (\S\ref{sec:targeted}). In a test fixed in
+advance on eight unseen template families, it gives the right direction of
+sensitivity on the primary, probability-scale measure in 93\% of cells with a
+clear effect, and on that measure it also predicts where
+a model departs from its usual direction. Both results concern
+probability-scale sensitivity: on log-scale measures the incremental
+information is not established, and for multi-class models uncertainty
+predicts the change in logits no better than the model's usual direction
+(\S\ref{sec:families}). Our second contribution concerns the
+validity of a widely used audit: in the EEC, a larger neutral set recovers
+biases the original four templates miss; an equal-size comparison separates
+the effect of template type from that of template number, and at equal size
+neutral and emotional templates flag different biases; whether the test treats
+identity terms as fixed or sampled changes the counts most, since under a
+cluster-robust test most gender verdicts disappear while race verdicts still
+differ between template types (\S\ref{sec:eec}); and for multi-class
+models, how the output is scored can reverse the conclusion
+(\S\ref{sec:measure}). Three further results test the reach of these findings.
+\begin{itemize}
+  \item \emph{Natural text.} On 1,000 review sentences given a gender swap, the
+  within-model link between uncertainty and sensitivity holds in all 22
+  systems, and audit verdicts again depend on which sentences are audited; the
+  between-condition contrast, however, is weak, because emotional content
+  changes uncertainty little in these sentences (\S\ref{sec:natural}).
+  \item \emph{Instruction-tuned LLMs.} Two LLMs from one model family, used as
+  classifiers, show the same direction under three prompt wordings in 11 of 12
+  variants, though the size of the effect depends on the wording. In the one
+  variant whose wording made emotion-free text more certain than emotional
+  text, the effect lost significance; with the weights and sentences held
+  fixed, this single case is consistent with the effect following the model's
+  uncertainty rather than the sentences (\S\ref{sec:llm}).
+  \item \emph{A diagnostic.} Uncertainty-aware template selection chooses, for
+  each model, the templates on which it is least certain, using person terms
+  that are never tested. Because the link between uncertainty and sensitivity
+  is partly mechanical, we test a consequence that is not: under the original
+  paired test, these templates flag a significant directional disparity in
+  more models than standard template sets of equal size, without placebo
+  flags. A flag here is a statistically significant disparity under
+  the tested templates, not evidence of discrimination in deployment. The gain
+  is modest (significant only against emotion-bearing templates for gender, not
+  clear for race or for LLMs) and does not survive a cluster-robust test, under
+  which no template set flags any disparity, so we propose
+  the procedure as a diagnostic that complements standard templates, a way to
+  check whether a null result may reflect where the model is confident, rather
+  than as a validated replacement. A cross-model control shows that which
+  frames make a model uncertain is highly model-specific, but it cannot
+  attribute the gender gain to per-model selection rather than to frames that
+  are uncertain in general (\S\ref{sec:targeted}).
+\end{itemize}
+We then set out what these measurements are, and are not, evidence of,
+including the limits of the EEC's identity categories (\S\ref{sec:construct}),
+and what they imply for audit practice and accountability
+(\S\ref{sec:accountability}).
+
+The premise is not specific to sentiment: in any counterfactual or perturbation
+test, a saturated output leaves little room for an observable change. Our evidence,
+however, comes from sentiment classification, and we leave other tasks to
+future work. Code, templates and per-model results are
+released.\footnote{Anonymised code and results are provided as supplementary
+material.}
+
+% ----------------------------------------------------------------------------
+\section{Background and Related Work}
+\paragraph{Counterfactual and template-based bias evaluation.}
+Counterfactual fairness asks whether a prediction would change had a protected
+attribute been different~\cite{kusner2017}. In NLP this is usually approximated
+by substituting identity terms in text: Dixon et al.~\cite{dixon2018} and Garg
+et al.~\cite{garg2019} measure the effect of identity-term substitution on
+toxicity classifiers; Prabhakaran et al.~\cite{prabhakaran2019} propose
+perturbation sensitivity analysis over person names; Huang et
+al.~\cite{huang2020} evaluate sentiment bias in language models with
+counterfactual prompts; and the EEC~\cite{kiritchenko2018} applies the idea to
+sentiment and emotion-intensity systems. Behavioural test suites such as
+CheckList~\cite{ribeiro2020} use similar templates. Czarnowska et
+al.~\cite{czarnowska2021} show that many such extrinsic metrics are instances
+of a common framework but can disagree in practice, and Zhang et
+al.~\cite{zhang2021} show that counterfactual bias estimates are themselves
+sensitive to small perturbations of the input. Krishna et
+al.~\cite{krishna2022} measure fairness through the sensitivity of a
+classifier's prediction to its input features; sensitivity measures of this
+kind, which are computed on the output probabilities, are subject to the
+saturation we study. Counterfactual and template-based
+metrics are reviewed, with other bias evaluations for large language models,
+in a recent survey~\cite{gallegos2024}.
+
+\paragraph{Reliability of template-based measurement.}
+Seshadri et al.~\cite{seshadri2022} show that meaning-preserving template
+modifications change task-specific bias estimates by up to 81\% downward and
+162\% upward; for sentiment, on the EEC's emotional templates and a single
+fine-tuned RoBERTa model, 13 of 40 modified templates change the significance
+verdict, one of them reversing its direction. Selvam et al.~\cite{selvam2023}
+find that seemingly innocuous changes in benchmark construction, such as
+paraphrasing, adding clauses or random sampling, change the measured bias and
+the ranking of models on Winogender and BiasNLI; they observe that the same
+change can raise measured bias for one model and lower it for another, and that
+it is hard to anticipate how a linguistic change will affect it. Alnegheimish et al.~\cite{alnegheimish2022}
+contrast template prompts with natural sentences; and Delobelle et
+al.~\cite{delobelle2022} find that bias metrics for pre-trained models are often
+mutually incompatible and depend on templates and seed words; for gender, Orgad
+and Belinkov~\cite{orgad2022} show that measured bias varies with the choice of
+dataset and metric; and much larger template sets reveal biases that small ones
+miss~\cite{smith2022}. These studies establish that template choice matters and
+that its effect differs between models. We address a narrower question: for
+one systematic template dimension, the presence of an emotion-bearing clause,
+we identify a model property, predictive uncertainty, that anticipates the
+direction in which the template change shifts the result, and we test it
+across 18 classifiers and two LLMs.
+
+\paragraph{Validity of bias benchmarks.}
+Blodgett et al.~\cite{blodgett2020} argue that much bias research in NLP leaves
+unstated what harm is measured and why, and Blodgett et al.~\cite{blodgett2021}
+catalogue validity problems in benchmark construction, including templates that
+do not reflect the intended construct. Goldfarb-Tarrant et
+al.~\cite{goldfarb2021} find that intrinsic bias measures do not predict
+application-level bias, and Jacobs and Wallach~\cite{jacobs2021} argue that
+fairness claims rest on measurement models whose validity and reliability must
+be established rather than assumed. For NLP bias measures specifically, the
+psychometric concepts of construct validity and reliability have been
+developed~\cite{vanderwal2024}, and documentation questions for such measures
+proposed~\cite{dev2022}; applying a measurement-modelling taxonomy to 90
+prompt- and template-based bias tests, Goldfarb-Tarrant et al.~\cite{goldfarb2023}
+find that what the tests aim to measure, and how, is often unstated or
+mismatched with their goals. We treat the template audit
+as such a measurement. Our study contributes to this line by showing that, for
+a fixed benchmark design, the verdict depends on template type, output measure
+and model, in ways that can be anticipated from the model's uncertainty.
+
+\paragraph{Confidence and saturation.}
+Modern neural classifiers are often overconfident, with probabilities
+concentrated near 0 or 1~\cite{guo2017}, and calibration and group fairness
+criteria constrain each other~\cite{pleiss2017}; where a prediction is saturated, a
+small input change, including an identity swap, has little room to move its
+probabilities. Uncertainty has also been proposed as a fairness measure in its
+own right, with group differences in a model's uncertainty treated as a form of
+bias~\cite{kuzucu2024}; we use it differently, as a property of the audit
+setting that determines where identity effects can be observed. We
+distinguish counterfactual sensitivity from directional bias, and both from
+harm, in \S\ref{sec:construct}.
+
+% ----------------------------------------------------------------------------
+\section{What Is Measured, and What It Is Evidence Of}\label{sec:construct}
+Following Blodgett et al.~\cite{blodgett2020}, who ask bias research to state which harms a
+measurement concerns and why, we separate three things that template audits
+often conflate, and then discuss the identity categories the audits rely on.
+
+\subsection{Sensitivity, directional bias and harm}
+\paragraph{Counterfactual sensitivity.} The magnitude of the output change when
+only the person term is replaced. It concerns individual-level consistency, the
+idea that otherwise identical inputs should be treated alike, which underlies
+counterfactual fairness~\cite{kusner2017}. It is unsigned: high sensitivity shows
+that the identity term affects the output, not in which direction.
+
+\paragraph{Directional bias.} A consistent shift against one group across
+matched pairs, which is what the EEC's paired test detects. It is the quantity
+closest to a group-level disparity, and the one an audit report usually
+summarises as ``the model is biased against'' a group.
+
+\paragraph{Harm.} Neither quantity is a harm in itself. Sentiment scores matter
+through their use: if a system ranks, filters or aggregates text by predicted
+sentiment, a consistently lower score for text mentioning a group could
+contribute to allocational harms, for instance if such text is down-ranked or
+flagged, and to representational harms, by associating the group with
+negativity; both kinds are discussed by Blodgett et al.~\cite{blodgett2020}. Whether, and how much, harm
+results depends on a deployment we do not observe. Our claims therefore concern
+the audit as a measurement instrument: whether a template audit can detect
+sensitivity or directional bias that is present, and how its verdict depends on
+design choices. The failure our results point to is a risk of \emph{false
+reassurance}: a null result that may reflect templates on which the model is
+near-certain rather than the absence of an effect (\S\ref{sec:accountability}).
+
+\subsection{Identity categories and their limits}\label{sec:categories}
+\paragraph{Gender.} The EEC operationalises gender through ten pairs of binary
+noun phrases (\emph{she}/\emph{he}, \emph{my daughter}/\emph{my son}, \ldots)
+and through first names, which implicitly assigns a gender to each name. This
+excludes non-binary identities, whose erasure through binary treatments of
+gender is itself a documented harm of language technologies~\cite{dev2021}, and
+many pairs combine gender with kinship roles (\emph{mother}/\emph{father},
+\emph{wife}/\emph{husband}). Following Larson~\cite{larson2017}, who recommends making
+the operationalisation of gender explicit, we read our gender results as
+sensitivity to these particular gendered expressions, not as evidence about
+gender in general, and not as evidence about non-binary people.
+
+\paragraph{Race.} Race is operationalised through first names that the EEC
+labels African-American or European-American, drawn from earlier
+work~\cite{caliskan2017,bertrand2004}. Names are imperfect proxies.
+Gaddis~\cite{gaddis2017} shows that the race perceived from names used in audit studies
+varies between names, and that names given more often by mothers with less
+formal education are more likely to be perceived as Black; a contrast between
+two name lists can therefore also be a contrast in perceived social class. The
+categories are, moreover, specific to the United States and to
+English~\cite{field2021}. Our race results are thus contrasts between two
+particular lists of names. For brevity we refer to the two contrasts as
+``gender'' and ``race'' throughout, in this restricted sense.
+
+\paragraph{Consequences for interpretation.} Three follow. First, a detected
+effect shows sensitivity to these tokens; attributing it to gender or race
+requires the proxy assumptions above. Second, under the original paired test we
+find reversals of direction (race in one classifier, gender in two LLM
+configurations), which suggest that a summary such as ``biased against group
+X'' can depend on the template type; the classifier reversal does not survive a
+cluster-robust test (\S\ref{sec:eec}), so such summaries should at least be
+stated conditionally on the templates and the test used. Third, we
+pair names within gender and therefore do not estimate intersectional effects,
+although the EEC name lists cross race and gender.
+
+% ----------------------------------------------------------------------------
+\section{Measuring Identity Sensitivity Across Label Schemes}\label{sec:measures}
+The 18 models differ in label scheme, so we need a score that is comparable
+across them. For a model with classes $c$ and softmax output $P(c\mid x)$, we
+place each class on a valence axis with weight $w_c\in[0,1]$: negative and
+positive receive 0 and 1, a neutral class 0.5, and five-point scales are evenly
+spaced. These weights only follow the order of the labels; TV, the primary
+measure for multi-class models, does not depend on them. The \emph{expected valence} is $e(x)=\sum_c w_c P(c\mid x)$. For a
+sentence $x$ and its counterfactual $x'$, in which only the person term is
+replaced by its matched counterpart, we consider three quantities:
+\begin{itemize}
+  \item $\Delta_e = e(x)-e(x')$, a score difference on the $[0,1]$ scale, the
+  analogue of the score differences compared in the original EEC study;
+  \item $\Delta_{\ell} = \operatorname{logit} e(x) - \operatorname{logit} e(x')$,
+  computed stably from the logits. For binary models it equals the difference
+  in logit margins and does not compress near 0 and 1; for multi-class models
+  it is the logit of a probability-weighted average, which does compress when
+  the model is confident in any one class, including the neutral class;
+  \item $\mathrm{TV}(x,x') = \tfrac12 \sum_c |P(c\mid x) - P(c\mid x')|$, the
+  total-variation distance between the two output distributions.
+\end{itemize}
+$\Delta_e$ and $\Delta_\ell$ are signed and can be used for directional tests.
+Both, however, have a blind spot in multi-class models: if an identity swap
+moves probability from the neutral class equally to the positive and negative
+classes, $e$ is unchanged although the prediction has changed. TV responds to
+any change in the output distribution but is unsigned. We therefore use
+$|\Delta_\ell|$ as the primary sensitivity measure for binary models and TV for
+multi-class models, and report the alternatives alongside (\S\ref{sec:measure}).
+For binary models TV equals $|\Delta_e|$.
+
+As a measure of predictive uncertainty we use $u(x) = 1-\max_c P(c\mid x)$.
+
+% ----------------------------------------------------------------------------
+\section{Experimental Setup}\label{sec:exp}
+\paragraph{Models.} We audit 18 publicly available sentiment classifiers from
+the Hugging Face Hub: 3 binary, 12 three-class and 3 five-class (including two
+star-rating models), covering general-domain, social-media, review and
+financial training data, and BERT, DistilBERT, RoBERTa and XLM-RoBERTa
+architectures from base to large size. Full identifiers are listed in
+Table~\ref{tab:models} in the appendix. All models are evaluated in English only.
+
+\paragraph{Instruction-tuned LLMs.} We additionally audit two open
+instruction-tuned language models, Qwen2.5-0.5B-Instruct and
+Qwen2.5-1.5B-Instruct, used as zero-shot classifiers. Each sentence is placed in
+the model's chat template with the instruction to answer with exactly one word,
+either \emph{positive or negative} (binary prompt) or \emph{positive, neutral,
+or negative} (three-class prompt); the class logits are the next-token logits of
+the label words. Running the same weights under both prompts varies the label
+scheme while holding the model fixed, which the classifier fleet cannot do. To
+test sensitivity to wording, each scheme is run with the original prompt and
+two alternatives that differ in structure, phrasing and answer-option order;
+the alternatives were fixed, and their SHA-256 hashes recorded, before any of
+them was run, and all are reported. The alternatives are run on the
+minimal-pair probe only. For
+CPU budget reasons, the minimal-pair probe for LLMs uses four emotion words (one
+per emotion) instead of twenty and omits the control-token analysis; the EEC
+replication and Study~3 are run in full.
+
+\paragraph{Study 1: EEC replication.} We replicate the EEC template and pairing
+protocol~\cite{kiritchenko2018}, adapting the output measures to the available
+sentiment classifiers: the original systems were emotion-intensity regressors
+scored on a $[0,1]$ scale, whereas we compare scores on the expected-valence and
+logit scales (\S\ref{sec:measures}). We therefore replicate the audit design, not
+the original systems or their results. For gender, each template--emotion-word
+instantiation contributes eleven pairs: ten noun-phrase pairs (e.g.\ \emph{my
+daughter}/\emph{my son}) and one pair of averages over female and male first
+names. For race, each instantiation contributes one pair: the average over
+African-American names against the average over European-American names. We
+run a paired $t$-test per model on four subsets: the full EEC
+(1,584 gender / 144 race pairs), its emotional templates (1,540 / 140), its
+four neutral templates (44 / 4), and EEC-Neutral (176 / 16). EEC-Neutral
+consists of the original four neutral templates plus twelve new ones of the same
+kind (e.g.\ \emph{``$\langle$person$\rangle$ ordered a coffee.''}), filled with
+the 60 EEC person terms using the EEC's own subject and object forms. Following
+the original study, significance is Bonferroni-corrected over all assessments
+(18 models $\times$ 2 axes: $\alpha = 0.05/36$). We report the mean absolute
+difference $|\Delta_\ell|$ and the paired effect size $d_z$ (mean difference
+divided by its standard deviation); unlike significance, $d_z$ does not depend
+on the number of pairs.
+
+\paragraph{Study 2: minimal pairs.} The EEC compares neutral and emotional
+sentences built from \emph{different} templates. To compare emotional content
+against a structurally matched filler condition, we build every sentence from
+the same 16 base templates in three conditions:
+\begin{quote}\small
+\emph{bare:} I saw $\langle$person$\rangle$ in the market.\\
+\emph{filler:} I saw $\langle$person$\rangle$ in the market, and then I went home.\\
+\emph{emotion:} I saw $\langle$person$\rangle$ in the market, and then I felt
+$\langle$emotion$\rangle$.
+\end{quote}
+A second clause form (\emph{``, which was on a Tuesday.''} / \emph{``, which
+made me feel $\langle$emotion$\rangle$.''}) is used in the same way. Each
+filler clause matches its emotion clause in position and syntactic form but not
+word for word (\emph{went home} vs.\ \emph{felt $\langle$emotion$\rangle$}), so
+\emph{filler vs.\ emotion} is the controlled contrast for emotional content
+rather than for a single word; \emph{bare vs.\ emotion} corresponds to the
+comparison implicit in the EEC and mixes emotional content with the added
+clause. Emotion words are the EEC's 20
+emotional-state words. Person terms are 5 gender noun-phrase pairs and 10
+same-gender name pairs across race, chosen so that substitution never requires
+other changes to the sentence, for 20,640 sentences per model. We compare mean
+identity sensitivity between conditions as a ratio, with 95\% confidence
+intervals from a bootstrap that resamples base templates and person pairs
+independently (4,000 replicates), since both are random factors. Each pair is
+counted once. A model is classed as showing an effect or a reversal only if the
+two-sided bootstrap $p$-value for a ratio of 1 remains below 0.05 after Holm's
+correction across the 18 models; the correction is applied separately for each
+of the three measures, and all three are reported for every model in the
+released results.
+
+\paragraph{Study 3: uncertainty-aware template selection.} Because
+probability-scale identity sensitivity is mechanically constrained by
+predictive uncertainty (\S\ref{sec:unc}), the association between the two cannot by itself show that
+uncertainty is useful for auditing. A consistent \emph{signed} shift against one
+group, which is what the EEC test detects, is not mechanically implied by
+uncertainty. We therefore turn the premise into a procedure and test a
+prediction that can fail: template sets chosen to make a model uncertain should
+detect directional bias more often than standard template sets of the same
+size. The test uses $\Delta_\ell$, which for multi-class models also compresses
+where the model is confident (\S\ref{sec:measures}), so for them the prediction
+follows from the same mechanism; for binary models, whose $\Delta_\ell$ does
+not compress, a gain would need another explanation. The procedure is
+summarised below.
+
+\begin{center}\fbox{\parbox{0.92\linewidth}{\small
+\textbf{Uncertainty-aware template selection.} Given a model $f$, a pool of
+candidate templates, a set of \emph{selection} person terms and a disjoint set
+of \emph{test} person terms:
+\begin{enumerate}
+  \item fill every candidate template with each selection term and compute the
+  mean predictive uncertainty $\bar u = 1-\max_c P(c\mid x)$ per template;
+  \item keep the $n$ templates with the highest $\bar u$;
+  \item run the standard counterfactual test on these templates with the test
+  terms only, alongside the usual template sets;
+  \item as a control, run the same test on within-group (placebo) swaps.
+\end{enumerate}
+Selection never uses an identity contrast or the test terms.}}\end{center}
+
+Here, the pool has 320 frames, built by appending one of 20 mildly valenced or
+factual clauses (e.g.\ \emph{``, and it was okay.''}, \emph{``, and it was a bit
+dull.''}, \emph{``, and it was raining.''}) to each of the 16 base templates.
+For each model, the \emph{targeted} set consists of the 16 frames with the
+highest mean uncertainty, measured with 20 EEC first names that are never used
+for testing. We compare it with three sets of 16 frames: a
+\emph{random} draw from the same pool (to separate targeting from the clauses
+themselves), the EEC-Neutral templates, and the base templates with an emotion
+clause. Each set is tested with the same person pairs as Study~2 (80 gender and
+160 race pairs per set), using the paired $t$-test on $\Delta_\ell$ with the
+EEC's Bonferroni threshold. As a placebo, we swap names \emph{within} the same
+race and gender group (256 pairs per set), where no directional effect is
+expected; a set that turned noise into significance would flag placebo pairs.
+
+\paragraph{Study 4: unseen template families.} To test whether the
+uncertainty account carries over to sentence structures it was not developed
+on, we wrote eight new template families whose structures do not occur in
+Studies 1--3, for example a sentence-initial participle (\emph{Feeling furious,
+I called my sister} / \emph{Being early, I called my sister}), an exclamative, a
+question, and a family in which the person rather than the speaker experiences
+the emotion (Table~\ref{tab:families} in the appendix). Each family has eight
+base sentences, a matched filler, and, per emotion, the EEC word with the
+highest and the lowest NRC intensity. Hypotheses, families, measures, decision
+rules and a minimum number of informative cells were fixed and hashed before
+any model scored the new sentences, and that minimum was checked before any
+outcome was computed. Each model's uncertainty was measured with the 20
+held-out names, and outcomes with the 15 Study~2 pairs. The unit is a model,
+family and intensity level (288 cells). A cell's direction counts as clear if
+the bootstrap interval of its log sensitivity ratio excludes zero; cells too
+close to zero are not counted either way. H1 asks whether the uncertainty ratio
+predicts the direction in clear cells (supported if the lower bound of a
+two-way cluster-bootstrap interval over models and families exceeds 0.5); H2
+asks the same for cells in which it disagrees with the model's Study~2
+direction, and requires this on both the primary and a logit-scale outcome.
+
+\paragraph{Label flips.} To relate sensitivity to decisions, we report the
+share of counterfactual pairs whose predicted label (the most probable class)
+changes under the identity swap.
+
+\paragraph{Control tokens.} To test whether the emotion clause specifically
+reduces the influence of the identity term, we compute deletion attributions on
+the logit scale for a subset of sentences (one word per emotion) and compare the
+identity term with the other tokens of the base template, which occur unchanged
+in every condition. \emph{Specificity} is the factor by which the identity
+term's attribution falls from filler to emotion, divided by the same factor for
+the control tokens; a value of 1 means the emotion clause reduces the influence of
+all context tokens alike.
+
+\paragraph{Statistical inference.} We correct for multiplicity within each
+family of tests, as follows. (i)~Directional tests in the EEC replication and in
+Study~3, one paired $t$-test on $\Delta_\ell$ per model, identity axis and
+template set, use the EEC's Bonferroni threshold $\alpha=0.05/36$ (18 models
+$\times$ 2 axes); the placebo tests in Study~3 use the same threshold.
+(ii)~Minimal-pair ratios are classified by Holm-corrected bootstrap $p$-values,
+across the 18 classifiers separately for each output measure, and across the 12
+LLM variants. (iii)~Model-level comparisons of which template set flags a bias
+(Study~3) use exact McNemar tests with Holm correction over the six comparisons
+(2 axes $\times$ 3 reference sets). (iv)~Wilcoxon signed-rank comparisons of
+effect sizes and all correlations are reported descriptively, without
+multiplicity correction. (v)~Because pairs in Studies~1 and~3 share templates
+and person terms, we also report cluster-robust versions of the directional
+tests, added after review: the mean $\Delta_\ell$ is tested with
+cluster-robust standard errors (templates, and templates and person pairs, as
+clusters; $t$ with $G-1$ degrees of freedom for the smaller number of
+clusters $G$), at the same threshold, in line with calls for significance
+tests that match the data's structure and for attention to statistical power
+in NLP~\cite{dror2018,card2020}. The released code computes every reported
+number from the saved results.
+
+% ----------------------------------------------------------------------------
+\section{Results}
+Before the details, an overview of what holds and what does not.
+\emph{Robust:} the same template change moves identity sensitivity in opposite
+directions in different models, closely following uncertainty
+(\S\ref{sec:mp}--\ref{sec:unc}), also on eight unseen template families in a
+test fixed in advance, on the probability scale on which audits register effects
+(\S\ref{sec:families}), and audit verdicts change with the type and
+number of templates, with the output measure and with the significance test
+(\S\ref{sec:eec}, \S\ref{sec:measure}). \emph{Conditional:} uncertainty-aware
+templates flag disparities in more models under the original paired test, but
+not under a cluster-robust one, and even there significantly only against emotional
+templates, and a cross-model control cannot attribute the gain to selecting
+templates for the audited model (\S\ref{sec:targeted}); whether uncertainty
+adds information beyond a model's usual direction depends on the outcome
+measure (\S\ref{sec:families}); and the LLM evidence rests on two models from
+one family (\S\ref{sec:llm}). \emph{Negative:} in natural review sentences,
+emotional content barely changes uncertainty, so the template contrast has
+little counterpart there and could be neither confirmed nor refuted
+(\S\ref{sec:natural}).
+
+\subsection{RQ1: The EEC pattern in the EEC itself}\label{sec:eec}
+Table~\ref{tab:eec} summarises the EEC replication (per-model values in
+Table~\ref{tab:eecfull}). The original pattern, a larger mean identity
+difference on neutral than on emotional templates, holds for 7 of 18 models on
+gender and 5 of 18 on race; the median difference is in fact smaller on
+EEC-Neutral (gender 0.068 vs.\ 0.122; race 0.036 vs.\ 0.122 on the logit
+scale). Effect sizes show the opposite tendency: the median $|d_z|$ is larger on
+EEC-Neutral (gender 0.35 vs.\ 0.16; race 0.59 vs.\ 0.40), and among models with
+a significant full-EEC bias, $|d_z|$ is larger on EEC-Neutral in 8 of 13
+(gender) and 7 of 11 (race). On emotion-free text, identity-related shifts are
+thus typically smaller but more consistent in direction. Across models, the
+EEC neutral-to-emotional ratio of $|\Delta_\ell|$ correlates with the
+minimal-pair TV ratio of \S\ref{sec:mp} (Spearman $\rho=0.64$, $p=0.004$, gender), so the two
+instruments agree on which models show the pattern.
+
+\begin{table}[t]\centering\footnotesize
+\caption{EEC replication: number of models (of 18) with a significant bias on
+$\Delta_\ell$, Bonferroni $\alpha=0.05/36$. \emph{t}: the paired $t$-test of the
+original protocol, which treats every pair as independent. \emph{Robust}: a
+cluster-robust test with templates and person pairs as sources of variation
+(for race, each comparison is already averaged over names, so only templates
+apply). Results of the $t$-test on the $[0,1]$ scale ($\Delta_e$) are similar:
+gender 12/6/9 and race 9/0/6 for the first three rows. Lower block (original
+test only): emotional pairs subsampled to the EEC-Neutral size (2,000 draws per
+model); ``usually'' means in more than half of the draws. The seven misses not
+usually found by an equal-sized emotional set are found in at most 20\% of
+draws.}
+\label{tab:eec}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccc}
+\toprule
+& \multicolumn{2}{c}{Gender} & \multicolumn{2}{c}{Race} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+& \emph{t} & Robust & \emph{t} & Robust \\
+\midrule
+Significant on full EEC & 13 & 2 & 11 & 6 \\
+Significant on original 4 neutral templates (44 / 4 pairs) & 6 & 0 & 0 & 0 \\
+Significant on EEC-Neutral (176 / 16 pairs) & 10 & 1 & 6 & 6 \\
+\midrule
+Detected by EEC-Neutral, missed by original neutral templates & 4 & 1 & 6 & 6 \\
+Significant on full EEC, not on EEC-Neutral & 4 & 2 & 5 & 3 \\
+Significant on EEC-Neutral, not on full EEC & 1 & 1 & 0 & 3 \\
+Significant on both, opposite directions & 0 & 0 & 1 & 0 \\
+\midrule
+Mean $|\Delta_\ell|$ larger on EEC-Neutral than emotional & \multicolumn{2}{c}{7} & \multicolumn{2}{c}{5} \\
+\midrule
+Expected flags, emotional set of EEC-Neutral size & 6.9 & -- & 3.0 & -- \\
+Missed by EEC-Neutral, usually found by equal-sized emotional set & 2 & -- & 0 & -- \\
+Flagged by EEC-Neutral, usually missed by equal-sized emotional set & 5 & -- & 4 & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Four points stand out. First, how the test treats identity terms changes the
+gender verdicts more than any other choice. The paired $t$-test of the original
+protocol treats every pair as independent, although pairs share templates and
+person terms. With templates and person pairs as sources of variation
+(Table~\ref{tab:eec}, \emph{Robust}), the number of models with a significant
+gender bias on the full EEC falls from 13 to 2 (9 if only templates are
+treated as varying): the EEC's gender contrast rests on ten noun-phrase pairs
+and one average over names, and its directional gender verdicts do not
+generalize beyond those pairs. Race comparisons, already averaged over names,
+are less affected (11 to 6). Second, the original neutral subset is too small
+to be informative: its four race pairs never reach significance, and
+EEC-Neutral recovers 4 gender and 6 race biases that it misses (1 and 6 under
+the robust test), including the largest race bias in the fleet ($d_z = -2.89$
+on EEC-Neutral). Third, both the type and the number of templates shape the
+verdict. Under the original test, 4 gender and 5 race biases are
+significant on the full EEC but not on EEC-Neutral, which is much smaller (176
+gender and 16 race pairs, against 1,540 and 140 emotional pairs). To separate
+type from size, we drew for each model 2,000 random subsets of emotional pairs
+of the EEC-Neutral size (Table~\ref{tab:eec}, lower block). An emotional set of
+that size would usually detect only two of the nine (both gender, in 80\% and
+100\% of draws); the other seven would usually be missed at that size as well,
+so most of these misses reflect the small number of neutral pairs. At equal
+size, type matters more often in the other direction: EEC-Neutral flags 5
+gender and 4 race biases that an equal-sized emotional set would usually miss.
+Under the robust test, race verdicts still depend on the template type: 3 race
+biases are significant only on the full EEC and 3 only on EEC-Neutral. Either
+way, an audit that replaced emotional templates with these neutral ones would
+pass the missed models. Fourth, under the original test, the race bias of one
+model (twitter-roberta) is significant on both template types with opposite
+signs: African-American names receive higher scores on emotional sentences
+($d_z=+0.52$) and lower scores on neutral sentences ($d_z=-1.15$), and because
+the full EEC is 97\% emotional pairs, the standard test reports only the
+first. Under the robust test, the emotional-template side is no longer
+significant, so this reversal is not robust.
+
+Finally, the binary models illustrate the gap between sensitivity and
+directional bias: their identity differences on EEC-Neutral are larger than on
+emotional templates (by factors of 1.5--7.3 for gender), but for two of the
+three the direction is not consistent across pairs and no gender bias is
+significant on neutral templates; only distilbert-sst-2 shows a significant
+gender bias there ($d_z=-0.51$).
+
+\subsection{RQ2: Replacing the emotion clause has model-dependent effects}\label{sec:mp}
+Table~\ref{tab:mp} reports, for each model, the ratio of identity sensitivity in
+the filler condition to the emotion condition. A ratio above 1 means the
+identity term matters more in the filler than in the emotion condition, the direction suggested by
+the EEC observation. Under the primary measure and after Holm correction, the
+ratio is significantly above 1 for 5 models, not distinguishable from 1 for 8,
+and significantly below 1 for 5. All three binary models show the effect
+(ratios 3.4--10.5 on the logit scale), as do one star-rating model and one
+three-class model. All three
+financial-domain models, and the large three-class RoBERTa model, show strong
+effects in the opposite direction: on emotion-free sentences, identity
+substitution changes their output very little.
+
+The less controlled \emph{bare vs.\ emotion} contrast points toward the effect
+more often (10 above 1, 4 below; Table~\ref{tab:mp}). The difference arises
+because adding a neutral clause alone reduces identity sensitivity in several
+models; a bare-vs-emotion comparison, like the EEC's, therefore attributes to
+emotional content part of an effect that is due to sentence form.
+
+\begin{table}[t]\centering\scriptsize
+\caption{Minimal-pair results per model, sorted by the primary ratio. $k$:
+number of classes. $P_{\text{neu}}$: mean probability of the neutral or middle
+class on filler sentences. $\bar u$: mean predictive uncertainty
+$1-\max_c P(c\mid x)$ on filler and emotion sentences. Primary ratio: mean
+identity sensitivity, filler over emotion, on $|\Delta_\ell|$ for binary models
+and TV for multi-class models, with 95\% two-way bootstrap CI; $\uparrow$
+significantly above 1, $\downarrow$ significantly below 1, $\circ$ not
+significant, all after Holm correction across the 18 models. Valence: the same ratio on
+$|\Delta_\ell|$ for every model, with markers as for the primary ratio. Bare/emo: TV ratio, bare over emotion.
+Spec.: control-token specificity (1 = no identity-specific effect).}
+\label{tab:mp}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lcccc l c ccc}
+\toprule
+Model & $k$ & $P_{\text{neu}}$ & $\bar u_{\text{fill}}$ & $\bar u_{\text{emo}}$ &
+Primary ratio [95\% CI] & & Valence & Bare/emo & Spec. \\
+\midrule
+\inputrows{figures_tables/table_minimal_pair.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The effect is not specific to identity.} Median control-token
+specificity is 0.85: the emotion clause reduces the influence of the identity term
+no more than that of the other template tokens (specificity significantly above
+1 in 3 models, below 1 in 8, and not distinguishable from 1 in 7). Consistently,
+the identity term's share of total attribution is higher in filler than in
+emotion sentences in 16 of 18 models (mean 0.112 vs.\ 0.053, with the same
+uniform baseline of 0.097 in both conditions because the clauses have equal
+length), but this reflects the emotion clause taking attribution from all tokens,
+not from the identity term in particular. We therefore do not interpret the
+results as the emotion clause ``crowding out'' identity information.
+
+\subsection{RQ3: Identity sensitivity follows predictive uncertainty}\label{sec:unc}
+The models that reverse share a profile visible in Table~\ref{tab:mp}: they
+place emotion-free sentences in the neutral class with near certainty
+($P_{\text{neu}} \geq 0.87$ for the four strongest reversals), while emotion
+words move them only partly off neutral, leaving emotional sentences in a
+region of higher uncertainty. Binary models have no neutral class and show the
+opposite profile: they are confident on emotional sentences and less certain on
+emotion-free ones.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.82\linewidth]{figures_tables/fig_uncertainty.pdf}
+\caption{Identity-sensitivity ratio against uncertainty ratio (filler over
+emotion sentences), one point per model, on the primary measure
+($|\Delta_\ell|$ for binary, TV for multi-class models; bars: 95\% CI).
+Points right of the vertical line are less certain in the filler condition;
+points above the horizontal line are more sensitive to the identity term in
+the filler condition. Hollow markers are not significant after Holm correction.}
+\label{fig:unc}
+\end{figure}
+
+Across the 18 models, the log ratio of identity sensitivity (filler over
+emotion, measured by TV, which is defined in the same way for every label
+scheme, so no model-specific choice of measure enters) is strongly correlated with the log ratio of predictive uncertainty
+in the same conditions (Spearman $\rho = 0.91$, $p<10^{-6}$; $\rho=0.90$ on the
+primary measure, Fig.~\ref{fig:unc}); the same holds for bare over emotion
+($\rho=0.89$). The association is not driven by individual models: leaving out
+any one model, it ranges from 0.89 to 0.95 (0.88 to 0.94 on the primary
+measure), and a bootstrap over models gives a 95\% interval of 0.69--0.98
+(0.68--0.97). Within every model, sentence-level uncertainty
+and identity sensitivity are positively correlated (median $\rho=0.60$, range
+0.27--0.94 across models). Neutral-class probability alone is a weaker
+predictor: among the 15 multi-class models it correlates with the sensitivity
+ratio at $\rho=-0.70$, compared with $\rho=0.85$ for the uncertainty ratio. One
+model with little neutral mass (amazon-review, 0.09) still points towards a
+reversal (0.72), although not significantly after Holm correction, because it
+assigns emotion-free sentences fairly confidently to a positive rating.
+
+We stress that this association is partly expected by construction: near a
+probability of 1 the softmax is flat, so a small change in a model's logits
+moves its probabilities, and hence TV, very little. The association also holds
+on $|\Delta_\ell|$ (Spearman $\rho=0.85$ across the 18 models, using
+$|\Delta_\ell|$ for every model), but this removes the coupling only for the
+three binary models: for multi-class models, $\Delta_\ell$ is the logit of
+expected valence, which also compresses when the model is confident in any one
+class (\S\ref{sec:measures}). Nor does it
+depend on how uncertainty is defined: with normalised entropy or with one minus
+the margin between the two most probable classes, the correlation is 0.91 under
+both definitions on TV (0.84 and 0.87 on $|\Delta_\ell|$), and the median
+within-model correlation is 0.61 and 0.60. Under entropy, three models whose
+uncertainty ratios are close to 1 change direction, one of them a significant
+reversal (BERT\_sentiment).
+
+\paragraph{How much of the direction is saturation?} In an exploratory check,
+we divided each model's logits by a temperature $T$, which leaves the predicted
+class unchanged but removes saturation as $T$ grows. For 14 of the 18 models,
+including 8 of the 10 with a significant effect, the probability-scale direction
+at $T=1$ already matches the direction of the change in the model's logits and
+does not change with $T$. For the other 4, among them the reversal of
+BERT\_sentiment and the effect of bert-multi-5star, it flips as saturation is
+removed, and at $T=16$ all 18 match the logit-space direction. The
+association with uncertainty weakens but persists ($\rho=0.73$ at $T=8$ and
+$T=16$). Saturation thus decides the direction for a minority of models; for
+most, the probability-scale direction reflects how the model's logits respond.
+
+\paragraph{The association predicts held-out person terms.} Uncertainty and
+sensitivity above are measured on the same sentences. In an exploratory check
+added after the main analyses, we split the 15 person pairs at random into two
+halves, measured each model's uncertainty ratio on one half and its sensitivity
+ratio on the other, and repeated this 200 times. The correlation across the 18
+models remains high (median $\rho=0.88$, 5th percentile 0.79; on
+$|\Delta_\ell|$, 0.85), and the uncertainty ratio from one half gives the right
+direction of the sensitivity ratio on the other for all 10 models with a
+significant effect in every split (9 of 10 on $|\Delta_\ell|$). The prediction
+holds across person terms within the same templates and models; it does not
+show prediction across templates, tasks or new models.
+
+The finding is therefore not that uncertainty causes bias or harm, but that identity
+effects are \emph{observed} mainly where a model is uncertain, and that which
+templates make a model uncertain differs systematically between models.
+
+\paragraph{The effect reaches decisions.} The same pattern appears in predicted
+labels. Identity swaps change the predicted label more often on emotional than
+on filler sentences in 13 models and less often in 4 (the three binary models
+and bert-multi-5star). Across models, the ratio of flip rates follows the
+sensitivity ratio (Spearman $\rho=0.71$, $p<0.001$). Flip rates are not
+negligible where the model is uncertain: up to 10.8\% of filler pairs for the
+binary Roberta\_Sentiment and 16.0\% for bert-multi-5star, and 8.1--8.2\% of
+emotion pairs for finbert-tone and amazon-review, compared with near zero in the
+condition where each model is confident.
+
+\subsection{A prospective test on unseen template families}\label{sec:families}
+Study~4 (\S\ref{sec:exp}) tests the account on eight template families it was
+not developed on. Of the 288 cells (\emph{model} $\times$ \emph{family}
+$\times$ \emph{intensity}), the direction is clear in 168 cells. The other 120
+cells are too close to zero to assign a direction and are not counted either
+way.
+
+\paragraph{The account generalizes to the new families.} The uncertainty ratio
+gives the right direction in 93\% of clear cells (95\% CI from a bootstrap over
+models and families, 0.82--0.99), and it correlates with the sensitivity ratio
+across all 288 cells at $\rho=0.88$ (0.73--0.94). Leaving out any one family,
+the accuracy stays between 0.91 and 0.95. Rules that assign each model a fixed
+direction do worse on the same cells: the model's own Study~2 direction is right
+in 0.74, the label scheme in 0.67 and neutral-class probability in 0.68.
+
+\paragraph{It predicts departures from a model's usual direction, on the
+primary measure only.} In 98 cells, counted before any outcome was computed, the
+uncertainty ratio pointed the opposite way to the model's Study~2 direction. In
+the 45 of these with a clear outcome it was right in 84\% (0.56--1.00), and
+within models the two ratios correlate at 0.77 on average. On the logit-scale
+outcome, which we included as a guard against mathematical coupling, this
+advantage is not established (0.73, 0.37--0.95), and the label scheme predicts
+the direction better than uncertainty does (0.90 against 0.79 over clear
+cells). By the rules fixed in advance, uncertainty therefore adds information
+beyond a model's usual direction on the primary measure but not on the logit
+outcome. An entropy-based measure of uncertainty gives the same results.
+
+\paragraph{Exploratory follow-up.} Checks added after the frozen analysis
+(Appendix~\ref{app:families}) show that excluding cells without a clear
+direction does not create the effect, that the two outcomes differ only in
+multi-class models, and that for those models a measure that does not saturate
+is predicted no better by uncertainty than by each model's usual direction.
+
+\subsection{The output measure can reverse the verdict}\label{sec:measure}
+For multi-class models, the valence-based measure and TV can disagree in
+direction (Table~\ref{tab:mp}, \emph{Valence} vs.\ \emph{Primary ratio}). On
+$|\Delta_\ell|$, 13 of the 15 multi-class models appear significantly reversed
+after Holm correction; under TV only 5 do, and for twitter-xlm-roberta the
+conclusion changes from reversed (0.53) to a significant effect (1.83). The discrepancy arises because these
+models often hold most probability on the neutral class, and identity swaps move
+probability out of it toward both other classes, which leaves the expected
+valence nearly unchanged. Conversely, for binary models ratios on the $[0,1]$
+scale are unstable when emotional predictions are saturated (for the large
+binary RoBERTa, the TV ratio is 16.0 with CI [0.72, 240]), whereas the
+logit-scale ratio is well defined (3.65 [1.53, 7.31]).
+
+\subsection{Study 3: Uncertainty-aware template selection}\label{sec:targeted}
+Table~\ref{tab:targeted} compares the four template sets. Targeted sets reach
+the highest uncertainty in every model and the highest median uncertainty
+overall (0.42--0.47 against 0.11--0.20). They flag a significant directional
+gender disparity in 10 of 18 models, against 6 for EEC-Neutral, 5 for random frames and 2 for
+emotional templates, and a race bias in 8, tied with emotional templates. No set
+flags any placebo comparison, so the additional flags are not an artefact
+of amplified noise. Compared with random frames from the same pool, targeted
+sets flag 6 gender and 3 race biases that random sets miss, against 1 and 1 in
+the other direction, which suggests that targeting rather than the clause pool
+drives the difference.
+
+These counts are descriptive. Comparing, model by model, which template set
+flags a bias (exact McNemar test on the discordant models, Holm correction over
+the six comparisons), the only difference that remains significant is targeted
+versus emotional templates for gender (8 vs.\ 0 discordant models,
+$p_{\text{Holm}}=0.047$). Against random frames and EEC-Neutral, the discordant
+models favour targeted sets for gender (6 vs.\ 1 and 5 vs.\ 1), but with 18
+models these differences are not significant ($p=0.125$ and $0.219$ before
+correction); for race, no comparison approaches significance. The evidence for a
+detection advantage is therefore consistent in direction but modest in strength.
+
+\paragraph{The detections do not survive a cluster-robust test.} The counts
+above use the paired $t$-test, which treats the 80 gender pairs of a set (16
+frames $\times$ 5 noun-phrase pairs) as independent. Treating only frames as a
+source of variation is not enough: it lowers the targeted counts to 6 gender
+and 5 race detections, but it also flags placebo swaps in 4 models for the
+targeted set, 4 for EEC-Neutral and 3 for emotional templates, because
+individual names differ systematically. With frames and person pairs both as
+sources of variation, no template set flags any gender, race or placebo
+comparison in any model (Table~\ref{tab:targeted}). With five gender and ten
+race pairs per set, Study~3 therefore cannot show directional disparities that
+generalize beyond the specific identity terms, and the detection advantage
+above should be read as descriptive of these terms only. Where a targeted set and the full EEC both find a significant bias,
+they agree in direction in 12 of 13 cases (gender 7/7, race 5/6; the exception
+is the race bias of distilbert-sst-2, consistent with the context-dependence of
+direction reported in \S\ref{sec:eec}).
+
+Effect sizes show a similarly uneven picture: across models, targeted $|d_z|$
+is significantly larger in three of the six comparisons (without multiplicity
+correction) and not in the others.\footnote{Wilcoxon signed-rank tests across models, not corrected for
+multiplicity: targeted $|d_z|$ is larger than that of random frames for race
+(Wilcoxon signed-rank, $p=0.027$; gender $p=0.054$), of EEC-Neutral for race
+($p=0.006$) and of emotional templates for gender ($p=0.048$).} Targeted sets also miss 1 gender and 3 race biases
+that neutral or emotional templates flag, so they complement rather than
+replace standard templates. For the three models that are near-certain almost
+everywhere (FinancialBERT, finbert-tone, roberta-large-3cls), targeting raises
+uncertainty from below 0.01 to 0.19--0.30, yet no set finds a significant bias;
+targeting increases the chance of observing identity effects but cannot create
+an effect that is absent.
+
+\paragraph{Targeting or generally uncertain frames.} Because the targeted
+frames come from a pool of valenced clauses, the gain could come from frames
+that make every model uncertain rather than from selecting frames for the
+audited model. As a control, fixed with a recorded hash before scoring, we
+tested each model on the 16 frames with the best mean uncertainty rank across
+the other 17 models. These consensus sets flag a gender disparity in 7 models
+and a race disparity in 8 (targeted sets: 10 and 8; no placebo detections in
+either), and applying another model's targeted set flags on average 5.9 gender
+and 8.4 race disparities. For gender the discordant models favour targeted sets
+(5 vs.\ 2), but not significantly (exact McNemar, $p=0.45$); for race there is
+no difference (4 vs.\ 4). The control therefore does not establish that the
+gender gain requires selecting templates for the audited model. It does show
+that uncertainty is strongly model-specific: targeted sets of different models
+barely overlap (mean Jaccard index 0.03), consensus frames leave the audited
+model about half as uncertain as its own targeted frames (median 0.21 against
+0.47), and the targeted sets draw evenly on mildly negative, mildly positive and
+factual clauses (102, 89 and 97 of 288 frames), so no single kind of clause
+drives the selection.
+
+The advantage does not clearly replicate in the four LLM variants (original
+wordings). There,
+targeted sets flag a gender bias in 3 variants (EEC-Neutral 2, emotional 2,
+random 1) but a race bias in only 1 (EEC-Neutral 2, random 2, emotional 0),
+again with no placebo detections. Pooled over the 18 classifiers and four LLM
+configurations, targeted sets
+detect the most gender biases (13, against 8 for EEC-Neutral, 6 for random and 4
+for emotional templates) but are essentially tied for race (9, against 8 for
+random, 8 for emotional and 7 for EEC-Neutral). We therefore regard
+uncertainty-aware template selection as a diagnostic that complements standard
+template sets, most clearly for gender, rather than as a validated replacement.
+
+\begin{table}[t]\centering\footnotesize
+\caption{Study 3: number of models (of 18) with a significant directional bias
+per template set (16 frames each; Bonferroni $\alpha=0.05/36$), median $|d_z|$,
+and median predictive uncertainty $\bar u$. \emph{t}: paired $t$-test on
+$\Delta_\ell$; \emph{Robust}: cluster-robust test with frames and person pairs
+as sources of variation (gender / race / placebo). Placebo: name swaps within
+the same race and gender group.}
+\label{tab:targeted}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l ccc c ccc c}
+\toprule
+& \multicolumn{3}{c}{Models flagged (\emph{t})} & Robust & \multicolumn{3}{c}{Median $|d_z|$} & \\
+\cmidrule(lr){2-4}\cmidrule(lr){6-8}
+Template set & Gender & Race & Placebo & G / R / P & Gender & Race & Placebo & $\bar u$ \\
+\midrule
+Targeted (max.\ uncertainty) & \textbf{10} & \textbf{8} & 0 & 0 / 0 / 0 & \textbf{0.40} & \textbf{0.25} & 0.05 & 0.42--0.47 \\
+Random (same pool) & 5 & 6 & 0 & 0 / 0 / 0 & 0.22 & 0.20 & 0.04 & 0.20 \\
+EEC-Neutral & 6 & 5 & 0 & 0 / 0 / 0 & 0.26 & 0.17 & 0.03 & 0.11--0.14 \\
+Emotional & 2 & \textbf{8} & 0 & 0 / 0 / 0 & 0.18 & 0.24 & 0.05 & 0.12--0.13 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{A bias of known size}\label{sec:injection}
+Whether an audit can detect a bias, rather than only how sensitive a model is,
+cannot be checked without a bias of known size. In an exploratory simulation,
+we injected a directional bias into every female sentence of the EEC by
+shifting the model's logits towards positive by $\delta$ (for binary models,
+$\delta$ is added to the logit margin), and tested the gender axis with the
+cluster-robust test. On the probability scale used by the original EEC study,
+an injected bias of $\delta=0.5$ was detected on emotional templates in 7 of
+the 18 models, against 13 on the logit scale; at $\delta=1$, in 11 against 15.
+Across models and template sets, the size of the injected effect on the
+probability scale follows the set's mean uncertainty ($\rho=0.84$ at
+$\delta=0.5$): the same bias looks smaller where the model is confident. This
+shows the premise of the paper on an effect of known size. Comparisons between
+template sets are confounded by their size and are not interpreted.
+
+\subsection{Instruction-tuned LLMs and a controlled label-scheme test}\label{sec:llm}
+Table~\ref{tab:llm} in the appendix reports the minimal-pair results for the LLMs under three
+prompt wordings per label scheme. The two alternative wordings (p2, p3) differ
+from the original (p1) in structure, phrasing and the order of the answer
+options; they were fixed before any of them was run, and all are reported.
+
+\paragraph{The direction is robust to wording; the size is not.} In 11 of the
+12 variants, identity sensitivity is significantly higher on filler than on
+emotion sentences (Holm correction across the 12 variants). The magnitude,
+however, depends strongly on the wording: among these 11, ratios range from 1.4
+to 9.3, and the
+original wording gives the largest ratio in three of the four model--scheme
+combinations (binary prompts: 3.0--4.0 with p1, 1.4--2.7 with p2 and p3). We
+therefore interpret the direction, not the size, of the LLM effect. Label flips
+follow the sensitivity ratio less consistently than in the classifiers: in 3 of
+the 12 variants, flips are more frequent on emotion than on filler sentences.
+
+\paragraph{Uncertainty tracks the direction within one model.} In 10 of the
+11 variants with a significant effect, filler sentences are also the less
+certain condition; the exception (0.5B, three-class, p3) has nearly equal
+uncertainty in both conditions (ratio 0.98). Across the 12 variants, the
+sensitivity ratio correlates with the uncertainty ratio at Spearman
+$\rho=0.66$ ($p=0.02$); the variants share weights and are not independent, so
+we report this separately from the classifier analysis. With the original
+prompts, pooling the 18 classifiers and the four LLM variants gives
+$\rho=0.90$ ($p<10^{-7}$), and in all 14 systems with a significant effect or
+reversal the direction matches that of the uncertainty ratio.
+
+\paragraph{Changing the prompt wording moves a model between regimes.}
+Under the original three-class prompt, Qwen2.5-1.5B assigns 89\% of probability
+on filler sentences to \emph{neutral}, the behaviour of the neutral-locked
+classifiers in Table~\ref{tab:mp}. Its expected-valence measure then shows an
+apparent reversal (0.25), while TV shows a clear effect (9.27): the measurement
+discrepancy of \S\ref{sec:measure}, with the weights held fixed. The direction
+does not reverse, because emotional sentences remain more certain (uncertainty
+0.008 vs.\ 0.064). Under the p3 wording, the same model becomes fully
+neutral-locked (99.7\% neutral on filler sentences, uncertainty 0.003 against
+0.034 on emotion sentences): it is the only variant whose uncertainty ratio
+falls below 1, and the only one without a significant effect (0.81 [0.10,
+1.88]; on the valence measure, 0.06). The p3 wording differs from the original
+in phrasing, structure and the order of the answer options; changing only the
+answer options, from the binary to the three-class prompt with the same wording,
+leaves the effect in place for both models (Table~\ref{tab:llm}). With the
+weights and sentences fixed, the effect thus loses significance in the one
+variant whose wording leaves emotion-free text more certain than emotional
+text. The account predicts a ratio below 1 there; the estimate is below 1 but
+its interval is wide, so this is a single case consistent with the account,
+not a confirmed reversal.
+
+
+
+In the EEC (run with the original wordings), the raw identity difference is
+larger on EEC-Neutral than on emotional templates for three of the four variants (1.5--2.9 times; the
+exception is Qwen2.5-1.5B with the three-class prompt). Under the binary prompt,
+both model sizes show a significant gender bias on emotional templates
+($d_z=-0.21$ and $-0.46$) and a significant gender bias in the opposite
+direction on EEC-Neutral ($+0.31$ and $+0.51$) under the original paired
+test, a second instance of the direction reversal reported in
+\S\ref{sec:eec}, with the same caveat about the test.
+
+\subsection{A check on natural sentences}\label{sec:natural}
+All results so far use synthetic templates. To test whether they carry over to
+natural text, we took sentences from the unlabelled portion of the IMDB review
+corpus~\cite{maas2011}, which is not part of the labelled IMDB data used to
+fine-tune sentiment classifiers, although some checkpoints may have been trained
+on other IMDB reviews,
+and kept 1,000 sentences that refer to people only through gendered words of a
+single gender (pronouns and words such as \emph{son}, \emph{wife} or
+\emph{king}) and contain no names. Each sentence was given a full gender swap,
+yielding a male and a female version. Half of the sentences contain no word from
+the NRC Affect Intensity Lexicon~\cite{mohammad2018} (low affect) and half
+contain a word with intensity of at least 0.5 (high affect), a natural-text
+counterpart of the filler and emotion conditions. The sampling rules, swap rules
+and tests were fixed, with a recorded hash, before any model was scored; after
+reading sample swaps, and still before scoring, we tightened the name filter
+and the word list. In a manual check of 30 sentences containing a female
+\emph{her}, two or three conversions were wrong or doubtful (e.g.\ \emph{make
+her crazy} $\to$ \emph{make his crazy}), which affects about 1\% of all
+sentences. We scored the 18 classifiers and the four LLM configurations with the
+original prompts (Table~\ref{tab:natural} in the appendix).
+
+\paragraph{The within-model association replicates.} In all 22 systems,
+sentence-level uncertainty and identity sensitivity (TV) are positively
+correlated, significantly after Holm correction (median $\rho=0.74$, range
+0.20--0.97), compared with a median of 0.60 on templates; with entropy or the
+top-two margin as the uncertainty measure, the medians are 0.74 and 0.73, again
+positive in all 22 systems. In real sentences, as
+in templates, a gender swap moves the output mainly where the model is
+uncertain, with the same mechanical caveat as in \S\ref{sec:unc}.
+
+\paragraph{Affect barely changes uncertainty here, and the contrast is weak.}
+Unlike the template contrast, the two strata differ little in uncertainty: the
+uncertainty ratio (low over high affect) lies between 0.8 and 1.2 for 20 of the
+22 systems. Only one system has a sensitivity ratio that is significant after
+Holm correction: FinancialBERT, which is much less uncertain on low-affect
+sentences (uncertainty ratio 0.36) and correspondingly less sensitive there
+(0.41). Across systems, the two log ratios correlate at $\rho=0.34$ ($p=0.12$;
+0.40, $p=0.10$, for the classifiers alone). This exceeds the threshold of 0.3
+we fixed in advance, but it is not significant, so we count the
+between-condition prediction as neither supported nor refuted in natural text:
+with so little difference in uncertainty between the strata, the test has
+little leverage. The between-condition result of Study~2 therefore rests on
+templates built to differ in uncertainty.
+
+\paragraph{Verdicts again depend on the sentences audited.} A directional
+gender bias ($\alpha=0.05/44$, Bonferroni over 22 systems and two strata, by
+analogy with the EEC threshold of 0.05/36 for 18 models and two axes) is
+detected in 13 systems on low-affect
+sentences and in 15 on high-affect sentences, and in 17 on at least one. For 6
+of the 22 systems, one stratum detects a bias and the other does not; unlike
+in the EEC, no direction reverses. The direction differs between systems: of
+the detections, some favour the female and some the male versions, and all
+four LLM configurations score male versions more positively in both strata.
+
+% ----------------------------------------------------------------------------
+\section{Discussion}
+\paragraph{What the EEC observation reflects.} The larger neutral-template
+differences reported for the original EEC systems also appear here in the
+binary classifiers and a minority of multi-class models, but not in models that
+confidently label emotion-free text as neutral. Our results are consistent with
+an account in which identity effects are observable where the model's
+prediction is not saturated: for models that are uncertain on plain text, that
+is the neutral templates; for models with a dominant neutral class, it is the
+emotional ones. We do not claim this explains the behaviour of the original
+SemEval-2018 systems, which were emotion-intensity regressors rather than
+polarity classifiers and are not publicly available.
+
+\paragraph{What goes beyond saturation, and what does not.} Saturation alone
+predicts only that identity effects are hard to see where a model is
+confident. Several results go further. The same change of template moves
+identity sensitivity in opposite directions in different models
+(\S\ref{sec:mp}), as Selvam et al.~\cite{selvam2023} also observed for bias
+measures, and the frames that make one model uncertain rarely make another
+uncertain (\S\ref{sec:targeted}): the profiles that determine where effects are
+visible are a property of each model. Each model's direction is also stable:
+its Study~2 direction predicts most of its directions on unseen template
+families, on every measure we used (\S\ref{sec:families}). And the
+\emph{direction} of a detected bias, which uncertainty does not determine,
+reverses between template types under the original paired test in one
+classifier and two LLM configurations, although the classifier case does not
+survive a cluster-robust test (\S\ref{sec:eec}, \S\ref{sec:llm}). What the
+uncertainty measurements add is narrower. Measured on held-out person terms,
+they predict the direction of probability-scale sensitivity on other terms
+(\S\ref{sec:unc}) and on unseen template families, including where a model
+departs from its usual direction (\S\ref{sec:families}). On log-scale measures
+this incremental information is not established, and for multi-class models a
+measure that does not saturate is predicted no better by uncertainty than by
+the model's usual direction (\S\ref{sec:families}). The predictions therefore
+concern where effects become visible on the probability scale on which audits
+register them, which is the paper's premise, rather than a property of the
+models' underlying response beyond saturation. The one LLM prompt that removed
+the effect (\S\ref{sec:llm}) is consistent with this reading.
+
+\paragraph{From observability to verdicts.} The predictive results concern
+unsigned sensitivity; an audit verdict concerns a signed disparity. The
+evidence connecting the two is weaker and should be read as such. Three
+classifiers that are near-certain on emotion-free text show almost no identity
+effect there and larger effects on emotional templates (Table~\ref{tab:eecfull}, ratio columns);
+at equal size, neutral and emotional templates flag different disparities, but
+only two of the nine disparities missed by EEC-Neutral are attributable to
+template type (\S\ref{sec:eec}); and templates selected for high uncertainty
+flag gender disparities in more models under the original paired test,
+significantly so only against emotional templates, but no template set flags
+any disparity under a cluster-robust test (\S\ref{sec:targeted}). With the few
+identity pairs of these benchmarks, directional verdicts mainly describe the
+specific terms tested. Low uncertainty on every template
+thus marks an audit as uninformative, but high uncertainty does not guarantee
+that a disparity, if present, will be flagged. Our results therefore show when
+identity sensitivity is observable to a template audit; they do not show that
+uncertainty-guided auditing is a better method for detecting discrimination.
+
+\paragraph{What the results imply jointly.} An audit verdict is a joint
+property of the model, the template set (its type and its size) and the output
+measure. Which templates make a model uncertain differs sharply between models
+(the 16 most uncertain frames of different models barely overlap,
+\S\ref{sec:targeted}), so the same template set can be informative for one model and nearly
+uninformative for another, and a standard audit report does not show which. On
+natural review sentences, the within-model association held in every system,
+but emotional content did not create the large differences in uncertainty that
+emotion-bearing templates did (\S\ref{sec:natural}), so the conditions under
+which a template audit observes a model need not match those of the text it
+will process.
+
+\paragraph{What remains open.} We cannot rule out that uncertainty partly marks
+something else, such as how unfamiliar an input is to a model; the prompt
+manipulation speaks against a purely textual explanation, but we have not
+manipulated uncertainty independently of the model. Whether the pattern holds
+for other tasks, languages and identity categories, and for uncertainty
+estimated from ensembles, is untested.
+
+
+% ----------------------------------------------------------------------------
+\section{Implications for Audit Practice and Accountability}\label{sec:accountability}
+Template-based audits are used as evidence that a system has been checked for
+bias, including within internal audit processes that document a system's
+development~\cite{raji2020}. Our results bear on what such evidence can
+support.
+
+\paragraph{Audit verdicts depend on choices that are rarely reported.} Across
+our studies the verdict changed with the template type (at equal size, neutral
+and emotional templates flag different biases, and race verdicts still differ
+between them under a cluster-robust test), with the number of templates per
+type, with how a multi-class output is reduced to a single score, and above all
+with whether the significance test treats identity terms as fixed or as
+sampled (for gender on the full EEC, 13 models flagged under the original test
+and 2 under the robust one). Audit reports rarely state these choices, so a
+reader cannot tell whether a verdict would survive a different, equally
+reasonable design. The natural-sentence check adds a further reason for
+caution: emotion-bearing templates produced large differences in uncertainty
+that emotional content barely produced in real review sentences
+(\S\ref{sec:natural}). The conditions under which a template audit observes a
+model can therefore differ from those of the text the system will actually
+process, and a verdict reached on templates need not carry over to that text.
+
+\paragraph{Who relies on audit verdicts.} Different parties read the result of a
+template audit for different purposes. Developers may use it to decide whether a
+model needs further work; external auditors and regulators may treat it as
+evidence that a system has been checked; and the people whose text a system
+scores are affected by whether a bias is found and addressed, usually without
+seeing how the audit was designed. A verdict that depends on unreported
+template choices affects all of them, but not equally: a null result matters
+most when it is used to justify deployment, and is least visible to those it
+concerns. We do not study these parties directly; the point is that the
+consequences of the measurement problem we document depend on who relies on
+the result.
+
+\paragraph{The risk of false reassurance.} Because identity effects are hard to
+observe where a model is near-certain, an audit can return a null result partly
+because its templates make the model confident. In our EEC replication, 4
+gender and 5 race biases that were significant on the full EEC (paired $t$-test,
+$\alpha=0.05/36$) were not significant on EEC-Neutral (2 and 3 under the
+cluster-robust test), so an audit using only
+those emotion-free templates, with that criterion, would not have detected them
+(Table~\ref{tab:eec}). An equal-size comparison attributes two of these nine
+misses to template type and the rest mainly to the small number of neutral
+pairs (\S\ref{sec:eec}), so they show that the verdict depends on the
+composition and size of the template set rather than isolating the role of
+confidence. The three classifiers that are near-certain on
+emotion-free text (FinancialBERT, finbert-tone and roberta-large-3cls)
+illustrate the confidence mechanism more directly: on emotion-free templates, identity swaps changed
+their output by almost nothing (mean $|\Delta_\ell|\leq 0.03$), whereas on
+emotional templates the changes were considerably larger (0.08--0.90). For one
+of them, finbert-tone, this included a significant gender bias that EEC-Neutral
+did not detect; for the other two, neither template set yielded a significant
+directional bias, so the difference concerns sensitivity rather than detected
+bias (\S\ref{sec:construct}). These results hold for these models, templates and
+statistical criterion. They show that a null result on a template set on which
+the model is near-certain is uninformative, not that audits using emotion-free
+templates generally give false reassurance. Such outcomes need not be
+deliberate, since template sets are usually chosen without reference to the
+audited model; but because template choice can affect whether a model passes an
+audit, documenting the design is the safeguard.
+
+\paragraph{Reporting recommendations.} In the spirit of documentation practices
+such as model cards~\cite{mitchell2019}, we suggest that a template-based
+counterfactual audit report the following.
+\begin{enumerate}
+  \item \emph{The model's uncertainty on each template set}, for example its
+  median $1-\max_c P(c\mid x)$ and the share of templates on which the model is
+  near-certain. A null result on templates where the model is near-certain is
+  not evidence of fairness.
+  \item \emph{Tests on a scale that does not saturate, alongside the
+  probability scale.} A bias of known size is detected less often on the
+  probability scale where models are confident (\S\ref{sec:injection}); the
+  change in the model's logits avoids this, and if the verdicts on the two
+  scales differ, both should be reported.
+  \item \emph{Templates on which the model is uncertain}, in addition to standard
+  ones, as a check on whether a null result is informative rather than as a
+  better detector: if no template makes the model uncertain, a null result says
+  little. Uncertainty-aware template selection with held-out person terms flagged
+  a significant directional gender disparity in the most models in our study
+  under the original paired test, but its advantage did not survive a
+  cluster-robust test; we recommend it for checking informativeness, not for
+  detection.
+  \item \emph{Identity terms treated as a sampled factor.} Directional tests
+  should account for the dependence among pairs that share templates and person
+  terms (cluster-robust or mixed-effects tests), and report how many identity
+  pairs the verdict rests on; with a handful of pairs, a verdict describes those
+  terms rather than the group.
+  \item \emph{Each template type, with enough templates, reported separately.}
+  Four neutral templates are too few, the full EEC is dominated by emotional
+  pairs, and bias directions can differ between types.
+  \item \emph{The output measure and its justification} for the model's label
+  scheme; valence-based scores can hide changes in multi-class models that a
+  distributional measure reveals.
+  \item \emph{Sensitivity, directional bias and label flips, separately.} Large
+  sensitivity without a consistent direction, as in the binary models, is a
+  different finding from a consistent bias.
+  \item \emph{How identity categories are operationalised}, including which
+  identities are left out and what the person terms are proxies for
+  (\S\ref{sec:categories}).
+  \item \emph{The design fixed before running, and all results reported.} We
+  fixed our alternative LLM prompts, with recorded hashes, before running them;
+  the same practice applies to template sets and output measures.
+\end{enumerate}
+
+% ----------------------------------------------------------------------------
+\section{Limitations}
+The association between uncertainty and identity sensitivity is correlational
+and partly mechanical (\S\ref{sec:unc}); we have not manipulated uncertainty
+directly, for example by temperature scaling or calibration. Identity
+sensitivity measures how much the output changes, not whether the change is
+harmful in a deployed setting. All templates are synthetic and English. The
+natural-sentence check (\S\ref{sec:natural}) covers one domain (film reviews),
+gender only, and an automatic swap with occasional errors; it supports the
+within-model association but cannot confirm the between-condition contrast. In
+languages with grammatical gender, substitutions require agreement changes that
+our design avoids. The identity categories are binary for gender and use names
+as proxies for race, with the limits discussed in \S\ref{sec:categories}. The neutrality of EEC-Neutral templates was not validated by human
+annotators; we observe that several models do not treat them as neutral.
+Uncertainty is measured as $1-\max_c P(c\mid x)$; normalised entropy and the
+top-two margin give the same picture (\S\ref{sec:unc}), but other notions, such
+as epistemic uncertainty estimated from ensembles, were not tested. The
+predictive results concern probability-scale sensitivity; on a log-scale
+measure, uncertainty did not predict multi-class models' direction beyond their
+usual direction (\S\ref{sec:families}). A
+cross-model control could not show that the gender gain of targeted sets
+requires per-model selection (\S\ref{sec:targeted}). The targeted frames add mildly valenced clauses, so they
+differ in content from the standard sets; the random-frame control holds the
+clause pool fixed, but a detected bias reflects the model's behaviour in those
+contexts, and its direction need not match that on other templates. The
+targeted advantage in effect size is not uniform across comparisons, does not
+clearly replicate in the four LLM variants, and the clause pool of 20 clauses
+was written by us rather than sampled from natural text. The unseen template
+families were also written by us and were tested on the 18 classifiers only; on
+the logit-scale outcome, uncertainty did not add information beyond the label
+scheme (\S\ref{sec:families}). The directional tests of Studies 1 and 3 rest on
+few identity pairs (ten gender noun-phrase pairs and one name average in the
+EEC, five gender and ten race pairs in Study~3); under a cluster-robust test
+most gender verdicts and all Study~3 detections disappear, so these verdicts
+describe the specific terms tested. The LLM results rest
+on two models of one family and a reduced minimal-pair design. The direction
+of the LLM effect was stable across three prompt wordings, but its size varied
+several-fold, so LLM effect sizes should not be compared with those of the
+classifiers; the EEC replication and Study~3 used the original wordings
+only. The 18 models are public checkpoints rather than deployed
+systems, and they are neither a random nor an independent sample of sentiment
+models: they differ in architecture, label scheme and training domain, and
+several share a base model. The filler and emotion clauses differ in wording
+as well as in emotional content (\S\ref{sec:exp}), so Study~2 contrasts
+matched clauses, not sentences identical except for emotion. Finally, the 20 EEC emotion words span a narrow range of affect
+intensity, so our data cannot test whether the effect varies with the strength
+of the emotion word; an exploratory analysis is included in the released code
+but not interpreted here.
+
+\section{Ethics Statement}
+The study involves no human participants. Person terms serve as probes, not as
+statements about individuals or groups, and the categories they stand for have
+the limits set out in \S\ref{sec:categories}. A null result on a template set
+should not be read as evidence that a model is fair (\S\ref{sec:accountability}).
+
+\section{Data and Code Availability}
+All code, the EEC-Neutral templates, the frozen LLM prompts and per-model results
+are released (footnote~1). The Equity Evaluation Corpus is used under its
+licence and is not redistributed; the release explains how to obtain it. The
+natural sentences are not redistributed either; the released script rebuilds
+them from the public IMDB corpus.
+
+\section{Conclusion}
+Counterfactual template audits are measurements, and their verdicts depend on
+choices that audits rarely report. In a replication of the EEC, the template set
+and, for multi-class models, the output measure determined whether a
+directional bias was found and sometimes in which direction; the
+neutral-sentence pattern reported for the original EEC systems is not a general
+property of current sentiment classifiers. Where an audit can observe identity
+effects is closely associated with predictive uncertainty: replacing an
+emotion-bearing clause with a structurally matched filler clause increases
+identity sensitivity in some models, has no detectable effect in others, and
+decreases it in others, broadly tracking differences in uncertainty, and within
+every system the same association holds on natural review sentences. In a test
+fixed in advance on eight unseen template families, uncertainty measured with
+held-out names predicted the direction of sensitivity on the primary,
+probability-scale measure in 93\% of cells with a clear effect, including where
+a model departed from its usual direction; on log-scale measures its value
+beyond each model's usual direction was not established, so the prediction concerns where audits can see identity effects
+rather than the models' underlying response. The association is partly mechanical and is
+not evidence that uncertainty causes bias. Directional verdicts are fragile in
+a further way: whether the significance test treats identity terms as fixed
+or sampled changes the gender verdicts more than any template choice, and with
+the EEC's few identity pairs most of them do not survive a cluster-robust test.
+Uncertainty-aware template selection flags more gender disparities under the
+original paired test, but not under the robust one. A small number of
+significant flags should therefore not, on its own, be read as
+reassurance, and neither should a large number be read as a finding about a
+group rather than about the terms tested. Template-based audits should report model uncertainty and
+the output measure, include uncertainty-aware templates alongside standard ones
+as a check on whether a null result is informative, and cover each template type
+with adequate power.
+
+\subsubsection*{Acknowledgements and AI assistance.}
+Claude (Anthropic) was used to assist with writing and debugging the analysis
+code and with language editing of the manuscript. The study design, analyses
+and interpretation are the author's own; all code and results were checked by
+the author, who takes full responsibility for the content.
+
+% ----------------------------------------------------------------------------
+\appendix
+\section{EEC Results per Model}
+\begin{table}[h]\centering\scriptsize
+\caption{EEC replication per model (rows in the order of Table~\ref{tab:mp}).
+Effect size $d_z$ of the paired difference on the logit scale (female minus
+male; African-American minus European-American), on the full EEC, its
+emotional templates, the original four neutral templates and EEC-Neutral;
+$^{*}$ significant at $\alpha=0.05/36$ under the paired $t$-test of the original
+protocol (cluster-robust counts in Table~\ref{tab:eec}). Ratio: mean
+$|\Delta_\ell|$ on EEC-Neutral over emotional templates.}
+\label{tab:eecfull}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{l ccccc ccccc}
+\toprule
+& \multicolumn{5}{c}{Gender} & \multicolumn{5}{c}{Race} \\
+\cmidrule(lr){2-6}\cmidrule(lr){7-11}
+Model & Full & Emo. & Neu-4 & EEC-N & Ratio & Full & Emo. & Neu-4 & EEC-N & Ratio \\
+\midrule
+\inputrows{figures_tables/table_eec.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\section{Natural-Sentence Results per System}
+\begin{table}[h]\centering\scriptsize
+\caption{Natural-sentence check (\S\ref{sec:natural}): 1,000 IMDB sentences,
+500 per affect stratum; classifiers in the order of Table~\ref{tab:mp}, then the
+LLMs with the original prompts. $\rho$: within-system Spearman correlation
+between uncertainty and identity sensitivity over sentences (all significant
+after Holm correction). TV: mean identity sensitivity on low- and high-affect
+sentences. Ratio: low over high affect, 95\% sentence-bootstrap CI (unadjusted);
+$\downarrow$ significant, $\circ$ not significant after Holm correction across
+the 22 systems. $u$ ratio: mean uncertainty, low over high affect. Bias:
+directional gender bias on the logit scale ($\alpha=0.05/44$); F$>$M: female
+versions scored more positively; --: none detected.}
+\label{tab:natural}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l c c c l c c c c}
+\toprule
+System & $\rho$ & TV$_{\text{low}}$ & TV$_{\text{high}}$ & Ratio [95\% CI] & &
+$u$ ratio & Bias$_{\text{low}}$ & Bias$_{\text{high}}$ \\
+\midrule
+\inputrows{figures_tables/table_natural.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Exploratory Analyses of Study 4}\label{app:families}
+Three checks added after the frozen analysis
+qualify these results. First, restricting accuracy to clear cells does not
+create the effect: using the point estimate in all 288 cells, the uncertainty
+ratio gives the right direction in 81\% (72\% on the logit outcome). Second, the
+two outcomes differ only in multi-class models. For binary models they are the
+same measure and agree in every cell; in multi-class models, the logit outcome
+points the same way, towards greater sensitivity with the emotion clause, in
+93\% of clear cells, so a rule that assigns every multi-class model that
+direction predicts it well. This matches the divergence between the
+valence-based measure and TV in multi-class models reported in
+\S\ref{sec:measure}, but we have not identified its cause: neutral-class
+probability does not account for it (across models, $\rho=-0.34$ with the share
+of cells in which the two outcomes disagree). Third, because TV is a
+probability-scale measure, we repeated the test with one that does not
+saturate, chosen before computing it: the mean absolute change in centred
+log-probabilities, the distance between the two outputs in logit space. The
+three binary models are unaffected (all 27 clear cells right). For the 15
+multi-class models, the uncertainty ratio gives the right direction in 70\% of
+clear cells (0.48--0.87), no better than each model's usual direction (73\%),
+and on discordant cells it is at chance level (47\%, 0.14--0.85). For
+multi-class models, uncertainty therefore predicts where a template change
+makes identity effects more or less visible on the probability scale, but adds
+nothing beyond the model's usual direction for the change in its logits. With
+18 models and eight families as the independent units, all intervals here are
+approximate.
+
+\section{Unseen Template Families}
+\begin{table}[h]\centering\scriptsize
+\caption{The eight template families of the prospective test (\S\ref{sec:families}),
+each with eight base sentences; the example shows the first base with the
+emotion word \emph{furious} (or \emph{fury}) and its matched filler. Emotion
+words per emotion: highest and lowest NRC intensity among the EEC words
+(furious/annoyed, terrified/anxious, ecstatic/relieved, devastated/disappointed).}
+\label{tab:families}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l p{0.3\linewidth} p{0.52\linewidth}}
+\toprule
+Family & Structure & Example (emotion / filler) \\
+\midrule
+\inputrows{figures_tables/table_families.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{LLM Minimal-Pair Results}
+\begin{table}[h]\centering\scriptsize
+\caption{Minimal-pair results for LLMs used as zero-shot classifiers (four
+emotion words), for three prompt wordings per label scheme (p1: original; p2,
+p3: alternatives fixed before running). Ratio: identity sensitivity, filler over
+emotion, on the primary measure ($|\Delta_\ell|$ for binary, TV for three-class
+prompts), 95\% two-way bootstrap CI; $\uparrow$ significant, $\circ$ not
+significant after Holm correction across the 12 variants. Valence: the ratio on
+$|\Delta_\ell|$. $\bar u$: mean uncertainty. $P_{\text{neu}}$: neutral
+probability on filler sentences. Flips: share of pairs whose predicted label
+changes, filler / emotion.}
+\label{tab:llm}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l c c l c c cc c c}
+\toprule
+Model & Scheme & Wording & Ratio [95\% CI] & & Valence & $\bar u_{\text{fill}}$ &
+$\bar u_{\text{emo}}$ & $P_{\text{neu}}$ & Flips \\
+\midrule
+\inputrows{figures_tables/table_llm.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Model Identifiers}
+\begin{table}[h]\centering\scriptsize
+\caption{Hugging Face identifiers of the audited systems, with the short names
+used in the paper and the number of output classes (for the LLMs, set by the prompt); classifiers in the order of
+Table~\ref{tab:mp}.}
+\label{tab:models}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l l c}
+\toprule
+Short name & Identifier & Classes \\
+\midrule
+\inputrows{figures_tables/table_models.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ----------------------------------------------------------------------------
+\begin{thebibliography}{99}
+\bibitem{alnegheimish2022} Alnegheimish, S., Guo, A., Sun, Y.: Using Natural
+Sentence Prompts for Understanding Biases in Language Models. In: Proc.\
+NAACL-HLT, pp.\ 2824--2830 (2022)
+\bibitem{bertrand2004} Bertrand, M., Mullainathan, S.: Are Emily and Greg More
+Employable than Lakisha and Jamal? A Field Experiment on Labor Market
+Discrimination. American Economic Review \textbf{94}(4), 991--1013 (2004)
+\bibitem{blodgett2020} Blodgett, S.L., Barocas, S., Daum\'e III, H., Wallach,
+H.: Language (Technology) is Power: A Critical Survey of ``Bias'' in NLP. In:
+Proc.\ ACL (2020)
+\bibitem{blodgett2021} Blodgett, S.L., Lopez, G., Olteanu, A., Sim, R.,
+Wallach, H.: Stereotyping Norwegian Salmon: An Inventory of Pitfalls in
+Fairness Benchmark Datasets. In: Proc.\ ACL-IJCNLP (2021)
+\bibitem{caliskan2017} Caliskan, A., Bryson, J.J., Narayanan, A.: Semantics
+derived automatically from language corpora contain human-like biases. Science
+\textbf{356}(6334), 183--186 (2017)
+\bibitem{card2020} Card, D., Henderson, P., Khandelwal, U., Jia, R., Mahowald, K., Jurafsky, D.:
+With Little Power Comes Great Responsibility. In: Proc.\ EMNLP,
+pp.\ 9263--9274 (2020)
+\bibitem{czarnowska2021} Czarnowska, P., Vyas, Y., Shah, K.: Quantifying Social
+Biases in NLP: A Generalization and Empirical Comparison of Extrinsic Fairness
+Metrics. Transactions of the Association for Computational Linguistics
+\textbf{9} (2021)
+\bibitem{delobelle2022} Delobelle, P., Tokpo, E.K., Calders, T., Berendt, B.:
+Measuring Fairness with Biased Rulers: A Comparative Study on Bias Metrics for
+Pre-trained Language Models. In: Proc.\ NAACL-HLT, pp.\ 1693--1706 (2022)
+\bibitem{dev2021} Dev, S., Monajatipoor, M., Ovalle, A., Subramonian, A.,
+Phillips, J., Chang, K.-W.: Harms of Gender Exclusivity and Challenges in
+Non-Binary Representation in Language Technologies. In: Proc.\ EMNLP,
+pp.\ 1968--1994 (2021)
+\bibitem{dev2022} Dev, S., Sheng, E., Zhao, J., Amstutz, A., Sun, J., Hou, Y.,
+Sanseverino, M., Kim, J., Nishi, A., Peng, N., Chang, K.-W.: On Measures of
+Biases and Harms in NLP. In: Findings of the ACL: AACL-IJCNLP 2022,
+pp.\ 246--267 (2022)
+\bibitem{dixon2018} Dixon, L., Li, J., Sorensen, J., Thain, N., Vasserman, L.:
+Measuring and Mitigating Unintended Bias in Text Classification. In: Proc.\
+AAAI/ACM Conference on AI, Ethics, and Society (AIES) (2018)
+\bibitem{dror2018} Dror, R., Baumer, G., Shlomov, S., Reichart, R.: The Hitchhiker's Guide to
+Testing Statistical Significance in Natural Language Processing. In: Proc.\
+56th Annual Meeting of the ACL, pp.\ 1383--1392 (2018)
+\bibitem{field2021} Field, A., Blodgett, S.L., Waseem, Z., Tsvetkov, Y.: A
+Survey of Race, Racism, and Anti-Racism in NLP. In: Proc.\ ACL-IJCNLP,
+pp.\ 1905--1925 (2021)
+\bibitem{gaddis2017} Gaddis, S.M.: How Black Are Lakisha and Jamal? Racial
+Perceptions from Names Used in Correspondence Audit Studies. Sociological
+Science \textbf{4}, 469--489 (2017)
+\bibitem{gallegos2024} Gallegos, I.O., Rossi, R.A., Barrow, J., Tanjim, M.M., Kim, S., Dernoncourt,
+F., Yu, T., Zhang, R., Ahmed, N.K.: Bias and Fairness in Large Language
+Models: A Survey. Computational Linguistics \textbf{50}(3), 1097--1179 (2024)
+\bibitem{garg2019} Garg, S., Perot, V., Limtiaco, N., Taly, A., Chi, E.H.,
+Beutel, A.: Counterfactual Fairness in Text Classification through Robustness.
+In: Proc.\ AAAI/ACM Conference on AI, Ethics, and Society (AIES) (2019)
+\bibitem{goldfarb2021} Goldfarb-Tarrant, S., Marchant, R., Mu\~noz S\'anchez,
+R., Pandya, M., Lopez, A.: Intrinsic Bias Metrics Do Not Correlate with
+Application Bias. In: Proc.\ ACL-IJCNLP (2021)
+\bibitem{goldfarb2023} Goldfarb-Tarrant, S., Ungless, E., Balkir, E., Blodgett, S.L.: This Prompt
+is Measuring \textless MASK\textgreater: Evaluating Bias Evaluation in Language Models. In:
+Findings of the ACL: ACL 2023, pp.\ 2209--2225 (2023)
+\bibitem{guo2017} Guo, C., Pleiss, G., Sun, Y., Weinberger, K.Q.: On
+Calibration of Modern Neural Networks. In: Proc.\ ICML (2017)
+\bibitem{huang2020} Huang, P.-S., Zhang, H., Jiang, R., Stanforth, R., Welbl,
+J., Rae, J., Maini, V., Yogatama, D., Kohli, P.: Reducing Sentiment Bias in
+Language Models via Counterfactual Evaluation. In: Findings of EMNLP (2020)
+\bibitem{jacobs2021} Jacobs, A.Z., Wallach, H.: Measurement and Fairness. In:
+Proc.\ ACM Conference on Fairness, Accountability, and Transparency (FAccT),
+pp.\ 375--385 (2021)
+\bibitem{kiritchenko2018} Kiritchenko, S., Mohammad, S.M.: Examining Gender and
+Race Bias in Two Hundred Sentiment Analysis Systems. In: Proc.\ 7th Joint
+Conference on Lexical and Computational Semantics (*SEM), pp.\ 43--53 (2018)
+\bibitem{krishna2022} Krishna, S., Gupta, R., Verma, A., Dhamala, J., Pruksachatkun, Y.,
+Chang, K.-W.: Measuring Fairness of Text Classifiers via Prediction Sensitivity.
+In: Proc.\ 60th Annual Meeting of the ACL (Volume 1: Long Papers),
+pp.\ 5830--5842 (2022)
+\bibitem{kusner2017} Kusner, M.J., Loftus, J., Russell, C., Silva, R.:
+Counterfactual Fairness. In: Advances in Neural Information Processing Systems
+(NeurIPS) (2017)
+\bibitem{kuzucu2024} Kuzucu, S., Cheong, J., Gunes, H., Kalkan, S.: Uncertainty as a Fairness
+Measure. Journal of Artificial Intelligence Research \textbf{81}, 307--335 (2024)
+\bibitem{larson2017} Larson, B.: Gender as a Variable in Natural-Language
+Processing: Ethical Considerations. In: Proc.\ First ACL Workshop on Ethics
+in Natural Language Processing (2017)
+\bibitem{maas2011} Maas, A.L., Daly, R.E., Pham, P.T., Huang, D., Ng, A.Y.,
+Potts, C.: Learning Word Vectors for Sentiment Analysis. In: Proc.\ 49th Annual
+Meeting of the ACL: Human Language Technologies, pp.\ 142--150 (2011)
+\bibitem{mitchell2019} Mitchell, M., Wu, S., Zaldivar, A., Barnes, P.,
+Vasserman, L., Hutchinson, B., Spitzer, E., Raji, I.D., Gebru, T.: Model Cards
+for Model Reporting. In: Proc.\ Conference on Fairness, Accountability, and
+Transparency (FAT*) (2019)
+\bibitem{mohammad2018} Mohammad, S.M.: Word Affect Intensities. In: Proc.\ 11th
+International Conference on Language Resources and Evaluation (LREC) (2018)
+\bibitem{orgad2022} Orgad, H., Belinkov, Y.: Choose Your Lenses: Flaws in Gender Bias
+Evaluation. In: Proc.\ 4th Workshop on Gender Bias in Natural Language
+Processing (GeBNLP), pp.\ 151--167 (2022)
+\bibitem{pleiss2017} Pleiss, G., Raghavan, M., Wu, F., Kleinberg, J., Weinberger, K.Q.: On Fairness
+and Calibration. In: Advances in Neural Information Processing Systems 30,
+pp.\ 5680--5689 (2017)
+\bibitem{prabhakaran2019} Prabhakaran, V., Hutchinson, B., Mitchell, M.:
+Perturbation Sensitivity Analysis to Detect Unintended Model Biases. In: Proc.\
+EMNLP-IJCNLP (2019)
+\bibitem{raji2020} Raji, I.D., Smart, A., White, R.N., Mitchell, M., Gebru,
+T., Hutchinson, B., Smith-Loud, J., Theron, D., Barnes, P.: Closing the AI
+Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic
+Auditing. In: Proc.\ Conference on Fairness, Accountability, and Transparency
+(FAT*) (2020)
+\bibitem{ribeiro2020} Ribeiro, M.T., Wu, T., Guestrin, C., Singh, S.: Beyond
+Accuracy: Behavioral Testing of NLP Models with CheckList. In: Proc.\ ACL
+(2020)
+\bibitem{selvam2023} Selvam, N.R., Dev, S., Khashabi, D., Khot, T., Chang,
+K.-W.: The Tail Wagging the Dog: Dataset Construction Biases of Social Bias
+Benchmarks. In: Proc.\ ACL (Short Papers), pp.\ 1373--1386 (2023)
+\bibitem{seshadri2022} Seshadri, P., Pezeshkpour, P., Singh, S.: Quantifying
+Social Biases Using Templates is Unreliable. In: NeurIPS Workshop on Trustworthy
+and Socially Responsible Machine Learning (2022). arXiv:2210.04337
+\bibitem{smith2022} Smith, E.M., Hall, M., Kambadur, M., Presani, E., Williams, A.: ``I'm sorry to
+hear that'': Finding New Biases in Language Models with a Holistic Descriptor
+Dataset. In: Proc.\ EMNLP, pp.\ 9180--9211 (2022)
+\bibitem{vanderwal2024} van der Wal, O., Bachmann, D., Leidinger, A., van Maanen, L., Zuidema, W.,
+Schulz, K.: Undesirable Biases in NLP: Addressing Challenges of Measurement.
+Journal of Artificial Intelligence Research \textbf{79}, 1--40 (2024)
+\bibitem{zhang2021} Zhang, C., Zhao, J., Zhang, H., Chang, K.-W., Hsieh, C.-J.:
+Double Perturbation: On the Robustness of Robustness and Counterfactual Bias
+Evaluation. In: Proc.\ NAACL-HLT, pp.\ 3899--3916 (2021)
+\end{thebibliography}
+
+\end{document}
